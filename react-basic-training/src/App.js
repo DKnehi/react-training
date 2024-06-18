@@ -7,6 +7,7 @@ import ShoppingList from './component/ShoppingList';
 import EventClick from './component/EventClick';
 import UpdateTheScreen from './component/UpdateTheScreen';
 import ShareData from './component/ShareData';
+import ThinkInReact from './component/ThinkInReact';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <EventClick></EventClick>
       <UpdateTheScreen></UpdateTheScreen>
       <ShareData></ShareData>
+      <ThinkInReact></ThinkInReact>
     </div>
   );
 }
