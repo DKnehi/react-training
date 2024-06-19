@@ -8,6 +8,8 @@ import EventClick from './component/EventClick';
 import UpdateTheScreen from './component/UpdateTheScreen';
 import ShareData from './component/ShareData';
 import ThinkInReact from './component/ThinkInReact';
+import WritingMarkup from './component/WritingMarkup';
+import CurlyBraces from './component/CurlyBraces';
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
       <UpdateTheScreen></UpdateTheScreen>
       <ShareData></ShareData>
       <ThinkInReact></ThinkInReact>
+      <WritingMarkup></WritingMarkup>
+      <CurlyBraces></CurlyBraces>
     </div>
   );
 }
