@@ -10,7 +10,9 @@ import ShareData from './component/ShareData';
 import ThinkInReact from './component/ThinkInReact';
 import WritingMarkup from './component/WritingMarkup';
 import CurlyBraces from './component/CurlyBraces';
-
+import FirstComponent from './component/FirstComponent';
+import PassingProps from './PassingProps/PassingProps';
+import Profiles from './PassingProps/Profiles';
 function App() {
   return (
     <div>
@@ -24,6 +26,9 @@ function App() {
       <ThinkInReact></ThinkInReact>
       <WritingMarkup></WritingMarkup>
       <CurlyBraces></CurlyBraces>
+      <FirstComponent></FirstComponent>
+      <PassingProps></PassingProps>
+      <Profiles></Profiles>
     </div>
   );
 }
