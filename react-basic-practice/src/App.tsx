@@ -7,7 +7,7 @@ const App: React.FC = () => {
   return (
     <ChakraProvider theme={theme}>
       <div>
-        <h1>hahaaaaaaaaaaa</h1>
+
       </div>
     </ChakraProvider>
   );
