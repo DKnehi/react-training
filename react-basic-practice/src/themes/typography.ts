@@ -1,6 +1,6 @@
 import '@fontsource/inter';
 
-export const fontFamily = 'Inter, sans-serif';
+const fontFamily = 'Inter, sans-serif';
 
 export const fonts = {
   body: fontFamily,
@@ -15,7 +15,7 @@ export const fontSizes = {
 };
 
 export const fontWeights = {
-  light: '400',
-  normal: '500',
+  regular: '400',
+  medium: '500',
   bold: '600',
 };
