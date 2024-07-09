@@ -8,8 +8,8 @@ const App: React.FC = () => {
     <ChakraProvider theme={theme}>
       <div>
         <h1>Test Button</h1>
-        <Button variant='default' children='primary button'/>
-        <Button variant='primary' children='button'/>
+        <Button children='button default'/>
+        <Button variant='primary' children='button primary'/>
         <Button variant='secondary' children='+ Add Customer'/>
       </div>
     </ChakraProvider>

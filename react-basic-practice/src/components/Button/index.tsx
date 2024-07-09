@@ -3,8 +3,8 @@ import { Button as ChakraButton, ButtonProps } from "@chakra-ui/react";
 import { borderRadius } from "../../themes/metrics";
 
 interface CustomButtonProps extends ButtonProps {
-  variant: "primary" | "secondary" | "default";
-  children: string | JSX.Element;
+  variant?: "primary" | "secondary";
+  children: string;
 }
 
 const padding = {
@@ -18,9 +18,8 @@ const lineHeight = {
 };
 
 const Button: React.FC<CustomButtonProps> = ({
-  variant = "default",
-  children,
-  ...props
+  variant,
+  children
 }) => {
   const commonStyles = {
     height: "none",
@@ -66,7 +65,7 @@ const Button: React.FC<CustomButtonProps> = ({
   }
 
   return (
-    <ChakraButton {...commonStyles} {...variantStyles} {...props}>
+    <ChakraButton {...commonStyles} {...variantStyles}>
       {children}
     </ChakraButton>
   );
