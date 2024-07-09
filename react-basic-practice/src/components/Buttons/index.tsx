@@ -33,7 +33,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
     lineHeight: lineHeight.primary,
   };
 
-  let variantStyles: any = {};
+  let variantStyles;
 
   switch (variant) {
     case "primary":
@@ -61,18 +61,6 @@ const CustomButton: React.FC<CustomButtonProps> = ({
         lineHeight: lineHeight.secondary,
         boxShadow:
           "0px 1px 1px rgba(0, 0, 0, 0.14), 0px 0px 0px 1px #2264E6, 0px 2px 5px rgba(34, 100, 230, 0.12), inset 0px 1px 0px #4B85FA",
-        _hover: { bg: "royalBlue" },
-      };
-      break;
-    default:
-      variantStyles = {
-        border: "none",
-        color: "white",
-        bg: "royalBlueLight",
-        fontSize: "s",
-        fontWeight: "medium",
-        borderRadius: borderRadius.xxs,
-        padding: padding.primary,
         _hover: { bg: "royalBlue" },
       };
   }
