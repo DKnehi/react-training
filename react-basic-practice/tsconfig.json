@@ -8,6 +8,7 @@
       "@hooks/*": ["./hooks/*"],
       "@api/*": ["./api/*"],
       "@utils/*": ["./utils/*"],
+      "@themes": ["themes"]
     },
     "target": "es5",
     "lib": [
