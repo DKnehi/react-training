@@ -1,6 +1,5 @@
 import React from "react";
 import { Button as ChakraButton, ButtonProps } from "@chakra-ui/react";
-import { borderRadius } from "themes/metrics";
 
 interface CustomButtonProps extends ButtonProps {
   variant?: "primary" | "secondary";
@@ -28,7 +27,7 @@ const Button: React.FC<CustomButtonProps> = ({
     bg: "royalBlueLight",
     fontSize: "s",
     fontWeight: "medium",
-    borderRadius: borderRadius.xxs,
+    borderRadiuses: "xxs",
     padding: padding.primary,
     lineHeight: lineHeight.primary,
     _hover: { bg: "royalBlue" },
@@ -51,7 +50,7 @@ const Button: React.FC<CustomButtonProps> = ({
       break;
     case "secondary":
       variantStyles = {
-        borderRadius: borderRadius.xs,
+        borderRadiuses: "xs",
         padding: padding.secondary,
         lineHeight: lineHeight.secondary,
         boxShadow:

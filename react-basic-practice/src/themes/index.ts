@@ -1,14 +1,14 @@
 import { extendTheme } from "@chakra-ui/react";
 import { fonts, fontSizes, fontWeights } from "./typography";
 import { colors } from "./colors";
-import { borderRadius } from "./metrics";
+import { borderRadiuses } from "./metrics";
 
 const theme = extendTheme({
   fonts,
   fontSizes,
   fontWeights,
   colors,
-  borderRadius,
+  borderRadiuses,
 });
 
 export default theme;
