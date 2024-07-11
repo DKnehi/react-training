@@ -8,33 +8,36 @@ import {
 import { SearchIcon } from "@chakra-ui/icons";
 
 const Search: React.FC<InputProps> = (props) => {
+  const inputCommonStyles = {
+    height: "32px",
+    borderRadiuses: "xs",
+    borderColor: "gullGray",
+    _hover: {
+      borderColor: "none",
+      boxShadow: "none",
+    },
+    _focus: {
+      borderColor: "gullGray",
+      boxShadow: "none",
+    },
+    _placeholder: {
+      color: "gullGray",
+      fontSize: "s",
+      fontWeight: "regular",
+    },
+  };
+
+  const searchIconStyles = {
+    color: "gullGray",
+    boxSize: "14px",
+  };
+
   return (
     <InputGroup width="320px">
-      <InputLeftElement
-        height="32px"
-        pointerEvents="none"
-        children={<SearchIcon color="gullGray" boxSize="14px" />}
-      />
-      <Input
-        placeholder="Search..."
-        borderRadiuses="xs"
-        height="32px"
-        borderColor="gullGray"
-        _hover={{
-          borderColor: "none",
-          boxShadow: "none",
-        }}
-        _focus={{
-          borderColor: "gullGray",
-          boxShadow: "none",
-        }}
-        _placeholder={{
-          color: "gullGray",
-          fontSize: "s",
-          fontWeight: "regular",
-        }}
-        {...props}
-      />
+      <InputLeftElement pointerEvents="none" height="32px">
+        <SearchIcon {...searchIconStyles} />
+      </InputLeftElement>
+      <Input placeholder="Search..." {...inputCommonStyles} {...props} />
     </InputGroup>
   );
 };
