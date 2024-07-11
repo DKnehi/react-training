@@ -9,6 +9,7 @@ const theme = extendTheme({
   fontWeights,
   colors,
   borderRadiuses,
+
 });
 
 export default theme;

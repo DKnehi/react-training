@@ -20,7 +20,7 @@ const Button: React.FC<CustomButtonProps> = ({
   variant,
   label
 }) => {
-  const commonStyles = {
+    const commonStyles = {
     height: "none",
     border: "none",
     color: "white",
