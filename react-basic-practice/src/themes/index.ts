@@ -1,19 +1,15 @@
-import { extendTheme } from "@chakra-ui/react";
-import { fonts, fontSizes, fontWeights } from "./typography";
-import { colors } from "./colors";
-import { borderRadiuses } from "./metrics";
-// import { buttonStyles } from "./components/Button";
+import { components } from "./components"
+import { foundations } from "./foundations"
 
-const theme = extendTheme({
-  fonts,
-  fontSizes,
-  fontWeights,
-  colors,
-  borderRadiuses,
+export const theme = {
+  ...foundations,
+  components,
 
-  // components: {
-  //   Button: buttonStyles,
-  // },
-});
+}
 
-export default theme;
+export type Theme = typeof theme
+
+export const baseTheme = {
+  components: {},
+  ...foundations,
+}

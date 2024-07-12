@@ -12,7 +12,7 @@ const Search: React.FC = () => {
   };
 
   const searchIconStyles = {
-    color: "gullGray",
+    colors: "gullGray",
     boxSize: "14px",
   };
 
