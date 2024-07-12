@@ -3,6 +3,7 @@ export const colors = {
   mirage: "#171C26",
   paleSky: "#687182",
   shuttleGray: "#5A6376",
+  gullGray: "#A1A9B8",
   white: "#FFF",
   brickRed: "#D12953",
   royalBlueLight: "#2264E5",
