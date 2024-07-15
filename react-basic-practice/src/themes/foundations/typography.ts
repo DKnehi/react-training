@@ -17,7 +17,7 @@ const typography = {
     semibold: "600",
   },
   lineHeights: {
-    shorter: "16.94px",
+    shorter: "17px",
     short: "20px",
   },
 };

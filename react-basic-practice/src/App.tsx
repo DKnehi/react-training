@@ -7,9 +7,9 @@ const App: React.FC = () => {
     <ChakraProvider theme={theme}>
       <div style={{padding:"20px 50px"}}>
         <h1>Test Button</h1>
-        <Button label="Create" variant="create" size="sm"/>
+        <Button label="Create" variant="primary" size="sm"/>
         <Button label="+ Add Customer" variant="addcustomer" size="md"/>
-        <Button label="Close" variant="close" size="sm"/>
+        <Button label="Close" variant="secondary" size="sm"/>
       </div>
     </ChakraProvider>
   );

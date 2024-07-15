@@ -28,7 +28,7 @@ const variantSecondary = defineStyle({
   },
 });
 
-const variantOutline = defineStyle({
+const variantAddcustomer = defineStyle({
   borderRadius: "base",
   lineHeight: "short",
   boxShadow:
@@ -36,9 +36,9 @@ const variantOutline = defineStyle({
 });
 
 const variants = {
-  create: variantPrimary,
-  close: variantSecondary,
-  addcustomer: variantOutline,
+  primary: variantPrimary,
+  secondary: variantSecondary,
+  addcustomer: variantAddcustomer,
 };
 
 const sizes = {
