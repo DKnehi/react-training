@@ -1,15 +1,8 @@
-import { components } from "./components"
-import { foundations } from "./foundations"
+import { extendTheme } from '@chakra-ui/react'
+import { buttonTheme } from './components/button'
+import { foundations } from './foundations'
 
-export const theme = {
+export const theme = extendTheme({
   ...foundations,
-  components,
-
-}
-
-export type Theme = typeof theme
-
-export const baseTheme = {
-  components: {},
-  ...foundations,
-}
+  components: { Button: buttonTheme },
+})

@@ -6,10 +6,10 @@ const typography = {
     heading: "Inter, sans-serif",
   },
   fontSizes: {
-    xs: "0.6875rem",
-    sm: "0.75rem",
-    md: "0.875rem",
-    lg: "1.375rem",
+    xs: "11px",
+    sm: "12px",
+    md: "14px",
+    lg: "22px",
   },
   fontWeights: {
     normal: "400",
@@ -17,8 +17,8 @@ const typography = {
     semibold: "600",
   },
   lineHeights: {
-    shorter: "1.05875rem",
-    short: "1.25rem",
+    shorter: "16.94px",
+    short: "20px",
   },
 };
 

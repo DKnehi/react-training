@@ -13,26 +13,14 @@ const baseStyle = defineStyle({
   },
 });
 
-const sizes = {
-  sm: defineStyle({
-    px: "67px",
-    py: "17px",
-  }),
-  md: defineStyle({
-    px: "12px",
-    py: "6px",
-  }),
-};
-
 const variantPrimary = defineStyle({
   fontWeight: "semibold",
-  bg: "brickRed",
 });
 
 const variantSecondary = defineStyle({
   bg: "none",
   color: "brickRed",
-  border: "1px solid",
+  border: "1px",
   borderColor: "brickRed",
   _hover: {
     bg: "brickRed",
@@ -48,19 +36,27 @@ const variantOutline = defineStyle({
 });
 
 const variants = {
-  primary: variantPrimary,
-  secondary: variantSecondary,
-  outline: variantOutline,
+  create: variantPrimary,
+  close: variantSecondary,
+  addcustomer: variantOutline,
 };
 
-const defaultProps = {
-  size: "sm",
-  variant: "secondary",
+const sizes = {
+  sm: defineStyle({
+    h: "auto",
+    px: "67px",
+    py: "17px",
+    
+  }),
+  md: defineStyle({
+    h: "auto",
+    px: "12px",
+    py: "6px",
+  }),
 };
 
 export const buttonTheme = defineStyleConfig({
   baseStyle,
   sizes,
   variants,
-  ...defaultProps,
 });

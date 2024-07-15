@@ -1,17 +1,15 @@
 import React from "react";
 import { ChakraProvider } from "@chakra-ui/react";
 import { theme } from "themes";
-import Search from "@components/Search";
 import Button from "@components/Button";
 const App: React.FC = () => {
   return (
     <ChakraProvider theme={theme}>
       <div style={{padding:"20px 50px"}}>
-        <h1>Test SearchBar</h1>
-        <Search/>
-        <Button label="button 1" variant="primary" size="sm"/>
-        <Button label="button 3" variant="outline"/>
-        <Button label="button 2" variant="secondary"/>
+        <h1>Test Button</h1>
+        <Button label="Create" variant="create" size="sm"/>
+        <Button label="+ Add Customer" variant="addcustomer" size="md"/>
+        <Button label="Close" variant="close" size="sm"/>
       </div>
     </ChakraProvider>
   );
