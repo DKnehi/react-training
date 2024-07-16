@@ -44,7 +44,7 @@ const defaultProps: { variant: keyof typeof variants } = {
   variant: "form",
 };
 
-export const inputTheme = defineMultiStyleConfig({
+export const Input = defineMultiStyleConfig({
   baseStyle,
   variants,
   defaultProps,

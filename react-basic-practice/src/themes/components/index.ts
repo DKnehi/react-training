@@ -1,10 +1,10 @@
-import { buttonTheme } from "./button";
-import { inputTheme } from "./input";
+import { Button } from "./button";
+import { Input } from "./input";
 
-export { buttonTheme as Button } from "./button";
-export { inputTheme as Input } from "./input";
+export { Button } from "./button";
+export { Input } from "./input";
 
 export const components = {
-  Button: buttonTheme,
-  Input: inputTheme,
+  Button,
+  Input,
 };
