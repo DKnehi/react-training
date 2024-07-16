@@ -1,4 +1,4 @@
-export const colors = {
+const colors = {
   riverbed: "#464F60",
   mirage: "#171C26",
   paleSky: "#687182",
@@ -10,3 +10,5 @@ export const colors = {
   royalBlue: "#4F5AED",
   jewel: "#14804A",
 };
+
+export default colors
