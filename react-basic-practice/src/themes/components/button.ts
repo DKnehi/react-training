@@ -28,7 +28,7 @@ const variantSecondary = defineStyle({
   },
 });
 
-const variantAddcustomer = defineStyle({
+const variantShadow = defineStyle({
   borderRadius: "base",
   lineHeight: "short",
   boxShadow:
@@ -38,7 +38,7 @@ const variantAddcustomer = defineStyle({
 const variants = {
   primary: variantPrimary,
   secondary: variantSecondary,
-  addcustomer: variantAddcustomer,
+  shadow: variantShadow,
 };
 
 const sizes = {
@@ -55,8 +55,13 @@ const sizes = {
   }),
 };
 
+const defaultProps: { variant: keyof typeof variants } = {
+  variant: "primary",
+};
+
 export const buttonTheme = defineStyleConfig({
   baseStyle,
   sizes,
   variants,
+  defaultProps,
 });
