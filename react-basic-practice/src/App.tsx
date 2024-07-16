@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, ChakraProvider } from "@chakra-ui/react";
-import { theme } from "themes";
-import { Search } from "./components";
+import { theme } from "./themes";
+import { Search } from "@components";
 
 const App: React.FC = () => {
   return (

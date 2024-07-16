@@ -1,7 +1,7 @@
 import React from "react";
 import { InputGroup, InputLeftElement } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
-import Input from "@components/Input";
+import Input from "../Input";
 
 const Search: React.FC = () => {
 
