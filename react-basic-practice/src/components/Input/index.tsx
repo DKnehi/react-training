@@ -1,11 +1,8 @@
 import React from "react";
 import { Input as ChakraInput, InputProps } from "@chakra-ui/react";
 
-interface CustomInputProps extends InputProps {
 
-}
-
-const Input: React.FC<CustomInputProps> = ({ ...rest }) => {
+const Input: React.FC<InputProps> = ({ ...rest }) => {
 
   return (
     <ChakraInput {...rest} />
