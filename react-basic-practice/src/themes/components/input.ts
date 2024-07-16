@@ -40,10 +40,12 @@ const variants = {
   form: variantForm,
 };
 
+const defaultProps: { variant: keyof typeof variants } = {
+  variant: "form",
+};
+
 export const inputTheme = defineMultiStyleConfig({
   baseStyle,
   variants,
-  defaultProps: {
-    variant: "form",
-  }
+  defaultProps,
 });

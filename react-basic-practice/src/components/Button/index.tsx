@@ -1,5 +1,5 @@
 import React from "react";
-import { Button as ChakraButton, ButtonProps, useStyleConfig } from "@chakra-ui/react";
+import { Button as ChakraButton, ButtonProps } from "@chakra-ui/react";
 
 interface CustomButtonProps extends ButtonProps {
   label: string;

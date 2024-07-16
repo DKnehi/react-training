@@ -1,5 +1,5 @@
 import React from "react";
-import { Input as ChakraInput, InputProps, useStyleConfig } from "@chakra-ui/react";
+import { Input as ChakraInput, InputProps } from "@chakra-ui/react";
 
 interface CustomInputProps extends InputProps {
 
