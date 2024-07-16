@@ -5,7 +5,7 @@ import Button from "@components/Button";
 const App: React.FC = () => {
   return (
     <ChakraProvider theme={theme}>
-      <div style={{padding:"20px 50px"}}>
+      <div>
         <h1>Test Button</h1>
         <Button label="Create" size="sm"/>
         <Button label="+ Add Customer" variant="addcustomer" size="md"/>
