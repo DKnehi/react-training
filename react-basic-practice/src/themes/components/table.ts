@@ -12,16 +12,22 @@ const baseStyle = definePartsStyle({
     backgroundColor: "linkWater",
     tr: {},
     th: {
-        color: "riverbed",
-        fontWeight: "semibold",
-        fontSize: "xs",
-        lineHeight: "shortest",
-        letterSpacing: "tighter",
+      color: "riverbed",
+      fontWeight: "semibold",
+      fontSize: "xs",
+      lineHeight: "shortest",
+      letterSpacing: "tighter",
+    },
+  },
+  tbody: {
+    tr: {},
+    td: {
+      borderBottom: "none",
+      p: {},
     },
   },
 });
 
 export const Table = defineMultiStyleConfig({
   baseStyle,
-
 });
