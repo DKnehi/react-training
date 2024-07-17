@@ -4,6 +4,7 @@ export default {
   webpack: {
     alias: {
       '@components': path.resolve(__dirname, 'src/components'),
+      '@themes': path.resolve(__dirname, 'src/themes'),
       '@ui': path.resolve(__dirname, 'src/components/common/ui'),
       '@pages': path.resolve(__dirname, 'src/pages'),
       '@hooks': path.resolve(__dirname, 'src/hooks'),

@@ -17,9 +17,13 @@ const typography = {
     semibold: "600",
   },
   lineHeights: {
+    shortest: "16px",
     shorter: "17px",
     short: "20px",
   },
+  letterSpacings : {
+    tighter: "4%",
+  }
 };
 
 export default typography;

@@ -3,6 +3,7 @@
     "baseUrl": ".",
     "paths": {
       "@components": ["src/components"],
+      "@themes": ["src/themes"],
       "@layouts": ["src/layouts"],
       "@utils": ["src/utils"],
       "@pages": ["src/pages"],
