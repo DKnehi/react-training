@@ -1,16 +1,15 @@
 import React from "react";
-import { ChakraProvider } from "@chakra-ui/react";
-import { theme } from "themes";
-import Button from "@components/Button";
+import { Box, ChakraProvider } from "@chakra-ui/react";
+import { theme } from "./themes";
+import { Search } from "@components";
+
 const App: React.FC = () => {
   return (
     <ChakraProvider theme={theme}>
-      <div>
-        <h1>Test Button</h1>
-        <Button label="Create" size="sm"/>
-        <Button label="+ Add Customer" variant="addcustomer" size="md"/>
-        <Button label="Close" variant="secondary" size="sm"/>
-      </div>
+      <Box>
+        {/* TO DO: I imported it here just to see its demo, I will update it later*/}
+        <Search/>
+      </Box>
     </ChakraProvider>
   );
 };

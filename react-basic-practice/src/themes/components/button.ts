@@ -59,7 +59,7 @@ const defaultProps: { variant: keyof typeof variants } = {
   variant: "primary",
 };
 
-export const buttonTheme = defineStyleConfig({
+export const Button = defineStyleConfig({
   baseStyle,
   sizes,
   variants,
