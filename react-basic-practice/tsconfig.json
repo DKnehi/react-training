@@ -3,6 +3,7 @@
     "baseUrl": ".",
     "paths": {
       "@components": ["src/components"],
+      "@themes": ["src/themes"],
       "@layouts": ["src/layouts"],
       "@utils": ["src/utils"],
       "@pages": ["src/pages"],
@@ -11,7 +12,8 @@
       "@types": ["src/types"],
       "@services": ["src/services"],
       "@routes": ["src/routes"],
-      "@images": ["public/assets/images"]
+      "@images": ["public/assets/images"],
+      "@icons": ["src/components/icons"]
     },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],

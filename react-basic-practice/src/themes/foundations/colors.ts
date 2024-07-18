@@ -9,6 +9,7 @@ const colors = {
   royalBlueLight: "#2264E5",
   royalBlue: "#4F5AED",
   jewel: "#14804A",
+  linkWater: "#F4F7FC",
 };
 
 export default colors

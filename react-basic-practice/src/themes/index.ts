@@ -4,7 +4,5 @@ import { components } from './components'
 
 export const theme = extendTheme({
   ...foundations,
-  components: {
-    ...components,
-  },
+  components,
 })
