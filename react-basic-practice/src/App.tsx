@@ -1,8 +1,8 @@
 import React from "react";
 import { Box, ChakraProvider } from "@chakra-ui/react";
-import { theme } from "./themes";
+import { theme } from "@themes";
 import { Table } from "@components";
-import { columns } from "./constants/columns";
+import { columns } from "@constants";
 
 const App: React.FC = () => {
   return (

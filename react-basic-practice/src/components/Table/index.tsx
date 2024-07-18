@@ -5,14 +5,10 @@ import {
   Thead,
   Table as ChakraTable,
 } from "@chakra-ui/react";
-import SortingIcon from "../Icons/sorting";
-import { Column } from "src/interfaces/table";
+import { SortingIcon } from "@icons";
+import { ITableProps } from "@types";
 
-interface TableProps {
-  columns: Column[];
-}
-
-const Table: React.FC<TableProps> = ({ columns }) => {
+const Table: React.FC<ITableProps> = ({ columns }) => {
 
   return (
     <ChakraTable>
