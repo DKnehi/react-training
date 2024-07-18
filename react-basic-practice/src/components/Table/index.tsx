@@ -1,16 +1,26 @@
 import React from "react";
-import { Th, Tr, Thead, Table as ChakraTable } from "@chakra-ui/react";
+import {
+  Th,
+  Tr,
+  Thead,
+  Table as ChakraTable,
+} from "@chakra-ui/react";
 import SortingIcon from "../Icons/sorting";
-import { tableColumns, TableColumn } from "../CustomerTable";
+import { Column } from "src/interfaces/table";
 
-const Table: React.FC = () => {
+interface TableProps {
+  columns: Column[];
+}
+
+const Table: React.FC<TableProps> = ({ columns }) => {
+
   return (
     <ChakraTable>
       <Thead>
         <Tr>
-          {tableColumns.map((column: TableColumn, index: number) => (
+          {columns.map((column) => (
             <Th
-              key={index}
+              key={column.key}
               {...(column.sortable && { display: "flex", gap: "2px" })}
             >
               {column.label}
