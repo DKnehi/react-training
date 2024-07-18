@@ -21,6 +21,7 @@ const baseStyle = definePartsStyle({
   tbody: {
     td: {
       borderBottom: "none",
+      whiteSpace: "nowrap"
     },
   },
 });
