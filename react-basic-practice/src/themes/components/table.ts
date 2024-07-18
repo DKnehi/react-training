@@ -10,7 +10,6 @@ const baseStyle = definePartsStyle({
   },
   thead: {
     backgroundColor: "linkWater",
-    tr: {},
     th: {
       color: "riverbed",
       fontWeight: "semibold",
@@ -20,10 +19,8 @@ const baseStyle = definePartsStyle({
     },
   },
   tbody: {
-    tr: {},
     td: {
       borderBottom: "none",
-      p: {},
     },
   },
 });
