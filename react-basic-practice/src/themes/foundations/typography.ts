@@ -21,9 +21,10 @@ const typography = {
     shorter: "17px",
     short: "20px",
   },
-  letterSpacings : {
-    tighter: "4%",
-  }
+  letterSpacings: {
+    tighter: "0.04em",
+    tight: "0.02em",
+  },
 };
 
 export default typography;

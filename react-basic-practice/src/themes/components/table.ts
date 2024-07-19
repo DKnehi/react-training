@@ -10,18 +10,22 @@ const baseStyle = definePartsStyle({
   },
   thead: {
     backgroundColor: "linkWater",
-    th: {
-      color: "riverbed",
-      fontWeight: "semibold",
-      fontSize: "xs",
-      lineHeight: "shortest",
-      letterSpacing: "tighter",
-    },
+    tr: {
+      th: {
+        color: "riverbed",
+        fontWeight: "semibold",
+        fontSize: "xs",
+        lineHeight: "shortest",
+        letterSpacing: "tighter",
+        padding: "12px 50px 12px 20px",
+      },
+    }
   },
   tbody: {
     td: {
       borderBottom: "none",
-      whiteSpace: "nowrap"
+      whiteSpace: "nowrap",
+      padding: "12px 50px 12px 20px",
     },
   },
 });

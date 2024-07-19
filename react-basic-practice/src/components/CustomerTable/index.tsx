@@ -13,6 +13,11 @@ const CustomerTable: React.FC<ICustomerTableProps> = ({ columns, data }) => {
           {columns.map((column) => (
             <Th
               key={column.key}
+              textAlign={
+                ["rate", "balance", "deposit"].includes(column.key)
+                  ? "right"
+                  : "left"
+              }
               {...(column.sortable && { display: "flex", gap: "2px" })}
             >
               {column.label}
@@ -24,9 +29,20 @@ const CustomerTable: React.FC<ICustomerTableProps> = ({ columns, data }) => {
       <Tbody>
         {data.map((cell) => {
           return (
-            <TableRow>
+            <TableRow status={cell.status} key={cell.id}>
               {columns.map((column) => {
-                return <TableCell>{column.value(cell)}</TableCell>;
+                return (
+                  <TableCell
+                    key={column.key}
+                    textAlign={
+                      ["rate", "balance", "deposit"].includes(column.key)
+                        ? "right"
+                        : "left"
+                    }
+                  >
+                    {column.value(cell)}
+                  </TableCell>
+                );
               })}
             </TableRow>
           );

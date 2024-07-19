@@ -1,8 +1,19 @@
 import React from "react";
-import { Tr, TableRowProps } from "@chakra-ui/react";
+import { Tr } from "@chakra-ui/react";
 
-const TableRow: React.FC<TableRowProps> = ({ children, ...rest }) => (
-  <Tr {...rest}>{children}</Tr>
-);
+interface TableRowProps {
+  status: string;
+  children: React.ReactNode;
+}
+
+const TableRow: React.FC<TableRowProps> = ({ status, children }) => {
+  let bgColor: string | undefined;
+
+  if (status === "Paid" || status === "Inactive") {
+    bgColor = "catsWhite";
+  }
+
+  return <Tr bg={bgColor}>{children}</Tr>;
+};
 
 export default TableRow;

@@ -10,6 +10,11 @@ const colors = {
   royalBlue: "#4F5AED",
   jewel: "#14804A",
   linkWater: "#F4F7FC",
+  scandal: "#E1FCEF",
+  whiteLilac: "#F0F1FA",
+  catskillWhite: "#E9EDF5",
+  catsWhite: "#F9FAFC",
+  amour: "#FAF0F3",
 };
 
 export default colors
