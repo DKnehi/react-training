@@ -1,9 +1,9 @@
 import React from "react";
-import { Th, Tr, Thead, Tbody, Table as ChakraTable } from "@chakra-ui/react";
+import { Th, Tr, Thead, Tbody, Td, Table as ChakraTable } from "@chakra-ui/react";
 import { SortingIcon } from "@icons";
 import { ICustomerTableProps } from "@types";
 import TableRow from "../TableRow";
-import TableCell from "../TableCell";
+// import TableCell from "../TableColumn";
 
 const CustomerTable: React.FC<ICustomerTableProps> = ({ columns, data }) => {
   return (
@@ -32,7 +32,7 @@ const CustomerTable: React.FC<ICustomerTableProps> = ({ columns, data }) => {
             <TableRow status={cell.status} key={cell.id}>
               {columns.map((column) => {
                 return (
-                  <TableCell
+                  <Td
                     key={column.key}
                     textAlign={
                       ["rate", "balance", "deposit"].includes(column.key)
@@ -41,7 +41,7 @@ const CustomerTable: React.FC<ICustomerTableProps> = ({ columns, data }) => {
                     }
                   >
                     {column.value(cell)}
-                  </TableCell>
+                  </Td>
                 );
               })}
             </TableRow>

@@ -18,7 +18,7 @@ const TableStatus: React.FC<IStatusProps> = ({ status }) => {
       borderRadius="md"
       {...statusStyles[status]}
     >
-      <Text fontWeight="bold">{status}</Text>
+      <Text fontSize="sm" fontWeight="bold" lineHeight="shorter">{status}</Text>
     </Box>
   );
 };
