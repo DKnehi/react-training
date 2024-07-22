@@ -1,2 +1,2 @@
 export * from "./customer";
-export * from "./optionmenu";
+export * from "./optionMenu";
