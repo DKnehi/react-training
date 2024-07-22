@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Text } from "@chakra-ui/react";
 import { ICustomerColumn, ICustomer } from "@types";
-import { TableStatus, TableFinance } from "@components";
+import { TableStatus, TableFinance, OptionMenu } from "@components";
 
 const TableColumn: ICustomerColumn[] = [
   {
@@ -68,6 +68,16 @@ const TableColumn: ICustomerColumn[] = [
     key: "deposit",
     label: "DEPOSIT",
     value: (data: ICustomer) => <TableFinance value={data.deposit} />,
+  },
+  {
+    key: "options",
+    value: (data: ICustomer) => (
+      <OptionMenu
+        onView={() => console.log(`View ${data.id}`)}
+        onEdit={() => console.log(`Edit ${data.id}`)}
+        onDelete={() => console.log(`Delete ${data.id}`)}
+      />
+    ),
   },
 ];
 

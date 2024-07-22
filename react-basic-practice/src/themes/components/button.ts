@@ -35,10 +35,18 @@ const variantShadow = defineStyle({
     "0px 1px 1px rgba(0, 0, 0, 0.14), 0px 0px 0px 1px #2264E6, 0px 2px 5px rgba(34, 100, 230, 0.12), inset 0px 1px 0px #4B85FA",
 });
 
+const variantNone = defineStyle({
+  bg: "none",
+  _hover: {
+    bg: "none",
+  },
+});
+
 const variants = {
   primary: variantPrimary,
   secondary: variantSecondary,
   shadow: variantShadow,
+  none: variantNone,
 };
 
 const sizes = {
