@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Text } from "@chakra-ui/react";
 import { ICustomerColumn, ICustomer } from "@types";
-import { TableStatus, TablePrice } from "@components";
+import { TableStatus, TableFinance } from "@components";
 
 const TableColumn: ICustomerColumn[] = [
   {
@@ -57,17 +57,17 @@ const TableColumn: ICustomerColumn[] = [
   {
     key: "rate",
     label: "RATE",
-    value: (data: ICustomer) => <TablePrice value={data.rate} />,
+    value: (data: ICustomer) => <TableFinance value={data.rate} />,
   },
   {
     key: "balance",
     label: "BALANCE",
-    value: (data: ICustomer) => <TablePrice value={data.balance} isBalance />,
+    value: (data: ICustomer) => <TableFinance value={data.balance} isBalance />,
   },
   {
     key: "deposit",
     label: "DEPOSIT",
-    value: (data: ICustomer) => <TablePrice value={data.deposit} />,
+    value: (data: ICustomer) => <TableFinance value={data.deposit} />,
   },
 ];
 

@@ -1,11 +1,12 @@
 import React from "react";
 import { Box, Text } from "@chakra-ui/react";
 import { ITablePrice } from "@types";
+import { extractNumericValue } from "@utils";
 
-const TablePrice: React.FC<ITablePrice> = ({ value, isBalance }) => {
+const TableFinance: React.FC<ITablePrice> = ({ value, isBalance }) => {
   let color: string | undefined;
   if (isBalance) {
-    const numericValue = parseFloat(value.replace(/[^0-9.-]+/g, ""));
+    const numericValue = extractNumericValue(value);
     color = numericValue < 0 ? "brickRed" : "jewel";
   } else {
     color = "riverbed";
@@ -23,4 +24,4 @@ const TablePrice: React.FC<ITablePrice> = ({ value, isBalance }) => {
   );
 };
 
-export default TablePrice;
+export default TableFinance;

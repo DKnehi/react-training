@@ -1,5 +1,6 @@
 import React from "react";
 import { Tr } from "@chakra-ui/react";
+import { STATUS } from "@constants";
 
 interface TableRowProps {
   status: string;
@@ -9,7 +10,7 @@ interface TableRowProps {
 const TableRow: React.FC<TableRowProps> = ({ status, children }) => {
   let bgColor: string | undefined;
 
-  if (status === "Paid" || status === "Inactive") {
+  if (status === STATUS.PAID || status === STATUS.INACTIVE) {
     bgColor = "catsWhite";
   }
 
