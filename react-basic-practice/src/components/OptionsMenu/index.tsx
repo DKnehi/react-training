@@ -7,12 +7,7 @@ import {
   MenuList,
 } from "@chakra-ui/react";
 import { OptionIcon, ViewIcon, EditIcon, DeleteIcon } from "@icons";
-
-interface IOptionMenuProps {
-  onView: () => void;
-  onEdit: () => void;
-  onDelete: () => void;
-}
+import { IOptionMenuProps } from "@types";
 
 const OptionMenu: React.FC<IOptionMenuProps> = ({
   onView,
@@ -21,19 +16,15 @@ const OptionMenu: React.FC<IOptionMenuProps> = ({
 }) => {
   return (
     <Menu>
-      <MenuButton
-        as={IconButton}
-        icon={<OptionIcon/>}
-        variant="none"
-      />
+      <MenuButton as={IconButton} icon={<OptionIcon />} variant="none" />
       <MenuList>
-        <MenuItem onClick={onView} icon={<ViewIcon/>}>
+        <MenuItem onClick={onView} icon={<ViewIcon />}>
           View
         </MenuItem>
-        <MenuItem onClick={onEdit} icon={<EditIcon/>}>
+        <MenuItem onClick={onEdit} icon={<EditIcon />}>
           Edit
         </MenuItem>
-        <MenuItem onClick={onDelete} icon={<DeleteIcon/>} color="brickRed">
+        <MenuItem onClick={onDelete} icon={<DeleteIcon />} color="brickRed">
           Delete
         </MenuItem>
       </MenuList>
