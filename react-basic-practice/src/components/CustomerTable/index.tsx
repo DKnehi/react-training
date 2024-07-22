@@ -1,32 +1,52 @@
 import React from "react";
-import { Th, Tr, Thead, Tbody, Table as ChakraTable } from "@chakra-ui/react";
+import {
+  Th,
+  Tr,
+  Thead,
+  Tbody,
+  Td,
+  Table as ChakraTable,
+} from "@chakra-ui/react";
 import { SortingIcon } from "@icons";
 import { ICustomerTableProps } from "@types";
 import TableRow from "../TableRow";
-import TableCell from "../TableCell";
 
 const CustomerTable: React.FC<ICustomerTableProps> = ({ columns, data }) => {
   return (
     <ChakraTable>
       <Thead>
         <Tr>
-          {columns.map((column) => (
+          {columns.map(({ key, label, sortable }) => (
             <Th
-              key={column.key}
-              {...(column.sortable && { display: "flex", gap: "2px" })}
+              key={key}
+              textAlign={
+                ["rate", "balance", "deposit"].includes(key) ? "right" : "left"
+              }
+              {...(sortable && { display: "flex", gap: "2px" })}
             >
-              {column.label}
-              {column.sortable && <SortingIcon />}
+              {label}
+              {sortable && <SortingIcon />}
             </Th>
           ))}
         </Tr>
       </Thead>
       <Tbody>
-        {data.map((cell) => {
+        {data.map(({ id, status, ...cell }) => {
           return (
-            <TableRow>
+            <TableRow status={status} key={id}>
               {columns.map((column) => {
-                return <TableCell>{column.value(cell)}</TableCell>;
+                return (
+                  <Td
+                    key={column.key}
+                    textAlign={
+                      ["rate", "balance", "deposit"].includes(column.key)
+                        ? "right"
+                        : "left"
+                    }
+                  >
+                    {column.value({ id, status, ...cell })}
+                  </Td>
+                );
               })}
             </TableRow>
           );
