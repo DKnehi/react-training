@@ -17,7 +17,7 @@ export interface ICustomerTableProps {
 
 export interface ICustomerColumn {
   key: string;
-  label: string;
+  label?: string;
   sortable?: boolean;
   value: (data: ICustomer) => ReactNode;
 }
