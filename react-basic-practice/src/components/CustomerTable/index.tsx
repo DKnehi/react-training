@@ -7,13 +7,12 @@ import {
   Td,
   Table as ChakraTable,
 } from "@chakra-ui/react";
-import { SortingIcon } from "src/components/Icon";
+import { SortingIcon } from "src/components/Icons";
 import { ICustomerTableProps } from "@types";
 import TableRow from "../TableRow";
 
 const CustomerTable: React.FC<ICustomerTableProps> = ({ columns, data }) => {
   return (
-    <>
       <ChakraTable>
         <Thead>
           <Tr>
@@ -56,7 +55,6 @@ const CustomerTable: React.FC<ICustomerTableProps> = ({ columns, data }) => {
           })}
         </Tbody>
       </ChakraTable>
-    </>
   );
 };
 

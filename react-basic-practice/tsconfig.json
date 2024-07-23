@@ -13,7 +13,7 @@
       "@services": ["src/services"],
       "@routes": ["src/routes"],
       "@images": ["public/assets/images"],
-      "@icons": ["src/components/Icon"]
+      "@icons": ["src/components/Icons"]
     },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
