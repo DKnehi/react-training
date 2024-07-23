@@ -54,19 +54,19 @@ const Dashboard: React.FC = () => {
 
   return (
     <ChakraProvider theme={theme}>
-        <Box
-          display="flex"
-          justifyContent="space-between"
-          width="100%"
-          position="absolute"
-          padding="16px 20px"
-        >
-          <Search />
-          <Button label="+ Add Customer" variant="shadow" onClick={onOpen} />
-        </Box>
-        {/* Table demo */}
-        <Table columns={TableColumn} data={data} />
-        <Modal isOpen={isOpen} onClose={onClose}></Modal>
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        width="100%"
+        position="absolute"
+        padding="16px 20px"
+      >
+        <Search />
+        <Button label="+ Add Customer" variant="shadow" onClick={onOpen} />
+      </Box>
+      {/* Table demo */}
+      <Table columns={TableColumn} data={data} />
+      <Modal isOpen={isOpen} onClose={onClose} />
     </ChakraProvider>
   );
 };
