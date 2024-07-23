@@ -12,7 +12,7 @@ export default {
       '@hooks': path.resolve(__dirname, 'src/hooks'),
       '@api': path.resolve(__dirname, 'src/api'),
       '@utils': path.resolve(__dirname, 'src/utils'),
-      "@icons": path.resolve(__dirname, "src/components/icons"),
+      "@icons": path.resolve(__dirname, "src/components/Icons"),
     },
   },
 };

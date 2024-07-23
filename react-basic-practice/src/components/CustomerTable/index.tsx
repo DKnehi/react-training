@@ -7,7 +7,7 @@ import {
   Td,
   Table as ChakraTable,
 } from "@chakra-ui/react";
-import { SortingIcon } from "src/components/Icons";
+import { SortingIcon } from "@icons";
 import { ICustomerTableProps } from "@types";
 import TableRow from "../TableRow";
 
