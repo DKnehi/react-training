@@ -6,32 +6,16 @@ import {
   Tbody,
   Td,
   Table as ChakraTable,
-  Box,
 } from "@chakra-ui/react";
-import { SortingIcon } from "src/components/Icons";
+import { SortingIcon } from "src/components/Icon";
 import { ICustomerTableProps } from "@types";
-import { useDisclosure } from "@chakra-ui/react";
 import TableRow from "../TableRow";
-import Search from "../Search";
-import Button from "../Button";
-import Modal from "../Modal";
 
 const CustomerTable: React.FC<ICustomerTableProps> = ({ columns, data }) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
       <ChakraTable>
         <Thead>
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            width="100%"
-            position="absolute"
-            padding="16px 20px"
-          >
-            <Search />
-            <Button label="+ Add Customer" variant="shadow" onClick={onOpen} />
-          </Box>
           <Tr>
             {columns.map(({ key, label, sortable }) => (
               <Th
@@ -72,7 +56,6 @@ const CustomerTable: React.FC<ICustomerTableProps> = ({ columns, data }) => {
           })}
         </Tbody>
       </ChakraTable>
-      <Modal isOpen={isOpen} onClose={onClose}></Modal>
     </>
   );
 };
