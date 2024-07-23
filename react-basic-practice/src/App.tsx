@@ -4,6 +4,7 @@ import { theme } from "@themes";
 import { Table, TableColumn } from "@components";
 import { ICustomer } from "@types";
 
+
 const App: React.FC = () => {
   {/* TO DO: This is a mock data, I'll update later*/}
   const data: ICustomer[] = [

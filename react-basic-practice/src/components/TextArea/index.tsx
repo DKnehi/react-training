@@ -1,14 +1,19 @@
 import React from "react";
-import { Box, Input as ChakraInput, InputProps, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Textarea as ChakraTextarea,
+  TextareaProps,
+  Text,
+} from "@chakra-ui/react";
 
-interface CustomInputProps extends InputProps {
+interface CustomTextareaProps extends TextareaProps {
   errorMessage?: string;
 }
 
-const Input: React.FC<CustomInputProps> = ({ errorMessage, ...rest }) => {
+const Textarea: React.FC<CustomTextareaProps> = ({ errorMessage, ...rest }) => {
   return (
     <Box>
-      <ChakraInput
+      <ChakraTextarea
         {...rest}
         borderColor={errorMessage ? "brickRed" : rest.borderColor}
         _hover={{
@@ -19,12 +24,7 @@ const Input: React.FC<CustomInputProps> = ({ errorMessage, ...rest }) => {
         }}
       />
       {errorMessage && (
-        <Text
-          color="brickRed"
-          fontSize="md"
-          fontWeight="normal"
-          marginTop="5px"
-        >
+        <Text color="brickRed" fontSize="md" fontWeight="normal" marginTop="5px">
           {errorMessage}
         </Text>
       )}
@@ -32,4 +32,4 @@ const Input: React.FC<CustomInputProps> = ({ errorMessage, ...rest }) => {
   );
 };
 
-export default Input;
+export default Textarea;
