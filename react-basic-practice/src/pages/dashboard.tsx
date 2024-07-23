@@ -53,7 +53,7 @@ const Dashboard: React.FC = () => {
   ];
 
   return (
-    <ChakraProvider theme={theme}>
+    <Box>
       <Box
         display="flex"
         justifyContent="space-between"
@@ -67,7 +67,7 @@ const Dashboard: React.FC = () => {
       {/* Table demo */}
       <Table columns={TableColumn} data={data} />
       <Modal isOpen={isOpen} onClose={onClose} />
-    </ChakraProvider>
+    </Box>
   );
 };
 
