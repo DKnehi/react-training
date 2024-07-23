@@ -32,6 +32,10 @@ const variantForm = definePartsStyle({
     width: "342px",
     height: "51px",
     borderColor: "paleSky",
+    borderRadius: "base",
+    _hover: {
+      borderColor: "paleSky",
+    }
   },
 });
 
