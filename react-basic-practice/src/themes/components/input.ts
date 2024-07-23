@@ -18,6 +18,7 @@ const baseStyle = definePartsStyle({
 
 const variantSearch = definePartsStyle({
   field: {
+    width: "320px",
     padding: "0px 12px 0 36px",
     height: "32px",
     borderColor: "gullGray",

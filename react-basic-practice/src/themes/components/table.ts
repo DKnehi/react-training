@@ -17,7 +17,7 @@ const baseStyle = definePartsStyle({
         fontSize: "xs",
         lineHeight: "shortest",
         letterSpacing: "tighter",
-        padding: "76px 50px 12px 20px",
+        padding: "12px 50px 12px 20px",
       },
     }
   },

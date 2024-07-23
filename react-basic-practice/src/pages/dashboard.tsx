@@ -1,10 +1,7 @@
 import React from "react";
-import { Box, ChakraProvider } from "@chakra-ui/react";
-import { theme } from "@themes";
-import { Table, TableColumn } from "@components";
+import { Box, useDisclosure } from "@chakra-ui/react";
 import { ICustomer } from "@types";
-import { Search, Button, Modal } from "@components";
-import { useDisclosure } from "@chakra-ui/react";
+import { Search, Button, Modal, Table, TableColumn } from "@components";
 
 const Dashboard: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -55,10 +52,10 @@ const Dashboard: React.FC = () => {
   return (
     <Box>
       <Box
+      backgroundColor= "linkWater"
         display="flex"
         justifyContent="space-between"
         width="100%"
-        position="absolute"
         padding="16px 20px"
       >
         <Search />
