@@ -13,15 +13,20 @@ import Form from "../Form";
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
+  headerText?: string;
 }
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
+const Modal: React.FC<ModalProps> = ({
+  isOpen,
+  onClose,
+  headerText = "Add Customer",
+}) => {
   return (
     <ChakraModal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent maxWidth="794px" padding="0 40px">
-        <ModalHeader padding="23px 0 18px 0" borderBottom="1px solid black">
-          Add Customer
+        <ModalHeader padding="23px 0 18px 0" borderBottom="1px solid black" fontWeight="semibold" fontSize="lg" color="mirage">
+          {headerText}
         </ModalHeader>
         <ModalBody padding="19px 0 0 0">
           <Form />
@@ -32,13 +37,13 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
           gap="13px"
           padding="45px 0 27px 0"
         >
-          <Button label="Create" variant="primary" size="sm"></Button>
+          <Button label="Create" variant="primary" size="sm" />
           <Button
             label="Close"
             variant="secondary"
             size="sm"
             onClick={onClose}
-          ></Button>
+          />
         </ModalFooter>
       </ModalContent>
     </ChakraModal>

@@ -8,13 +8,13 @@ import {
   Table as ChakraTable,
   Box,
 } from "@chakra-ui/react";
-import { SortingIcon } from "@icons";
+import { SortingIcon } from "src/components/Icons";
 import { ICustomerTableProps } from "@types";
 import { useDisclosure } from "@chakra-ui/react";
 import TableRow from "../TableRow";
 import Search from "../Search";
 import Button from "../Button";
-import Modal from "../modal";
+import Modal from "../Modal";
 
 const CustomerTable: React.FC<ICustomerTableProps> = ({ columns, data }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();

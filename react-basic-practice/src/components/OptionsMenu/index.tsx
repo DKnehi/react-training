@@ -6,7 +6,7 @@ import {
   MenuItem,
   MenuList,
 } from "@chakra-ui/react";
-import { OptionIcon, ViewIcon, EditIcon, DeleteIcon } from "@icons";
+import { OptionIcon, ViewIcon, EditIcon, DeleteIcon } from "src/components/Icons";
 import { IOptionMenuProps } from "@types";
 
 const OptionMenu: React.FC<IOptionMenuProps> = ({

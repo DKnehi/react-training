@@ -2,12 +2,12 @@ import React from "react";
 import {
   FormControl,
   FormLabel,
-  Input,
-  Select,
-  Textarea,
   Grid,
   GridItem,
+  Select,
+  Textarea,
 } from "@chakra-ui/react";
+import Input from "../Input";
 
 const Form: React.FC = () => {
   return (
@@ -21,7 +21,7 @@ const Form: React.FC = () => {
       <GridItem colSpan={1}>
         <FormControl width="342px">
           <FormLabel>Status</FormLabel>
-          <Select placeholder="Select status">
+          <Select>
             <option value="open">Open</option>
             <option value="paid">Paid</option>
             <option value="inactive">Inactice</option>
@@ -50,7 +50,7 @@ const Form: React.FC = () => {
       <GridItem colSpan={1}>
         <FormControl>
           <FormLabel>Description</FormLabel>
-          <Textarea placeholder="Description" />
+          <Textarea />
         </FormControl>
       </GridItem>
     </Grid>
