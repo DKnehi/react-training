@@ -22,7 +22,6 @@ const Modal: React.FC<ModalProps> = ({
   isOpen,
   onClose,
   headerText = "Add Customer",
-  viewData,
 }) => {
   const isEdit = headerText === "Edit Customer";
   const isView = headerText === "View Customer";
