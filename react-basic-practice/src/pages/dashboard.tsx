@@ -10,7 +10,7 @@ const Dashboard: React.FC = () => {
 
   const handleOpenModal = (
     header: string,
-    data: ICustomer | undefined = undefined
+    data?: ICustomer,
   ) => {
     setModalHeader(header);
     setViewData(data);
@@ -28,7 +28,7 @@ const Dashboard: React.FC = () => {
 
   const handleAction = (type: ActionType, id?: number) => {
     const customer =
-      id !== undefined ? data.find((item) => item.id === id) : undefined;
+    id && data.find((item) => item.id === id);
 
     customer &&
       handleOpenModal(

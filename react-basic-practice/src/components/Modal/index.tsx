@@ -15,7 +15,7 @@ interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   headerText?: string;
-  viewData?: ICustomer | null;
+  viewData?: ICustomer;
 }
 
 const Modal: React.FC<ModalProps> = ({
