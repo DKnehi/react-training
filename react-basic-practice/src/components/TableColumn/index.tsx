@@ -2,6 +2,7 @@ import React from "react";
 import { Box, Text } from "@chakra-ui/react";
 import { ICustomerColumn, ICustomer } from "@types";
 import { TableStatus, TableFinance, OptionMenu } from "@components";
+import { ActionType } from "@types";
 
 const TableColumn: ICustomerColumn[] = [
   {
@@ -73,7 +74,7 @@ const TableColumn: ICustomerColumn[] = [
     key: "options",
     value: (
       data: ICustomer,
-      action?: (type: "Add" | "Edit" | "View", id?: number) => void
+      action?: (type: ActionType, id?: number) => void
     ) => (
       <OptionMenu
         onView={() => action?.("View", data.id)}

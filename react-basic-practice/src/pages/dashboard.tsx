@@ -1,21 +1,17 @@
 import React, { useState } from "react";
 import { Box } from "@chakra-ui/react";
 import { ICustomer } from "@types";
-import {
-  Search,
-  Button,
-  Modal,
-  Table,
-  TableColumn,
-  OptionMenu,
-} from "@components";
+import { Search, Button, Modal, Table, TableColumn } from "@components";
 
 const Dashboard: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [modalHeader, setModalHeader] = useState("Add Customer");
-  const [viewData, setViewData] = useState<ICustomer | null>(null);
+  const [viewData, setViewData] = useState<ICustomer | undefined>(undefined);
 
-  const handleOpenModal = (header: string, data: ICustomer | null = null) => {
+  const handleOpenModal = (
+    header: string,
+    data: ICustomer | undefined = undefined
+  ) => {
     setModalHeader(header);
     setViewData(data);
     setIsOpen(true);
@@ -23,22 +19,30 @@ const Dashboard: React.FC = () => {
 
   const handleCloseModal = () => {
     setIsOpen(false);
-    setViewData(null);
+    setViewData(undefined);
+  };
+
+  const handleAddCustomerClick = () => {
+    handleOpenModal("Add Customer");
   };
 
   const handleAction = (type: "Add" | "Edit" | "View", id?: number) => {
-    if (type === "Add") {
-      handleOpenModal("Add Customer");
-    } else if (type === "Edit" && id !== undefined) {
-      const customer = data.find((item) => item.id === id);
-      if (customer) {
-        handleOpenModal("Edit Customer", customer);
-      }
-    } else if (type === "View" && id !== undefined) {
-      const customer = data.find((item) => item.id === id);
-      if (customer) {
-        handleOpenModal("View Customer", customer);
-      }
+    switch (type) {
+      case "Add":
+        handleOpenModal("Add Customer");
+        break;
+      case "Edit":
+      case "View":
+        if (id !== undefined) {
+          const customer = data.find((item) => item.id === id);
+          if (customer) {
+            handleOpenModal(
+              type === "Edit" ? "Edit Customer" : "View Customer",
+              customer
+            );
+          }
+        }
+        break;
     }
   };
 
@@ -99,7 +103,7 @@ const Dashboard: React.FC = () => {
         <Button
           label="+ Add Customer"
           variant="shadow"
-          onClick={() => handleOpenModal("Add Customer")}
+          onClick={handleAddCustomerClick}
         />
       </Box>
       {/* Table demo */}
