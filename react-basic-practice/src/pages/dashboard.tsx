@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Box } from "@chakra-ui/react";
-import { ICustomer } from "@types";
+import { ICustomer, ActionType } from "@types";
 import { Search, Button, Modal, Table, TableColumn } from "@components";
 
 const Dashboard: React.FC = () => {
@@ -26,24 +26,15 @@ const Dashboard: React.FC = () => {
     handleOpenModal("Add Customer");
   };
 
-  const handleAction = (type: "Add" | "Edit" | "View", id?: number) => {
-    switch (type) {
-      case "Add":
-        handleOpenModal("Add Customer");
-        break;
-      case "Edit":
-      case "View":
-        if (id !== undefined) {
-          const customer = data.find((item) => item.id === id);
-          if (customer) {
-            handleOpenModal(
-              type === "Edit" ? "Edit Customer" : "View Customer",
-              customer
-            );
-          }
-        }
-        break;
-    }
+  const handleAction = (type: ActionType, id?: number) => {
+    const customer =
+      id !== undefined ? data.find((item) => item.id === id) : undefined;
+
+    customer &&
+      handleOpenModal(
+        type === "Edit" ? "Edit Customer" : "View Customer",
+        customer
+      );
   };
 
   // Mock data
