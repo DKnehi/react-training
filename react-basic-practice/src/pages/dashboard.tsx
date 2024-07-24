@@ -1,10 +1,22 @@
 import React from "react";
 import { Box, useDisclosure } from "@chakra-ui/react";
 import { ICustomer } from "@types";
-import { Search, Button, Modal, Table, TableColumn } from "@components";
+import {
+  Search,
+  Button,
+  Modal,
+  Table,
+  TableColumn,
+  OptionMenu,
+} from "@components";
+import { useState } from "react";
 
 const Dashboard: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [modalHeaderText, setModalHeaderText] = useState("Add Customer");
+  const [selectedCustomerId, setSelectedCustomerId] = useState<number | null>(
+    null
+  );
   // Mock data
   const data: ICustomer[] = [
     {
@@ -49,21 +61,50 @@ const Dashboard: React.FC = () => {
     },
   ];
 
+  const handleEdit = (id: number) => {
+    setModalHeaderText("Edit Customer");
+    setSelectedCustomerId(id);
+    onOpen();
+  };
+
   return (
     <Box>
       <Box
-      backgroundColor= "linkWater"
+        backgroundColor="linkWater"
         display="flex"
         justifyContent="space-between"
         width="100%"
         padding="16px 20px"
       >
         <Search />
-        <Button label="+ Add Customer" variant="shadow" onClick={onOpen} />
+        <Button
+          label="+ Add Customer"
+          variant="shadow"
+          onClick={() => {
+            setModalHeaderText("Add Customer");
+            setSelectedCustomerId(null);
+            onOpen();
+          }}
+        />
       </Box>
       {/* Table demo */}
-      <Table columns={TableColumn} data={data} />
-      <Modal isOpen={isOpen} onClose={onClose} />
+      <Table
+        columns={TableColumn.map((column) => ({
+          ...column,
+          value: (data: ICustomer) =>
+            column.key === "options" ? (
+              <OptionMenu
+                onView={() => console.log(`View ${data.id}`)}
+                onEdit={() => handleEdit(data.id)}
+                onDelete={() => console.log(`Delete ${data.id}`)}
+              />
+            ) : (
+              column.value(data)
+            ),
+        }))}
+        data={data}
+      />
+      <Modal isOpen={isOpen} onClose={onClose} headerText={modalHeaderText} />
     </Box>
   );
 };
