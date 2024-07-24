@@ -1,5 +1,5 @@
-import React from "react";
-import { Box, useDisclosure } from "@chakra-ui/react";
+import React, { useState } from "react";
+import { Box } from "@chakra-ui/react";
 import { ICustomer } from "@types";
 import {
   Search,
@@ -9,14 +9,39 @@ import {
   TableColumn,
   OptionMenu,
 } from "@components";
-import { useState } from "react";
 
 const Dashboard: React.FC = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const [modalHeaderText, setModalHeaderText] = useState("Add Customer");
-  const [selectedCustomerId, setSelectedCustomerId] = useState<number | null>(
-    null
-  );
+  const [isOpen, setIsOpen] = useState(false);
+  const [modalHeader, setModalHeader] = useState("Add Customer");
+  const [viewData, setViewData] = useState<ICustomer | null>(null);
+
+  const handleOpenModal = (header: string, data: ICustomer | null = null) => {
+    setModalHeader(header);
+    setViewData(data);
+    setIsOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsOpen(false);
+    setViewData(null);
+  };
+
+  const handleAction = (type: "Add" | "Edit" | "View", id?: number) => {
+    if (type === "Add") {
+      handleOpenModal("Add Customer");
+    } else if (type === "Edit" && id !== undefined) {
+      const customer = data.find((item) => item.id === id);
+      if (customer) {
+        handleOpenModal("Edit Customer", customer);
+      }
+    } else if (type === "View" && id !== undefined) {
+      const customer = data.find((item) => item.id === id);
+      if (customer) {
+        handleOpenModal("View Customer", customer);
+      }
+    }
+  };
+
   // Mock data
   const data: ICustomer[] = [
     {
@@ -61,12 +86,6 @@ const Dashboard: React.FC = () => {
     },
   ];
 
-  const handleEdit = (id: number) => {
-    setModalHeaderText("Edit Customer");
-    setSelectedCustomerId(id);
-    onOpen();
-  };
-
   return (
     <Box>
       <Box
@@ -80,31 +99,17 @@ const Dashboard: React.FC = () => {
         <Button
           label="+ Add Customer"
           variant="shadow"
-          onClick={() => {
-            setModalHeaderText("Add Customer");
-            setSelectedCustomerId(null);
-            onOpen();
-          }}
+          onClick={() => handleOpenModal("Add Customer")}
         />
       </Box>
       {/* Table demo */}
-      <Table
-        columns={TableColumn.map((column) => ({
-          ...column,
-          value: (data: ICustomer) =>
-            column.key === "options" ? (
-              <OptionMenu
-                onView={() => console.log(`View ${data.id}`)}
-                onEdit={() => handleEdit(data.id)}
-                onDelete={() => console.log(`Delete ${data.id}`)}
-              />
-            ) : (
-              column.value(data)
-            ),
-        }))}
-        data={data}
+      <Table columns={TableColumn} data={data} action={handleAction} />
+      <Modal
+        isOpen={isOpen}
+        onClose={handleCloseModal}
+        headerText={modalHeader}
+        viewData={viewData}
       />
-      <Modal isOpen={isOpen} onClose={onClose} headerText={modalHeaderText} />
     </Box>
   );
 };

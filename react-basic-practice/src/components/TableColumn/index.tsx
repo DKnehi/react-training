@@ -71,10 +71,13 @@ const TableColumn: ICustomerColumn[] = [
   },
   {
     key: "options",
-    value: (data: ICustomer) => (
+    value: (
+      data: ICustomer,
+      action?: (type: "Add" | "Edit" | "View", id?: number) => void
+    ) => (
       <OptionMenu
-        onView={() => console.log(`View ${data.id}`)}
-        onEdit={() => console.log(`Edit ${data.id}`)}
+        onView={() => action?.("View", data.id)}
+        onEdit={() => action?.("Edit", data.id)}
         onDelete={() => console.log(`Delete ${data.id}`)}
       />
     ),
