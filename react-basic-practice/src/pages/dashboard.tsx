@@ -15,7 +15,7 @@ import { MODAL_TITLES } from "@constants";
 const Dashboard: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [modalTitle, setModalTitle] = useState("Add Customer");
-  const [customerData, setCustomerData] = useState<ICustomer | undefined>(undefined);
+  const [customerData, setCustomerData] = useState<ICustomer>();
 
   const handleOpenModal = (title: string, data?: ICustomer) => {
     setModalTitle(title);
