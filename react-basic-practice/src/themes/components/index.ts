@@ -5,6 +5,7 @@ import { Menu } from "./menu";
 import { Textarea } from "./textarea";
 import { Select } from "./select";
 import { FormLabel } from "./form-label";
+import { Heading } from "./heading";
 
 export const components = {
   Button,
@@ -14,4 +15,5 @@ export const components = {
   Textarea,
   Select,
   FormLabel,
+  Heading,
 };

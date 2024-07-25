@@ -10,7 +10,7 @@ const createOptionMenuHandler = (
 ) => ({
   onView: () => action("View", data.id),
   onEdit: () => action("Edit", data.id),
-  onDelete: () => console.log(`Delete ${data.id}`),
+  onDelete: () => action("Delete", data.id),
 });
 
 const TableColumn: ICustomerColumn[] = [
