@@ -35,20 +35,21 @@ const Dashboard: React.FC = () => {
   const handleAction = (type: ActionType, id?: number) => {
     const customer = id && data.find((item) => item.id === id);
 
-    customer &&
+    if (customer) {
       handleOpenModal(
         type === "Edit"
           ? MODAL_TITLES.EDIT_CUSTOMER
           : MODAL_TITLES.VIEW_CUSTOMER,
         customer
       );
+    }
   };
 
   const renderModalContent = () =>
     modalTitle === MODAL_TITLES.VIEW_CUSTOMER && viewData ? (
       <CustomerView data={viewData} />
     ) : (
-      <CustomerForm />
+      <CustomerForm data={viewData} />
     );
   // Mock data
   const data: ICustomer[] = [
