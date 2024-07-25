@@ -13,6 +13,7 @@ interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   title: string;
+  isEdit?: boolean;
   onSubmit?: () => void;
   children: React.ReactNode;
 }
@@ -21,6 +22,7 @@ const Modal: React.FC<ModalProps> = ({
   isOpen,
   onClose,
   title,
+  isEdit,
   onSubmit,
   children,
 }) => {
@@ -46,7 +48,7 @@ const Modal: React.FC<ModalProps> = ({
         >
           {onSubmit && (
             <Button
-              label={title === "Edit Customer" ? "Save" : "Create"}
+            label={isEdit ? "Save" : "Create"}
               variant="primary"
               size="sm"
               onClick={onSubmit}

@@ -85,14 +85,16 @@ const TableColumn: ICustomerColumn[] = [
       data: ICustomer,
       action?: (type: ActionType, id?: number) => void
     ) => {
-      const handlers = createOptionMenuHandler(action!, data);
-      return (
-        <OptionMenu
-          onView={handlers.onView}
-          onEdit={handlers.onEdit}
-          onDelete={handlers.onDelete}
-        />
-      );
+      if (action) {
+        const handlers = createOptionMenuHandler(action, data);
+        return (
+          <OptionMenu
+            onView={handlers.onView}
+            onEdit={handlers.onEdit}
+            onDelete={handlers.onDelete}
+          />
+        );
+      }
     },
   },
 ];

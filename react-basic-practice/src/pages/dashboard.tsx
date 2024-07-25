@@ -99,7 +99,8 @@ const Dashboard: React.FC = () => {
         isOpen={isOpen}
         onClose={handleCloseModal}
         title={modalTitle}
-        onSubmit={modalTitle !== "View Customer" ? handleCloseModal : undefined}
+        isEdit={modalTitle === "Edit Customer"}
+        {...(modalTitle !== "View Customer" && { onSubmit: handleCloseModal })}
       >
         <Form/>
       </Modal>
