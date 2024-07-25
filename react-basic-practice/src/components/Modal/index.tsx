@@ -8,24 +8,22 @@ import {
   ModalBody,
 } from "@chakra-ui/react";
 import Button from "../Button";
-import Form from "../Form";
-import { ICustomer } from "@types";
 
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
-  headerText?: string;
-  viewData?: ICustomer;
+  title: string;
+  onSubmit?: () => void;
+  children: React.ReactNode;
 }
 
 const Modal: React.FC<ModalProps> = ({
   isOpen,
   onClose,
-  headerText = "Add Customer",
+  title,
+  onSubmit,
+  children,
 }) => {
-  const isEdit = headerText === "Edit Customer";
-  const isView = headerText === "View Customer";
-
   return (
     <ChakraModal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
@@ -37,22 +35,21 @@ const Modal: React.FC<ModalProps> = ({
           fontSize="lg"
           color="mirage"
         >
-          {headerText}
+          {title}
         </ModalHeader>
-        <ModalBody padding="19px 0 0 0">
-          <Form />
-        </ModalBody>
+        <ModalBody padding="19px 0 0 0">{children}</ModalBody>
         <ModalFooter
           justifyContent="center"
           flexDirection="column"
           gap="13px"
           padding="45px 0 27px 0"
         >
-          {!isView && (
+          {onSubmit && (
             <Button
-              label={isEdit ? "Save" : "Create"}
+              label={title === "Edit Customer" ? "Save" : "Create"}
               variant="primary"
               size="sm"
+              onClick={onSubmit}
             />
           )}
           <Button

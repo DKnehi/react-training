@@ -1,18 +1,15 @@
 import React, { useState } from "react";
 import { Box } from "@chakra-ui/react";
 import { ICustomer, ActionType } from "@types";
-import { Search, Button, Modal, Table, TableColumn } from "@components";
+import { Search, Button, Modal, Table, TableColumn, Form } from "@components";
 
 const Dashboard: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [modalHeader, setModalHeader] = useState("Add Customer");
+  const [modalTitle, setModalTitle] = useState("Add Customer");
   const [viewData, setViewData] = useState<ICustomer | undefined>(undefined);
 
-  const handleOpenModal = (
-    header: string,
-    data?: ICustomer,
-  ) => {
-    setModalHeader(header);
+  const handleOpenModal = (title: string, data?: ICustomer) => {
+    setModalTitle(title);
     setViewData(data);
     setIsOpen(true);
   };
@@ -22,13 +19,12 @@ const Dashboard: React.FC = () => {
     setViewData(undefined);
   };
 
-  const handleAddCustomerClick = () => {
+  const handleAddCustomer = () => {
     handleOpenModal("Add Customer");
   };
 
   const handleAction = (type: ActionType, id?: number) => {
-    const customer =
-    id && data.find((item) => item.id === id);
+    const customer = id && data.find((item) => item.id === id);
 
     customer &&
       handleOpenModal(
@@ -81,6 +77,10 @@ const Dashboard: React.FC = () => {
     },
   ];
 
+  const renderModalContent = () => {
+    return <Form />;
+  };
+
   return (
     <Box>
       <Box
@@ -94,7 +94,7 @@ const Dashboard: React.FC = () => {
         <Button
           label="+ Add Customer"
           variant="shadow"
-          onClick={handleAddCustomerClick}
+          onClick={handleAddCustomer}
         />
       </Box>
       {/* Table demo */}
@@ -102,9 +102,11 @@ const Dashboard: React.FC = () => {
       <Modal
         isOpen={isOpen}
         onClose={handleCloseModal}
-        headerText={modalHeader}
-        viewData={viewData}
-      />
+        title={modalTitle}
+        onSubmit={modalTitle !== "View Customer" ? handleCloseModal : undefined}
+      >
+        {renderModalContent()}
+      </Modal>
     </Box>
   );
 };
