@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react";
 import Input from "../Input";
 
-const Form: React.FC = () => {
+const CustomerForm: React.FC = () => {
   return (
     <Grid templateColumns="repeat(2, 1fr)" rowGap="20px" columnGap="30px">
       <GridItem colSpan={1}>
@@ -57,4 +57,4 @@ const Form: React.FC = () => {
   );
 };
 
-export default Form;
+export default CustomerForm;

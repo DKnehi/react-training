@@ -8,13 +8,11 @@ const TableFinance: React.FC<ITablePrice> = ({
   isBalance,
   showCurrency = true,
 }) => {
-  let color: string | undefined;
-  if (isBalance) {
-    const numericValue = extractNumericValue(value);
-    color = numericValue < 0 ? "brickRed" : "jewel";
-  } else {
-    color = "riverbed";
-  }
+  const color = isBalance
+    ? extractNumericValue(value) < 0
+      ? "brickRed"
+      : "jewel"
+    : "riverbed";
 
   return (
     <Box fontWeight="normal">
@@ -22,11 +20,7 @@ const TableFinance: React.FC<ITablePrice> = ({
         {value}
       </Text>
       {showCurrency && (
-        <Text
-          fontSize="sm"
-          lineHeight="shorter"
-          color="paleSky"
-        >
+        <Text fontSize="sm" lineHeight="shorter" color="paleSky">
           CAD
         </Text>
       )}
