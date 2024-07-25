@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Box } from "@chakra-ui/react";
 import { ICustomer, ActionType } from "@types";
 import { Search, Button, Modal, Table, TableColumn, Form } from "@components";
+import { MODAL_TITLES } from "@constants";
 
 const Dashboard: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,7 +21,7 @@ const Dashboard: React.FC = () => {
   };
 
   const handleAddCustomer = () => {
-    handleOpenModal("Add Customer");
+    handleOpenModal(MODAL_TITLES.ADD_CUSTOMER);
   };
 
   const handleAction = (type: ActionType, id?: number) => {
@@ -28,7 +29,9 @@ const Dashboard: React.FC = () => {
 
     customer &&
       handleOpenModal(
-        type === "Edit" ? "Edit Customer" : "View Customer",
+        type === "Edit"
+          ? MODAL_TITLES.EDIT_CUSTOMER
+          : MODAL_TITLES.VIEW_CUSTOMER,
         customer
       );
   };
@@ -99,10 +102,12 @@ const Dashboard: React.FC = () => {
         isOpen={isOpen}
         onClose={handleCloseModal}
         title={modalTitle}
-        isEdit={modalTitle === "Edit Customer"}
-        {...(modalTitle !== "View Customer" && { onSubmit: handleCloseModal })}
+        isEdit={modalTitle === MODAL_TITLES.EDIT_CUSTOMER}
+        {...(modalTitle !== MODAL_TITLES.VIEW_CUSTOMER && {
+          onSubmit: handleCloseModal,
+        })}
       >
-        <Form/>
+        <Form />
       </Modal>
     </Box>
   );

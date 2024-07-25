@@ -48,7 +48,7 @@ const Modal: React.FC<ModalProps> = ({
         >
           {onSubmit && (
             <Button
-            label={isEdit ? "Save" : "Create"}
+              label={isEdit ? "Save" : "Create"}
               variant="primary"
               size="sm"
               onClick={onSubmit}
