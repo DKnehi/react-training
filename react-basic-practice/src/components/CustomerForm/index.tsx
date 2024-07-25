@@ -20,7 +20,7 @@ const CustomerForm: React.FC<CustomerFormProps> = ({ data }) => {
       <GridItem colSpan={1}>
         <FormControl>
           <FormLabel>Name</FormLabel>
-          <Input defaultValue={data?.name} placeholder="Name" />
+          <Input value={data?.name} placeholder="Name" />
         </FormControl>
       </GridItem>
       <GridItem colSpan={1}>
@@ -37,25 +37,25 @@ const CustomerForm: React.FC<CustomerFormProps> = ({ data }) => {
       <GridItem colSpan={1}>
         <FormControl>
           <FormLabel>Rate</FormLabel>
-          <Input defaultValue={data?.rate} placeholder="$" />
+          <Input value={data?.rate} placeholder="$" />
         </FormControl>
       </GridItem>
       <GridItem colSpan={1}>
         <FormControl>
           <FormLabel>Balance</FormLabel>
-          <Input defaultValue={data?.balance} placeholder="$" />
+          <Input value={data?.balance} placeholder="$" />
         </FormControl>
       </GridItem>
       <GridItem colSpan={1}>
         <FormControl>
           <FormLabel>Deposit</FormLabel>
-          <Input defaultValue={data?.deposit} placeholder="$" />
+          <Input value={data?.deposit} placeholder="$" />
         </FormControl>
       </GridItem>
       <GridItem colSpan={1}>
         <FormControl>
           <FormLabel>Description</FormLabel>
-          <Textarea defaultValue={data?.description} />
+          <Textarea value={data?.description} />
         </FormControl>
       </GridItem>
     </Grid>
