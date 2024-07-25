@@ -26,7 +26,6 @@ const TableFinance: React.FC<ITablePrice> = ({
           fontSize="sm"
           lineHeight="shorter"
           color="paleSky"
-          letterSpacing=""
         >
           CAD
         </Text>

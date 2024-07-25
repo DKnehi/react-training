@@ -7,5 +7,5 @@ export { default as TableFinance } from "./TableFinance";
 export { default as TableColumn } from "./TableColumn";
 export { default as OptionMenu } from "./OptionsMenu";
 export { default as Modal } from "./Modal";
-export { default as Form } from "./Form";
-export { default as FormView } from "./FormView";
+export { default as CustomerForm } from "./CustomerForm";
+export { default as CustomerView } from "./CustomerView";

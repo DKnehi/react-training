@@ -7,8 +7,8 @@ import {
   Modal,
   Table,
   TableColumn,
-  Form,
-  FormView,
+  CustomerForm,
+  CustomerView,
 } from "@components";
 import { MODAL_TITLES } from "@constants";
 
@@ -44,13 +44,12 @@ const Dashboard: React.FC = () => {
       );
   };
 
-  const renderModalContent = () => {
-    if (modalTitle === "View Customer" && viewData) {
-      return <FormView data={viewData} />;
-    } else {
-      return <Form />;
-    }
-  };
+  const renderModalContent = () =>
+    modalTitle === MODAL_TITLES.VIEW_CUSTOMER && viewData ? (
+      <CustomerView data={viewData} />
+    ) : (
+      <CustomerForm />
+    );
   // Mock data
   const data: ICustomer[] = [
     {

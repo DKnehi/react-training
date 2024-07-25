@@ -1,5 +1,5 @@
 import React from "react";
-import { FormControl, FormLabel, Grid, GridItem, Text } from "@chakra-ui/react";
+import { Box, FormLabel, Grid, GridItem, Text } from "@chakra-ui/react";
 import { ICustomer } from "@types";
 import TableFinance from "../TableFinance";
 import TableStatus from "../TableStatus";
@@ -12,7 +12,7 @@ const FormView: React.FC<ViewCustomerProps> = ({ data }) => {
   return (
     <Grid templateColumns="repeat(2, 1fr)" rowGap="50px">
       <GridItem colSpan={1}>
-        <FormControl>
+        <Box>
           <FormLabel>Name</FormLabel>
           <Text
             fontSize="md"
@@ -23,34 +23,34 @@ const FormView: React.FC<ViewCustomerProps> = ({ data }) => {
           >
             {data.name}
           </Text>
-        </FormControl>
+        </Box>
       </GridItem>
       <GridItem colSpan={1}>
-        <FormControl width="342px">
+        <Box width="342px">
           <FormLabel>Status</FormLabel>
           <TableStatus status={data.status} />
-        </FormControl>
+        </Box>
       </GridItem>
       <GridItem colSpan={1}>
-        <FormControl>
+        <Box>
           <FormLabel>Rate</FormLabel>
           <TableFinance value={data.rate} showCurrency={false} />
-        </FormControl>
+        </Box>
       </GridItem>
       <GridItem colSpan={1}>
-        <FormControl>
+        <Box>
           <FormLabel>Balance</FormLabel>
           <TableFinance value={data.balance} isBalance showCurrency={false} />
-        </FormControl>
+        </Box>
       </GridItem>
       <GridItem colSpan={1}>
-        <FormControl>
+        <Box>
           <FormLabel>Deposit</FormLabel>
           <TableFinance value={data.deposit} showCurrency={false} />
-        </FormControl>
+        </Box>
       </GridItem>
       <GridItem colSpan={1}>
-        <FormControl>
+        <Box>
           <FormLabel>Description</FormLabel>
           <Text
             width="318px"
@@ -61,7 +61,7 @@ const FormView: React.FC<ViewCustomerProps> = ({ data }) => {
           >
             {data.description}
           </Text>
-        </FormControl>
+        </Box>
       </GridItem>
     </Grid>
   );
