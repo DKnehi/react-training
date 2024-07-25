@@ -3,7 +3,11 @@ import { Box, Text } from "@chakra-ui/react";
 import { ITablePrice } from "@types";
 import { extractNumericValue } from "@utils";
 
-const TableFinance: React.FC<ITablePrice> = ({ value, isBalance }) => {
+const TableFinance: React.FC<ITablePrice> = ({
+  value,
+  isBalance,
+  showCurrency = true,
+}) => {
   let color: string | undefined;
   if (isBalance) {
     const numericValue = extractNumericValue(value);
@@ -17,9 +21,16 @@ const TableFinance: React.FC<ITablePrice> = ({ value, isBalance }) => {
       <Text fontSize="md" lineHeight="short" color={color}>
         {value}
       </Text>
-      <Text fontSize="sm" lineHeight="shorter" color="paleSky" letterSpacing="">
-        CAD
-      </Text>
+      {showCurrency && (
+        <Text
+          fontSize="sm"
+          lineHeight="shorter"
+          color="paleSky"
+          letterSpacing=""
+        >
+          CAD
+        </Text>
+      )}
     </Box>
   );
 };

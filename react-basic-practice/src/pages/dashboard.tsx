@@ -1,7 +1,15 @@
 import React, { useState } from "react";
 import { Box } from "@chakra-ui/react";
 import { ICustomer, ActionType } from "@types";
-import { Search, Button, Modal, Table, TableColumn, Form } from "@components";
+import {
+  Search,
+  Button,
+  Modal,
+  Table,
+  TableColumn,
+  Form,
+  FormView,
+} from "@components";
 import { MODAL_TITLES } from "@constants";
 
 const Dashboard: React.FC = () => {
@@ -36,6 +44,13 @@ const Dashboard: React.FC = () => {
       );
   };
 
+  const renderModalContent = () => {
+    if (modalTitle === "View Customer" && viewData) {
+      return <FormView data={viewData} />;
+    } else {
+      return <Form />;
+    }
+  };
   // Mock data
   const data: ICustomer[] = [
     {
@@ -107,7 +122,7 @@ const Dashboard: React.FC = () => {
           onSubmit: handleCloseModal,
         })}
       >
-        <Form />
+        {renderModalContent()}
       </Modal>
     </Box>
   );
