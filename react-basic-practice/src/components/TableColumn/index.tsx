@@ -2,6 +2,16 @@ import React from "react";
 import { Box, Text } from "@chakra-ui/react";
 import { ICustomerColumn, ICustomer } from "@types";
 import { TableStatus, TableFinance, OptionMenu } from "@components";
+import { ActionType } from "@types";
+
+const createOptionMenuHandler = (
+  action: (type: ActionType, id?: number) => void,
+  data: ICustomer
+) => ({
+  onView: () => action("View", data.id),
+  onEdit: () => action("Edit", data.id),
+  onDelete: () => console.log(`Delete ${data.id}`),
+});
 
 const TableColumn: ICustomerColumn[] = [
   {
@@ -71,13 +81,21 @@ const TableColumn: ICustomerColumn[] = [
   },
   {
     key: "options",
-    value: (data: ICustomer) => (
-      <OptionMenu
-        onView={() => console.log(`View ${data.id}`)}
-        onEdit={() => console.log(`Edit ${data.id}`)}
-        onDelete={() => console.log(`Delete ${data.id}`)}
-      />
-    ),
+    value: (
+      data: ICustomer,
+      action?: (type: ActionType, id?: number) => void
+    ) => {
+      if (action) {
+        const handlers = createOptionMenuHandler(action, data);
+        return (
+          <OptionMenu
+            onView={handlers.onView}
+            onEdit={handlers.onEdit}
+            onDelete={handlers.onDelete}
+          />
+        );
+      }
+    },
   },
 ];
 

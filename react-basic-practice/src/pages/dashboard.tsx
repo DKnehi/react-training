@@ -1,10 +1,41 @@
-import React from "react";
-import { Box, useDisclosure } from "@chakra-ui/react";
-import { ICustomer } from "@types";
-import { Search, Button, Modal, Table, TableColumn } from "@components";
+import React, { useState } from "react";
+import { Box } from "@chakra-ui/react";
+import { ICustomer, ActionType } from "@types";
+import { Search, Button, Modal, Table, TableColumn, Form } from "@components";
+import { MODAL_TITLES } from "@constants";
 
 const Dashboard: React.FC = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isOpen, setIsOpen] = useState(false);
+  const [modalTitle, setModalTitle] = useState("Add Customer");
+  const [viewData, setViewData] = useState<ICustomer | undefined>(undefined);
+
+  const handleOpenModal = (title: string, data?: ICustomer) => {
+    setModalTitle(title);
+    setViewData(data);
+    setIsOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsOpen(false);
+    setViewData(undefined);
+  };
+
+  const handleAddCustomer = () => {
+    handleOpenModal(MODAL_TITLES.ADD_CUSTOMER);
+  };
+
+  const handleAction = (type: ActionType, id?: number) => {
+    const customer = id && data.find((item) => item.id === id);
+
+    customer &&
+      handleOpenModal(
+        type === "Edit"
+          ? MODAL_TITLES.EDIT_CUSTOMER
+          : MODAL_TITLES.VIEW_CUSTOMER,
+        customer
+      );
+  };
+
   // Mock data
   const data: ICustomer[] = [
     {
@@ -52,18 +83,32 @@ const Dashboard: React.FC = () => {
   return (
     <Box>
       <Box
-      backgroundColor= "linkWater"
+        backgroundColor="linkWater"
         display="flex"
         justifyContent="space-between"
         width="100%"
         padding="16px 20px"
       >
         <Search />
-        <Button label="+ Add Customer" variant="shadow" onClick={onOpen} />
+        <Button
+          label="+ Add Customer"
+          variant="shadow"
+          onClick={handleAddCustomer}
+        />
       </Box>
       {/* Table demo */}
-      <Table columns={TableColumn} data={data} />
-      <Modal isOpen={isOpen} onClose={onClose} />
+      <Table columns={TableColumn} data={data} action={handleAction} />
+      <Modal
+        isOpen={isOpen}
+        onClose={handleCloseModal}
+        title={modalTitle}
+        isEdit={modalTitle === MODAL_TITLES.EDIT_CUSTOMER}
+        {...(modalTitle !== MODAL_TITLES.VIEW_CUSTOMER && {
+          onSubmit: handleCloseModal,
+        })}
+      >
+        <Form />
+      </Modal>
     </Box>
   );
 };

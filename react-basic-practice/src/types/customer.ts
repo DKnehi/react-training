@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { ActionType } from "./action";
 
 export interface ICustomer {
   id: number;
@@ -13,13 +14,17 @@ export interface ICustomer {
 export interface ICustomerTableProps {
   columns: ICustomerColumn[];
   data: ICustomer[];
+  action?: (type: ActionType, id?: number) => void;
 }
 
 export interface ICustomerColumn {
   key: string;
   label?: string;
   sortable?: boolean;
-  value: (data: ICustomer) => ReactNode;
+  value: (
+    data: ICustomer,
+    action?: (type: ActionType, id?: number) => void
+  ) => ReactNode;
 }
 
 export interface IStatusProps {
@@ -36,4 +41,5 @@ export interface ITableRowProps {
 export interface ITablePrice {
   value: string;
   isBalance?: boolean;
+  showCurrency?: boolean;
 }

@@ -7,6 +7,7 @@ const { definePartsStyle, defineMultiStyleConfig } =
 const baseStyle = definePartsStyle({
   field: {
     border: "1px",
+    borderRadius: "base",
     _placeholder: {
       color: "riverbed",
       fontSize: "md",
@@ -32,11 +33,11 @@ const variantForm = definePartsStyle({
   field: {
     width: "342px",
     height: "51px",
-    borderColor: "paleSky",
     borderRadius: "base",
+    borderColor: "paleSky",
     _hover: {
       borderColor: "paleSky",
-    }
+    },
   },
 });
 
