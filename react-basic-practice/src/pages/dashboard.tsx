@@ -15,17 +15,17 @@ import { MODAL_TITLES } from "@constants";
 const Dashboard: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [modalTitle, setModalTitle] = useState("Add Customer");
-  const [viewData, setViewData] = useState<ICustomer | undefined>(undefined);
+  const [customerData, setCustomerData] = useState<ICustomer>();
 
   const handleOpenModal = (title: string, data?: ICustomer) => {
     setModalTitle(title);
-    setViewData(data);
+    setCustomerData(data);
     setIsOpen(true);
   };
 
   const handleCloseModal = () => {
     setIsOpen(false);
-    setViewData(undefined);
+    setCustomerData(undefined);
   };
 
   const handleAddCustomer = () => {
@@ -45,10 +45,10 @@ const Dashboard: React.FC = () => {
   };
 
   const renderModalContent = () =>
-    modalTitle === MODAL_TITLES.VIEW_CUSTOMER && viewData ? (
-      <CustomerView data={viewData} />
+    modalTitle === MODAL_TITLES.VIEW_CUSTOMER && customerData ? (
+      <CustomerView data={customerData} />
     ) : (
-      <CustomerForm />
+      <CustomerForm data={customerData} />
     );
   // Mock data
   const data: ICustomer[] = [

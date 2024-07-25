@@ -8,23 +8,30 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import Input from "../Input";
+import { ICustomer } from "@types";
 
-const CustomerForm: React.FC = () => {
+interface CustomerFormProps {
+  data?: ICustomer;
+}
+
+const CustomerForm: React.FC<CustomerFormProps> = ({ data }) => {
+  const { name, status, rate, balance, deposit, description } = data || {};
+
   return (
     <Grid templateColumns="repeat(2, 1fr)" rowGap="20px" columnGap="30px">
       <GridItem colSpan={1}>
         <FormControl>
           <FormLabel>Name</FormLabel>
-          <Input placeholder="Name" />
+          <Input value={name} placeholder="Name" />
         </FormControl>
       </GridItem>
       <GridItem colSpan={1}>
         <FormControl width="342px">
           <FormLabel>Status</FormLabel>
-          <Select>
+          <Select value={status}>
             <option value="open">Open</option>
             <option value="paid">Paid</option>
-            <option value="inactive">Inactice</option>
+            <option value="inactive">Inactive</option>
             <option value="due">Due</option>
           </Select>
         </FormControl>
@@ -32,25 +39,25 @@ const CustomerForm: React.FC = () => {
       <GridItem colSpan={1}>
         <FormControl>
           <FormLabel>Rate</FormLabel>
-          <Input placeholder="$" />
+          <Input value={rate} placeholder="$" />
         </FormControl>
       </GridItem>
       <GridItem colSpan={1}>
         <FormControl>
           <FormLabel>Balance</FormLabel>
-          <Input placeholder="$" />
+          <Input value={balance} placeholder="$" />
         </FormControl>
       </GridItem>
       <GridItem colSpan={1}>
         <FormControl>
           <FormLabel>Deposit</FormLabel>
-          <Input placeholder="$" />
+          <Input value={deposit} placeholder="$" />
         </FormControl>
       </GridItem>
       <GridItem colSpan={1}>
         <FormControl>
           <FormLabel>Description</FormLabel>
-          <Textarea />
+          <Textarea value={description} />
         </FormControl>
       </GridItem>
     </Grid>
