@@ -77,10 +77,6 @@ const Dashboard: React.FC = () => {
     },
   ];
 
-  const renderModalContent = () => {
-    return <Form />;
-  };
-
   return (
     <Box>
       <Box
@@ -105,7 +101,7 @@ const Dashboard: React.FC = () => {
         title={modalTitle}
         onSubmit={modalTitle !== "View Customer" ? handleCloseModal : undefined}
       >
-        {renderModalContent()}
+        <Form/>
       </Modal>
     </Box>
   );
