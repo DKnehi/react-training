@@ -6,6 +6,8 @@ import {
   ModalHeader,
   ModalFooter,
   ModalBody,
+  Box,
+  Text,
 } from "@chakra-ui/react";
 import Button from "../Button";
 
@@ -13,7 +15,8 @@ interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   title: string;
-  isEdit?: boolean;
+  isConfirmDelete?: boolean;
+  onConfirmDelete?: () => void;
   onSubmit?: () => void;
   children: React.ReactNode;
 }
@@ -22,7 +25,8 @@ const Modal: React.FC<ModalProps> = ({
   isOpen,
   onClose,
   title,
-  isEdit,
+  isConfirmDelete,
+  onConfirmDelete,
   onSubmit,
   children,
 }) => {
@@ -39,27 +43,54 @@ const Modal: React.FC<ModalProps> = ({
         >
           {title}
         </ModalHeader>
-        <ModalBody padding="19px 0 0 0">{children}</ModalBody>
+        <ModalBody padding="19px 0 0 0">
+          {isConfirmDelete ? (
+            <Box textAlign="center">
+              <Text>Are you sure you want to delete this customer?</Text>
+            </Box>
+          ) : (
+            children
+          )}
+        </ModalBody>
         <ModalFooter
           justifyContent="center"
           flexDirection="column"
           gap="13px"
           padding="45px 0 27px 0"
         >
-          {onSubmit && (
-            <Button
-              label={isEdit ? "Save" : "Create"}
-              variant="primary"
-              size="sm"
-              onClick={onSubmit}
-            />
+          {isConfirmDelete ? (
+            <Box display="flex" justifyContent="space-around" width="100%">
+              <Button
+                label="Yes"
+                variant="primary"
+                size="sm"
+                onClick={onConfirmDelete}
+              />
+              <Button
+                label="No"
+                variant="secondary"
+                size="sm"
+                onClick={onClose}
+              />
+            </Box>
+          ) : (
+            <>
+              {onSubmit && (
+                <Button
+                  label={title === "Edit Customer" ? "Save" : "Create"}
+                  variant="primary"
+                  size="sm"
+                  onClick={onSubmit}
+                />
+              )}
+              <Button
+                label="Close"
+                variant="secondary"
+                size="sm"
+                onClick={onClose}
+              />
+            </>
           )}
-          <Button
-            label="Close"
-            variant="secondary"
-            size="sm"
-            onClick={onClose}
-          />
         </ModalFooter>
       </ModalContent>
     </ChakraModal>

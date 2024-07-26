@@ -16,16 +16,27 @@ const Dashboard: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [modalTitle, setModalTitle] = useState("Add Customer");
   const [customerData, setCustomerData] = useState<ICustomer>();
+  const [isConfirmDelete, setIsConfirmDelete] = useState(false);
+  const [deleteData, setDeleteData] = useState<ICustomer>();
 
   const handleOpenModal = (title: string, data?: ICustomer) => {
     setModalTitle(title);
     setCustomerData(data);
+    setIsOpen(true);
+    setIsConfirmDelete(false);
+  };
+
+  const handleOpenDeleteModal = (customer: ICustomer) => {
+    setDeleteData(customer);
+    setModalTitle(MODAL_TITLES.DELETE_CUSTOMER);
+    setIsConfirmDelete(true);
     setIsOpen(true);
   };
 
   const handleCloseModal = () => {
     setIsOpen(false);
     setCustomerData(undefined);
+    setDeleteData(undefined);
   };
 
   const handleAddCustomer = () => {
@@ -35,13 +46,22 @@ const Dashboard: React.FC = () => {
   const handleAction = (type: ActionType, id?: number) => {
     const customer = id && data.find((item) => item.id === id);
 
-    customer &&
+    if (type === "Delete" && customer) {
+      handleOpenDeleteModal(customer);
+    } else if (customer) {
       handleOpenModal(
         type === "Edit"
           ? MODAL_TITLES.EDIT_CUSTOMER
           : MODAL_TITLES.VIEW_CUSTOMER,
         customer
       );
+    }
+  };
+
+  const handleConfirmDelete = () => {
+    if (deleteData) {
+      handleCloseModal();
+    }
   };
 
   const renderModalContent = () =>
@@ -50,6 +70,7 @@ const Dashboard: React.FC = () => {
     ) : (
       <CustomerForm data={customerData} />
     );
+
   // Mock data
   const data: ICustomer[] = [
     {
@@ -116,10 +137,12 @@ const Dashboard: React.FC = () => {
         isOpen={isOpen}
         onClose={handleCloseModal}
         title={modalTitle}
-        isEdit={modalTitle === MODAL_TITLES.EDIT_CUSTOMER}
-        {...(modalTitle !== MODAL_TITLES.VIEW_CUSTOMER && {
-          onSubmit: handleCloseModal,
-        })}
+        isConfirmDelete={isConfirmDelete}
+        onConfirmDelete={handleConfirmDelete}
+        {...(!isConfirmDelete &&
+          modalTitle !== MODAL_TITLES.VIEW_CUSTOMER && {
+            onSubmit: handleCloseModal,
+          })}
       >
         {renderModalContent()}
       </Modal>
