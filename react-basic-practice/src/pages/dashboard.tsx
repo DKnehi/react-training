@@ -35,7 +35,6 @@ const Dashboard: React.FC = () => {
   const handleCloseModal = () => {
     setIsOpen(false);
     setCustomerData(undefined);
-    setCustomerData(undefined);
   };
 
   const handleAddCustomer = () => {
@@ -58,15 +57,20 @@ const Dashboard: React.FC = () => {
   };
 
   const renderModalContent = () => {
-    if (modalTitle === MODAL_TITLES.DELETE_CUSTOMER) {
-      return <Box textAlign="center"><Text>{MODAL_DESCRIPTION.CONFIRM_DESCRIPTION}</Text></Box>
-    }
+    switch (modalTitle) {
+      case MODAL_TITLES.DELETE_CUSTOMER:
+        return (
+          <Box textAlign="center">
+            <Text>{MODAL_DESCRIPTION.CONFIRM_DELETE_DESCRIPTION}</Text>
+          </Box>
+        );
 
-    if (modalTitle === MODAL_TITLES.VIEW_CUSTOMER && customerData) {
-      return <CustomerView data={customerData} />;
-    }
+      case MODAL_TITLES.VIEW_CUSTOMER:
+        return customerData ? <CustomerView data={customerData} /> : null;
 
-    return <CustomerForm data={customerData} />;
+      default:
+        return <CustomerForm data={customerData} />;
+    }
   };
 
   // Mock data

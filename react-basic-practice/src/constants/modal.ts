@@ -6,5 +6,5 @@ export const MODAL_TITLES = {
 };
 
 export const MODAL_DESCRIPTION = {
-  CONFIRM_DESCRIPTION: "Are you sure you want to delete this customer?",
+  CONFIRM_DELETE_DESCRIPTION: "Are you sure you want to delete this customer?",
 };
