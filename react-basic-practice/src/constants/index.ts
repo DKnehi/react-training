@@ -1,4 +1,4 @@
 export { columns } from "./columns";
 export { API } from "./url";
 export { STATUS } from "./status";
-export { MODAL_TITLES } from "./modal";
+export * from "./modal";

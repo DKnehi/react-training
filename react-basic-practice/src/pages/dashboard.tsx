@@ -10,14 +10,14 @@ import {
   CustomerForm,
   CustomerView,
 } from "@components";
-import { MODAL_TITLES } from "@constants";
+import { MODAL_TITLES, MODAL_DESCRIPTION } from "@constants";
+
 
 const Dashboard: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [modalTitle, setModalTitle] = useState("Add Customer");
   const [customerData, setCustomerData] = useState<ICustomer>();
   const [isConfirmDelete, setIsConfirmDelete] = useState(false);
-  const [deleteData, setDeleteData] = useState<ICustomer>();
 
   const handleOpenModal = (title: string, data?: ICustomer) => {
     setModalTitle(title);
@@ -27,7 +27,7 @@ const Dashboard: React.FC = () => {
   };
 
   const handleOpenDeleteModal = (customer: ICustomer) => {
-    setDeleteData(customer);
+    setCustomerData(customer);
     setModalTitle(MODAL_TITLES.DELETE_CUSTOMER);
     setIsConfirmDelete(true);
     setIsOpen(true);
@@ -36,7 +36,7 @@ const Dashboard: React.FC = () => {
   const handleCloseModal = () => {
     setIsOpen(false);
     setCustomerData(undefined);
-    setDeleteData(undefined);
+    setCustomerData(undefined);
   };
 
   const handleAddCustomer = () => {
@@ -59,7 +59,7 @@ const Dashboard: React.FC = () => {
   };
 
   const handleConfirmDelete = () => {
-    if (deleteData) {
+    if (customerData) {
       handleCloseModal();
     }
   };
@@ -137,8 +137,9 @@ const Dashboard: React.FC = () => {
         isOpen={isOpen}
         onClose={handleCloseModal}
         title={modalTitle}
-        isConfirmDelete={isConfirmDelete}
-        onConfirmDelete={handleConfirmDelete}
+        confirmDescription={MODAL_DESCRIPTION.CONFIRM_DESCRIPTION}
+        isConfirm={isConfirmDelete}
+        onConfirm={handleConfirmDelete}
         {...(!isConfirmDelete &&
           modalTitle !== MODAL_TITLES.VIEW_CUSTOMER && {
             onSubmit: handleCloseModal,

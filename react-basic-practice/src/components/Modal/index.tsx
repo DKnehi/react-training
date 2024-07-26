@@ -10,13 +10,15 @@ import {
   Text,
 } from "@chakra-ui/react";
 import Button from "../Button";
+import { MODAL_TITLES } from "@constants";
 
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   title: string;
-  isConfirmDelete?: boolean;
-  onConfirmDelete?: () => void;
+  confirmDescription?: string;
+  isConfirm?: boolean;
+  onConfirm?: () => void;
   onSubmit?: () => void;
   children: React.ReactNode;
 }
@@ -25,8 +27,9 @@ const Modal: React.FC<ModalProps> = ({
   isOpen,
   onClose,
   title,
-  isConfirmDelete,
-  onConfirmDelete,
+  confirmDescription,
+  isConfirm,
+  onConfirm,
   onSubmit,
   children,
 }) => {
@@ -44,9 +47,9 @@ const Modal: React.FC<ModalProps> = ({
           {title}
         </ModalHeader>
         <ModalBody padding="19px 0 0 0">
-          {isConfirmDelete ? (
+          {isConfirm ? (
             <Box textAlign="center">
-              <Text>Are you sure you want to delete this customer?</Text>
+              <Text>{confirmDescription}</Text>
             </Box>
           ) : (
             children
@@ -58,13 +61,13 @@ const Modal: React.FC<ModalProps> = ({
           gap="13px"
           padding="45px 0 27px 0"
         >
-          {isConfirmDelete ? (
+          {isConfirm ? (
             <Box display="flex" justifyContent="space-around" width="100%">
               <Button
                 label="Yes"
                 variant="primary"
                 size="sm"
-                onClick={onConfirmDelete}
+                onClick={onConfirm}
               />
               <Button
                 label="No"
@@ -77,7 +80,9 @@ const Modal: React.FC<ModalProps> = ({
             <>
               {onSubmit && (
                 <Button
-                  label={title === "Edit Customer" ? "Save" : "Create"}
+                  label={
+                    title === MODAL_TITLES.EDIT_CUSTOMER ? "Save" : "Create"
+                  }
                   variant="primary"
                   size="sm"
                   onClick={onSubmit}
