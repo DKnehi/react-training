@@ -16,7 +16,6 @@ interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   title: string;
-  confirmDescription?: string;
   isConfirm?: boolean;
   onConfirm?: () => void;
   onSubmit?: () => void;
@@ -27,7 +26,6 @@ const Modal: React.FC<ModalProps> = ({
   isOpen,
   onClose,
   title,
-  confirmDescription,
   isConfirm,
   onConfirm,
   onSubmit,
@@ -46,15 +44,7 @@ const Modal: React.FC<ModalProps> = ({
         >
           {title}
         </ModalHeader>
-        <ModalBody padding="19px 0 0 0">
-          {isConfirm ? (
-            <Box textAlign="center">
-              <Text>{confirmDescription}</Text>
-            </Box>
-          ) : (
-            children
-          )}
-        </ModalBody>
+        <ModalBody padding="19px 0 0 0">{children}</ModalBody>
         <ModalFooter
           justifyContent="center"
           flexDirection="column"

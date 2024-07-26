@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 import { ICustomer, ActionType } from "@types";
 import {
   Search,
@@ -11,7 +11,6 @@ import {
   CustomerView,
 } from "@components";
 import { MODAL_TITLES, MODAL_DESCRIPTION } from "@constants";
-
 
 const Dashboard: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -64,12 +63,17 @@ const Dashboard: React.FC = () => {
     }
   };
 
-  const renderModalContent = () =>
-    modalTitle === MODAL_TITLES.VIEW_CUSTOMER && customerData ? (
-      <CustomerView data={customerData} />
-    ) : (
-      <CustomerForm data={customerData} />
-    );
+  const renderModalContent = () => {
+    if (modalTitle === MODAL_TITLES.DELETE_CUSTOMER) {
+      return <Box textAlign="center"><Text>{MODAL_DESCRIPTION.CONFIRM_DESCRIPTION}</Text></Box>
+    }
+
+    if (modalTitle === MODAL_TITLES.VIEW_CUSTOMER && customerData) {
+      return <CustomerView data={customerData} />;
+    }
+
+    return <CustomerForm data={customerData} />;
+  };
 
   // Mock data
   const data: ICustomer[] = [
@@ -137,7 +141,6 @@ const Dashboard: React.FC = () => {
         isOpen={isOpen}
         onClose={handleCloseModal}
         title={modalTitle}
-        confirmDescription={MODAL_DESCRIPTION.CONFIRM_DESCRIPTION}
         isConfirm={isConfirmDelete}
         onConfirm={handleConfirmDelete}
         {...(!isConfirmDelete &&
