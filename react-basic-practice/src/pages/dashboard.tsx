@@ -27,7 +27,7 @@ const Dashboard: React.FC = () => {
 
   useEffect(() => {
     getUsers();
-  },[]);
+  }, []);
 
   const handleOpenModal = (title: string, data?: ICustomer) => {
     setModalTitle(title);
@@ -53,7 +53,10 @@ const Dashboard: React.FC = () => {
   };
 
   const handleAction = (type: ActionType, id?: number) => {
-    const customerAction = id && customers.find((item) => item.id === id);
+    const customerAction =
+      Array.isArray(customers) && customers.length > 0 && id
+        ? customers.find((item) => item.id === id)
+        : null;
 
     if (type === "Delete" && customerAction) {
       handleOpenDeleteModal(customerAction);
