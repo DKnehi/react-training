@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 import { ICustomer, ActionType } from "@types";
 import {
   Search,
@@ -10,16 +10,25 @@ import {
   CustomerForm,
   CustomerView,
 } from "@components";
-import { MODAL_TITLES } from "@constants";
+import { MODAL_TITLES, MODAL_DESCRIPTION } from "@constants";
 
 const Dashboard: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [modalTitle, setModalTitle] = useState("Add Customer");
   const [customerData, setCustomerData] = useState<ICustomer>();
+  const [isConfirmDelete, setIsConfirmDelete] = useState(false);
 
   const handleOpenModal = (title: string, data?: ICustomer) => {
     setModalTitle(title);
     setCustomerData(data);
+    setIsOpen(true);
+    setIsConfirmDelete(false);
+  };
+
+  const handleOpenDeleteModal = (customer: ICustomer) => {
+    setCustomerData(customer);
+    setModalTitle(MODAL_TITLES.DELETE_CUSTOMER);
+    setIsConfirmDelete(true);
     setIsOpen(true);
   };
 
@@ -35,21 +44,35 @@ const Dashboard: React.FC = () => {
   const handleAction = (type: ActionType, id?: number) => {
     const customer = id && data.find((item) => item.id === id);
 
-    customer &&
+    if (type === "Delete" && customer) {
+      handleOpenDeleteModal(customer);
+    } else if (customer) {
       handleOpenModal(
         type === "Edit"
           ? MODAL_TITLES.EDIT_CUSTOMER
           : MODAL_TITLES.VIEW_CUSTOMER,
         customer
       );
+    }
   };
 
-  const renderModalContent = () =>
-    modalTitle === MODAL_TITLES.VIEW_CUSTOMER && customerData ? (
-      <CustomerView data={customerData} />
-    ) : (
-      <CustomerForm data={customerData} />
-    );
+  const renderModalContent = () => {
+    switch (modalTitle) {
+      case MODAL_TITLES.DELETE_CUSTOMER:
+        return (
+          <Box textAlign="center">
+            <Text>{MODAL_DESCRIPTION.CONFIRM_DELETE_DESCRIPTION}</Text>
+          </Box>
+        );
+
+      case MODAL_TITLES.VIEW_CUSTOMER:
+        return customerData ? <CustomerView data={customerData} /> : null;
+
+      default:
+        return <CustomerForm data={customerData} />;
+    }
+  };
+
   // Mock data
   const data: ICustomer[] = [
     {
@@ -116,10 +139,10 @@ const Dashboard: React.FC = () => {
         isOpen={isOpen}
         onClose={handleCloseModal}
         title={modalTitle}
-        isEdit={modalTitle === MODAL_TITLES.EDIT_CUSTOMER}
-        {...(modalTitle !== MODAL_TITLES.VIEW_CUSTOMER && {
-          onSubmit: handleCloseModal,
-        })}
+        {...(!isConfirmDelete &&
+          modalTitle !== MODAL_TITLES.VIEW_CUSTOMER && {
+            onSubmit: handleCloseModal,
+          })}
       >
         {renderModalContent()}
       </Modal>
