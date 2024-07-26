@@ -27,7 +27,7 @@ const Dashboard: React.FC = () => {
 
   useEffect(() => {
     getUsers();
-  });
+  },[]);
 
   const handleOpenModal = (title: string, data?: ICustomer) => {
     setModalTitle(title);
