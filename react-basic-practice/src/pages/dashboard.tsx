@@ -18,11 +18,11 @@ const Dashboard: React.FC = () => {
   const [modalTitle, setModalTitle] = useState("Add Customer");
   const [customerData, setCustomerData] = useState<ICustomer>();
   const [isConfirmDelete, setIsConfirmDelete] = useState(false);
-  const [customer, setCustomer] = useState<ICustomer[]>([]);
+  const [customers, setCustomers] = useState<ICustomer[]>([]);
 
   const getUsers = async () => {
     const users = await fetchUsers();
-    setCustomer(users);
+    setCustomers(users);
   };
 
   useEffect(() => {
@@ -53,7 +53,7 @@ const Dashboard: React.FC = () => {
   };
 
   const handleAction = (type: ActionType, id?: number) => {
-    const customerAction = id && customer.find((item) => item.id === id);
+    const customerAction = id && customers.find((item) => item.id === id);
 
     if (type === "Delete" && customerAction) {
       handleOpenDeleteModal(customerAction);
@@ -100,7 +100,7 @@ const Dashboard: React.FC = () => {
           onClick={handleAddCustomer}
         />
       </Box>
-      <Table columns={TableColumn} data={customer} action={handleAction} />
+      <Table columns={TableColumn} data={customers} action={handleAction} />
       <Modal
         isOpen={isOpen}
         onClose={handleCloseModal}
