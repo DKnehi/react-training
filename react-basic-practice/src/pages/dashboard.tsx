@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Text } from "@chakra-ui/react";
 import { ICustomer, ActionType } from "@types";
 import {
@@ -11,12 +11,23 @@ import {
   CustomerView,
 } from "@components";
 import { MODAL_TITLES, MODAL_DESCRIPTION } from "@constants";
+import { fetchUsers } from "@services";
 
 const Dashboard: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [modalTitle, setModalTitle] = useState("Add Customer");
   const [customerData, setCustomerData] = useState<ICustomer>();
   const [isConfirmDelete, setIsConfirmDelete] = useState(false);
+  const [customers, setCustomers] = useState<ICustomer[]>([]);
+
+  const getUsers = async () => {
+    const users = await fetchUsers();
+    setCustomers(users);
+  };
+
+  useEffect(() => {
+    getUsers();
+  }, []);
 
   const handleOpenModal = (title: string, data?: ICustomer) => {
     setModalTitle(title);
@@ -42,16 +53,19 @@ const Dashboard: React.FC = () => {
   };
 
   const handleAction = (type: ActionType, id?: number) => {
-    const customer = id && data.find((item) => item.id === id);
+    const customerAction =
+      Array.isArray(customers) && customers.length > 0 && id
+        ? customers.find((item) => item.id === id)
+        : null;
 
-    if (type === "Delete" && customer) {
-      handleOpenDeleteModal(customer);
-    } else if (customer) {
+    if (type === "Delete" && customerAction) {
+      handleOpenDeleteModal(customerAction);
+    } else if (customerAction) {
       handleOpenModal(
         type === "Edit"
           ? MODAL_TITLES.EDIT_CUSTOMER
           : MODAL_TITLES.VIEW_CUSTOMER,
-        customer
+        customerAction
       );
     }
   };
@@ -66,56 +80,12 @@ const Dashboard: React.FC = () => {
         );
 
       case MODAL_TITLES.VIEW_CUSTOMER:
-        return customerData ? <CustomerView data={customerData} /> : null;
+        return <CustomerView data={customerData!} />;
 
       default:
         return <CustomerForm data={customerData} />;
     }
   };
-
-  // Mock data
-  const data: ICustomer[] = [
-    {
-      name: "Ann Culhane",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus nobis non obcaecati reiciendis pariatur. Perferendis pariatur labore, atque mollitia veniam voluptatum cum deserunt facilis at enim, fuga, provident inventore rem.",
-      status: "Open",
-      rate: "$70.00",
-      balance: "-$270.00",
-      deposit: "$500.00",
-      id: 1,
-    },
-    {
-      name: "user name",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus nobis non obcaecati reiciendis pariatur. Perferendis pariatur labore, atque mollitia veniam voluptatum cum deserunt facilis at enim, fuga, provident inventore rem.",
-      status: "Paid",
-      rate: "$70.00",
-      balance: "$270.00",
-      deposit: "$500.00",
-      id: 2,
-    },
-    {
-      name: "user name",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus nobis non obcaecati reiciendis pariatur. Perferendis pariatur labore, atque mollitia veniam voluptatum cum deserunt facilis at enim, fuga, provident inventore rem.",
-      status: "Due",
-      rate: "$70.00",
-      balance: "-$270.00",
-      deposit: "$500.00",
-      id: 3,
-    },
-    {
-      name: "user name",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus nobis non obcaecati reiciendis pariatur. Perferendis pariatur labore, atque mollitia veniam voluptatum cum deserunt facilis at enim, fuga, provident inventore rem.",
-      status: "Inactive",
-      rate: "$70.00",
-      balance: "$270.00",
-      deposit: "$500.00",
-      id: 4,
-    },
-  ];
 
   return (
     <Box>
@@ -133,8 +103,7 @@ const Dashboard: React.FC = () => {
           onClick={handleAddCustomer}
         />
       </Box>
-      {/* Table demo */}
-      <Table columns={TableColumn} data={data} action={handleAction} />
+      <Table columns={TableColumn} data={customers} action={handleAction} />
       <Modal
         isOpen={isOpen}
         onClose={handleCloseModal}
