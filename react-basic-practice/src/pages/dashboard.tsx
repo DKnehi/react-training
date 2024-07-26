@@ -57,12 +57,6 @@ const Dashboard: React.FC = () => {
     }
   };
 
-  const handleConfirmDelete = () => {
-    if (customerData) {
-      handleCloseModal();
-    }
-  };
-
   const renderModalContent = () => {
     if (modalTitle === MODAL_TITLES.DELETE_CUSTOMER) {
       return <Box textAlign="center"><Text>{MODAL_DESCRIPTION.CONFIRM_DESCRIPTION}</Text></Box>
@@ -141,8 +135,6 @@ const Dashboard: React.FC = () => {
         isOpen={isOpen}
         onClose={handleCloseModal}
         title={modalTitle}
-        isConfirm={isConfirmDelete}
-        onConfirm={handleConfirmDelete}
         {...(!isConfirmDelete &&
           modalTitle !== MODAL_TITLES.VIEW_CUSTOMER && {
             onSubmit: handleCloseModal,

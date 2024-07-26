@@ -6,8 +6,6 @@ import {
   ModalHeader,
   ModalFooter,
   ModalBody,
-  Box,
-  Text,
 } from "@chakra-ui/react";
 import Button from "../Button";
 import { MODAL_TITLES } from "@constants";
@@ -16,8 +14,6 @@ interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   title: string;
-  isConfirm?: boolean;
-  onConfirm?: () => void;
   onSubmit?: () => void;
   children: React.ReactNode;
 }
@@ -26,11 +22,18 @@ const Modal: React.FC<ModalProps> = ({
   isOpen,
   onClose,
   title,
-  isConfirm,
-  onConfirm,
   onSubmit,
   children,
 }) => {
+  const footerDeleteStyles =
+    title === MODAL_TITLES.DELETE_CUSTOMER
+      ? {
+          display: "flex",
+          flexDirection: "row" as "row",
+          justifyContent: "space-around",
+        }
+      : {};
+
   return (
     <ChakraModal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
@@ -48,44 +51,30 @@ const Modal: React.FC<ModalProps> = ({
         <ModalFooter
           justifyContent="center"
           flexDirection="column"
-          gap="13px"
+          rowGap="13px"
           padding="45px 0 27px 0"
+          {...footerDeleteStyles}
         >
-          {isConfirm ? (
-            <Box display="flex" justifyContent="space-around" width="100%">
-              <Button
-                label="Yes"
-                variant="primary"
-                size="sm"
-                onClick={onConfirm}
-              />
-              <Button
-                label="No"
-                variant="secondary"
-                size="sm"
-                onClick={onClose}
-              />
-            </Box>
-          ) : (
-            <>
-              {onSubmit && (
-                <Button
-                  label={
-                    title === MODAL_TITLES.EDIT_CUSTOMER ? "Save" : "Create"
-                  }
-                  variant="primary"
-                  size="sm"
-                  onClick={onSubmit}
-                />
-              )}
-              <Button
-                label="Close"
-                variant="secondary"
-                size="sm"
-                onClick={onClose}
-              />
-            </>
+          {(title === MODAL_TITLES.DELETE_CUSTOMER || onSubmit) && (
+            <Button
+              label={
+                title === MODAL_TITLES.DELETE_CUSTOMER
+                  ? "Yes"
+                  : title === MODAL_TITLES.EDIT_CUSTOMER
+                    ? "Save"
+                    : "Create"
+              }
+              variant="primary"
+              size="sm"
+              onClick={onSubmit}
+            />
           )}
+          <Button
+            label={title === MODAL_TITLES.DELETE_CUSTOMER ? "No" : "Close"}
+            variant="secondary"
+            size="sm"
+            onClick={onClose}
+          />
         </ModalFooter>
       </ModalContent>
     </ChakraModal>
