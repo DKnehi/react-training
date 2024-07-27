@@ -15,6 +15,8 @@ interface ModalProps {
   onClose: () => void;
   title: string;
   onSubmit?: () => void;
+  onDelete?: () => void;
+  isDeleting?: boolean;
   children: React.ReactNode;
 }
 
@@ -23,6 +25,8 @@ const Modal: React.FC<ModalProps> = ({
   onClose,
   title,
   onSubmit,
+  onDelete,
+  isDeleting,
   children,
 }) => {
   const footerDeleteStyles =
@@ -66,7 +70,10 @@ const Modal: React.FC<ModalProps> = ({
               }
               variant="primary"
               size="sm"
-              onClick={onSubmit}
+              onClick={
+                title === MODAL_TITLES.DELETE_CUSTOMER ? onDelete : onSubmit
+              }
+              isLoading={title === MODAL_TITLES.DELETE_CUSTOMER && isDeleting}
             />
           )}
           <Button

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Text, useToast } from "@chakra-ui/react";
 import { ICustomer, ActionType } from "@types";
 import {
   Search,
@@ -11,14 +11,17 @@ import {
   CustomerView,
 } from "@components";
 import { MODAL_TITLES, MODAL_DESCRIPTION } from "@constants";
-import { fetchUsers } from "@services";
+import { fetchUsers, deleteUser } from "@services";
 
 const Dashboard: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [modalTitle, setModalTitle] = useState("Add Customer");
   const [customerData, setCustomerData] = useState<ICustomer>();
   const [isConfirmDelete, setIsConfirmDelete] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
   const [customers, setCustomers] = useState<ICustomer[]>([]);
+
+  const toast = useToast();
 
   const getUsers = async () => {
     const users = await fetchUsers();
@@ -46,6 +49,7 @@ const Dashboard: React.FC = () => {
   const handleCloseModal = () => {
     setIsOpen(false);
     setCustomerData(undefined);
+    setIsDeleting(false);
   };
 
   const handleAddCustomer = () => {
@@ -67,6 +71,29 @@ const Dashboard: React.FC = () => {
           : MODAL_TITLES.VIEW_CUSTOMER,
         customerAction
       );
+    }
+  };
+
+  const handleDeleteCustomer = async () => {
+    if (customerData) {
+      setIsDeleting(true);
+      try {
+        await deleteUser(customerData.id);
+        setCustomers((prevCustomers) =>
+          prevCustomers.filter((customer) => customer.id !== customerData.id)
+        );
+        handleCloseModal();
+        toast({
+          title: "Customer deleted.",
+          description: "The customer has been deleted successfully.",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
+      } catch (error) {
+        console.error("Error deleting customer:", error);
+        setIsDeleting(false);
+      }
     }
   };
 
@@ -108,6 +135,8 @@ const Dashboard: React.FC = () => {
         isOpen={isOpen}
         onClose={handleCloseModal}
         title={modalTitle}
+        onDelete={handleDeleteCustomer}
+        isDeleting={isDeleting}
         {...(!isConfirmDelete &&
           modalTitle !== MODAL_TITLES.VIEW_CUSTOMER && {
             onSubmit: handleCloseModal,
