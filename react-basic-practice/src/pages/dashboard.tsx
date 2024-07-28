@@ -10,7 +10,7 @@ import {
   CustomerForm,
   CustomerView,
 } from "@components";
-import { MODAL_TITLES, MODAL_DESCRIPTION } from "@constants";
+import { MODAL_TITLES, MODAL_DESCRIPTION, TOAST_MESSAGES } from "@constants";
 import { fetchUsers, deleteUser } from "@services";
 
 const Dashboard: React.FC = () => {
@@ -20,7 +20,6 @@ const Dashboard: React.FC = () => {
   const [isConfirmDelete, setIsConfirmDelete] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [customers, setCustomers] = useState<ICustomer[]>([]);
-
   const toast = useToast();
 
   const getUsers = async () => {
@@ -83,15 +82,10 @@ const Dashboard: React.FC = () => {
           prevCustomers.filter((customer) => customer.id !== customerData.id)
         );
         handleCloseModal();
-        toast({
-          title: "Customer deleted.",
-          description: "The customer has been deleted successfully.",
-          status: "success",
-          duration: 5000,
-          isClosable: true,
-        });
+        toast(TOAST_MESSAGES.CUSTOMER_DELETED);
       } catch (error) {
         console.error("Error deleting customer:", error);
+        toast(TOAST_MESSAGES.CUSTOMER_DELETE_ERROR);
         setIsDeleting(false);
       }
     }
