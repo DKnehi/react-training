@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Th,
   Tr,
@@ -7,11 +7,38 @@ import {
   Td,
   Table as ChakraTable,
 } from "@chakra-ui/react";
-import { SortingIcon } from "@icons";
-import { ICustomerTableProps } from "@types";
+import { ICustomer, ICustomerTableProps } from "@types";
 import TableRow from "../TableRow";
+import OptionMenu from "../OptionsMenu";
+import { SortingIcon } from "@icons";
 
-const CustomerTable: React.FC<ICustomerTableProps> = ({ columns, data, action }) => {
+const CustomerTable: React.FC<ICustomerTableProps> = ({
+  columns,
+  data,
+  action,
+}) => {
+  const [sortConfig, setSortConfig] = useState<{
+    key: keyof ICustomer;
+    direction: "asc" | "desc";
+  } | null>(null);
+
+  const sortedData = React.useMemo(() => {
+    if (sortConfig !== null) {
+      const { key, direction } = sortConfig;
+      const sorted = [...data].sort((a, b) => {
+        if (a[key] < b[key]) return direction === "asc" ? -1 : 1;
+        if (a[key] > b[key]) return direction === "asc" ? 1 : -1;
+        return 0;
+      });
+      return sorted;
+    }
+    return data;
+  }, [data, sortConfig]);
+
+  const handleSort = (key: keyof ICustomer, direction: "asc" | "desc") => {
+    setSortConfig({ key, direction });
+  };
+
   return (
     <ChakraTable>
       <Thead>
@@ -22,16 +49,22 @@ const CustomerTable: React.FC<ICustomerTableProps> = ({ columns, data, action })
               textAlign={
                 ["rate", "balance", "deposit"].includes(key) ? "right" : "left"
               }
-              {...(sortable && { display: "flex", gap: "2px" })}
+              {...(sortable && { display: "flex", alignItems: "center" })}
             >
               {label}
-              {sortable && <SortingIcon />}
+              {sortable && (
+                <OptionMenu
+                  menuButtonIcon={<SortingIcon />}
+                  onSortAsc={() => handleSort(key as keyof ICustomer, "asc")}
+                  onSortDesc={() => handleSort(key as keyof ICustomer, "desc")}
+                />
+              )}
             </Th>
           ))}
         </Tr>
       </Thead>
       <Tbody>
-        {data.map(({ id, status, ...cell }) => {
+        {sortedData.map(({ id, status, ...cell }) => {
           return (
             <TableRow status={status} key={id}>
               {columns.map((column) => {

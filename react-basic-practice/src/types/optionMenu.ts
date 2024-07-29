@@ -1,5 +1,8 @@
 export interface IOptionMenuProps {
-  onView: () => void;
-  onEdit: () => void;
-  onDelete: () => void;
+  menuButtonIcon?: React.ReactNode;
+  onView?: () => void;
+  onEdit?: () => void;
+  onDelete?: () => void;
+  onSortAsc?: () => void;
+  onSortDesc?: () => void;
 }
