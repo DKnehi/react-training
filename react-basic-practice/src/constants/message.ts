@@ -1,7 +1,9 @@
 import { UseToastOptions } from "@chakra-ui/react";
 
+const TOAST_DURATION = 5000;
+
 const COMMON_TOAST_OPTIONS: Partial<UseToastOptions> = {
-  duration: 5000,
+  duration: TOAST_DURATION,
   isClosable: true,
 };
 

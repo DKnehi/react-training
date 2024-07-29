@@ -17,7 +17,6 @@ const Dashboard: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [modalTitle, setModalTitle] = useState("Add Customer");
   const [customerData, setCustomerData] = useState<ICustomer>();
-  const [isConfirmDelete, setIsConfirmDelete] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [customers, setCustomers] = useState<ICustomer[]>([]);
   const toast = useToast();
@@ -34,14 +33,6 @@ const Dashboard: React.FC = () => {
   const handleOpenModal = (title: string, data?: ICustomer) => {
     setModalTitle(title);
     setCustomerData(data);
-    setIsOpen(true);
-    setIsConfirmDelete(false);
-  };
-
-  const handleOpenDeleteModal = (customer: ICustomer) => {
-    setCustomerData(customer);
-    setModalTitle(MODAL_TITLES.DELETE_CUSTOMER);
-    setIsConfirmDelete(true);
     setIsOpen(true);
   };
 
@@ -61,36 +52,34 @@ const Dashboard: React.FC = () => {
         ? customers.find((item) => item.id === id)
         : null;
 
-    if (type === "Delete" && customerAction) {
-      handleOpenDeleteModal(customerAction);
-    } else if (customerAction) {
+    if (customerAction) {
       handleOpenModal(
         type === "Edit"
           ? MODAL_TITLES.EDIT_CUSTOMER
-          : MODAL_TITLES.VIEW_CUSTOMER,
+          : type === "Delete"
+            ? MODAL_TITLES.DELETE_CUSTOMER
+            : MODAL_TITLES.VIEW_CUSTOMER,
         customerAction
       );
     }
   };
 
-  const handleActionSubmit = async () => {
+  const handleDeleteCustomer = async () => {
+    setIsLoading(true);
+
     if (modalTitle === MODAL_TITLES.DELETE_CUSTOMER && customerData) {
-      setIsLoading(true);
       try {
         await deleteUser(customerData.id);
         setCustomers((prevCustomers) =>
           prevCustomers.filter((customer) => customer.id !== customerData.id)
         );
-        handleCloseModal();
         toast(TOAST_MESSAGES.CUSTOMER_DELETED);
       } catch (error) {
-        console.error("Error deleting customer:", error);
         toast(TOAST_MESSAGES.CUSTOMER_DELETE_ERROR);
-        setIsLoading(false);
       }
-    } else {
-      handleCloseModal();
     }
+    setIsLoading(false);
+    handleCloseModal();
   };
 
   const renderModalContent = () => {
@@ -131,7 +120,7 @@ const Dashboard: React.FC = () => {
         isOpen={isOpen}
         onClose={handleCloseModal}
         title={modalTitle}
-        onAction={handleActionSubmit}
+        onSubmit={handleDeleteCustomer}
         isLoading={isLoading}
       >
         {renderModalContent()}
