@@ -107,6 +107,11 @@ const Dashboard: React.FC = () => {
       customer.status.toLowerCase().includes(searchLower)
     );
   });
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(e.target.value);
+  };
+
   return (
     <Box>
       <Box
@@ -116,10 +121,7 @@ const Dashboard: React.FC = () => {
         width="100%"
         padding="16px 20px"
       >
-        <Search
-          value={searchValue}
-          onChange={(e) => setSearchValue(e.target.value)}
-        />
+        <Search value={searchValue} onChange={handleSearchChange} />
         <Button
           label="+ Add Customer"
           variant="shadow"
