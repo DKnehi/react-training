@@ -6,10 +6,10 @@ import {
   Tbody,
   Td,
   Table as ChakraTable,
+  IconButton,
 } from "@chakra-ui/react";
 import { ICustomer, ICustomerTableProps } from "@types";
 import TableRow from "../TableRow";
-import OptionMenu from "../OptionsMenu";
 import { SortingIcon } from "@icons";
 
 const CustomerTable: React.FC<ICustomerTableProps> = ({
@@ -35,8 +35,19 @@ const CustomerTable: React.FC<ICustomerTableProps> = ({
     return data;
   }, [data, sortConfig]);
 
-  const handleSort = (key: keyof ICustomer, direction: "asc" | "desc") => {
-    setSortConfig({ key, direction });
+  const handleSort = (key: keyof ICustomer) => {
+    setSortConfig((prevConfig) => {
+      if (prevConfig?.key === key) {
+        if (prevConfig.direction === "desc") {
+          return null;
+        }
+        return {
+          key,
+          direction: prevConfig.direction === "asc" ? "desc" : "asc",
+        };
+      }
+      return { key, direction: "asc" };
+    });
   };
 
   return (
@@ -53,10 +64,20 @@ const CustomerTable: React.FC<ICustomerTableProps> = ({
             >
               {label}
               {sortable && (
-                <OptionMenu
-                  menuButtonIcon={<SortingIcon />}
-                  onSortAsc={() => handleSort(key as keyof ICustomer, "asc")}
-                  onSortDesc={() => handleSort(key as keyof ICustomer, "desc")}
+                <IconButton
+                  icon={
+                    <SortingIcon
+                      isAscending={
+                        sortConfig?.key === key
+                          ? sortConfig.direction === "asc"
+                          : true
+                      }
+                      isActive={sortConfig?.key === key}
+                    />
+                  }
+                  onClick={() => handleSort(key as keyof ICustomer)}
+                  variant="none"
+                  aria-label={`Sort by ${label}`}
                 />
               )}
             </Th>
