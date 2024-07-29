@@ -19,6 +19,7 @@ const Dashboard: React.FC = () => {
   const [customerData, setCustomerData] = useState<ICustomer>();
   const [isLoading, setIsLoading] = useState(false);
   const [customers, setCustomers] = useState<ICustomer[]>([]);
+  const [searchValue, setSearchValue] = useState("");
   const toast = useToast();
 
   const getUsers = async () => {
@@ -99,6 +100,13 @@ const Dashboard: React.FC = () => {
     }
   };
 
+  const filteredCustomers = customers.filter((customer) => {
+    const searchLower = searchValue.toLowerCase();
+    return (
+      customer.name.toLowerCase().includes(searchLower) ||
+      customer.status.toLowerCase().includes(searchLower)
+    );
+  });
   return (
     <Box>
       <Box
@@ -108,14 +116,21 @@ const Dashboard: React.FC = () => {
         width="100%"
         padding="16px 20px"
       >
-        <Search />
+        <Search
+          value={searchValue}
+          onChange={(e) => setSearchValue(e.target.value)}
+        />
         <Button
           label="+ Add Customer"
           variant="shadow"
           onClick={handleAddCustomer}
         />
       </Box>
-      <Table columns={TableColumn} data={customers} action={handleAction} />
+      <Table
+        columns={TableColumn}
+        data={filteredCustomers}
+        action={handleAction}
+      />
       <Modal
         isOpen={isOpen}
         onClose={handleCloseModal}
