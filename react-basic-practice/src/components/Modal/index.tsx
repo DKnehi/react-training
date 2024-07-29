@@ -57,7 +57,7 @@ const Modal: React.FC<ModalProps> = ({
           padding="45px 0 27px 0"
           {...footerDeleteStyles}
         >
-          {onSubmit && (
+          {title !== MODAL_TITLES.VIEW_CUSTOMER && onSubmit && (
             <Button
               label={
                 title === MODAL_TITLES.DELETE_CUSTOMER
