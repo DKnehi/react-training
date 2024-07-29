@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Text, useToast } from "@chakra-ui/react";
 import { ICustomer, ActionType } from "@types";
 import {
   Search,
@@ -10,15 +10,16 @@ import {
   CustomerForm,
   CustomerView,
 } from "@components";
-import { MODAL_TITLES, MODAL_DESCRIPTION } from "@constants";
-import { fetchUsers } from "@services";
+import { MODAL_TITLES, MODAL_DESCRIPTION, TOAST_MESSAGES } from "@constants";
+import { fetchUsers, deleteUser } from "@services";
 
 const Dashboard: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [modalTitle, setModalTitle] = useState("Add Customer");
   const [customerData, setCustomerData] = useState<ICustomer>();
-  const [isConfirmDelete, setIsConfirmDelete] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [customers, setCustomers] = useState<ICustomer[]>([]);
+  const toast = useToast();
 
   const getUsers = async () => {
     const users = await fetchUsers();
@@ -33,19 +34,12 @@ const Dashboard: React.FC = () => {
     setModalTitle(title);
     setCustomerData(data);
     setIsOpen(true);
-    setIsConfirmDelete(false);
-  };
-
-  const handleOpenDeleteModal = (customer: ICustomer) => {
-    setCustomerData(customer);
-    setModalTitle(MODAL_TITLES.DELETE_CUSTOMER);
-    setIsConfirmDelete(true);
-    setIsOpen(true);
   };
 
   const handleCloseModal = () => {
     setIsOpen(false);
     setCustomerData(undefined);
+    setIsLoading(false);
   };
 
   const handleAddCustomer = () => {
@@ -58,16 +52,34 @@ const Dashboard: React.FC = () => {
         ? customers.find((item) => item.id === id)
         : null;
 
-    if (type === "Delete" && customerAction) {
-      handleOpenDeleteModal(customerAction);
-    } else if (customerAction) {
+    if (customerAction) {
       handleOpenModal(
         type === "Edit"
           ? MODAL_TITLES.EDIT_CUSTOMER
-          : MODAL_TITLES.VIEW_CUSTOMER,
+          : type === "Delete"
+            ? MODAL_TITLES.DELETE_CUSTOMER
+            : MODAL_TITLES.VIEW_CUSTOMER,
         customerAction
       );
     }
+  };
+
+  const handleDeleteCustomer = async () => {
+    setIsLoading(true);
+
+    if (modalTitle === MODAL_TITLES.DELETE_CUSTOMER && customerData) {
+      try {
+        await deleteUser(customerData.id);
+        setCustomers((prevCustomers) =>
+          prevCustomers.filter((customer) => customer.id !== customerData.id)
+        );
+        toast(TOAST_MESSAGES.CUSTOMER_DELETED);
+      } catch (error) {
+        toast(TOAST_MESSAGES.CUSTOMER_DELETE_ERROR);
+      }
+    }
+    setIsLoading(false);
+    handleCloseModal();
   };
 
   const renderModalContent = () => {
@@ -108,10 +120,8 @@ const Dashboard: React.FC = () => {
         isOpen={isOpen}
         onClose={handleCloseModal}
         title={modalTitle}
-        {...(!isConfirmDelete &&
-          modalTitle !== MODAL_TITLES.VIEW_CUSTOMER && {
-            onSubmit: handleCloseModal,
-          })}
+        onSubmit={handleDeleteCustomer}
+        isLoading={isLoading}
       >
         {renderModalContent()}
       </Modal>
