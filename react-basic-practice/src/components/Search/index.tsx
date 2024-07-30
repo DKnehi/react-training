@@ -9,6 +9,7 @@ interface SearchProps {
 }
 
 const Search: React.FC<SearchProps> = ({ value, onChange }) => {
+  
   return (
     <InputGroup maxWidth="320px">
       <InputLeftElement

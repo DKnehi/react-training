@@ -21,3 +21,7 @@ export const TOAST_MESSAGES: Record<string, UseToastOptions> = {
     ...COMMON_TOAST_OPTIONS,
   },
 };
+
+export const ERROR_MESSAGES = {
+  UNKNOWN_ERROR: "An unknown error occurred",
+};
