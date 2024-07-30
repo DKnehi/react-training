@@ -7,15 +7,22 @@ import {
   Td,
   Table as ChakraTable,
   IconButton,
+  useToast,
 } from "@chakra-ui/react";
 import { ICustomer, ICustomerTableProps, SortConfigType } from "@types";
 import TableRow from "../TableRow";
 import { SortingIcon } from "@icons";
 import { fetchUsers } from "@services";
+import { TOAST_MESSAGES } from "@constants";
 
-const CustomerTable: React.FC<ICustomerTableProps> = ({ columns, action }) => {
-  const [dataCustomers, setDataCustomers] = useState<ICustomer[]>([]);
+const CustomerTable: React.FC<ICustomerTableProps> = ({
+  columns,
+  action,
+  data,
+}) => {
   const [sortConfig, setSortConfig] = useState<SortConfigType>();
+  const [dataCustomers, setDataCustomers] = useState<ICustomer[]>(data);
+  const toast = useToast();
 
   /**
    * Fetches user data from the API with the current sorting configuration and updates the state.
@@ -26,9 +33,13 @@ const CustomerTable: React.FC<ICustomerTableProps> = ({ columns, action }) => {
       const result = await fetchUsers(sortConfig);
       setDataCustomers(result);
     } catch (error) {
-      console.error("Error fetching data:", error);
+      toast(TOAST_MESSAGES.FETCHING_ERROR);
     }
   };
+
+  useEffect(() => {
+    setDataCustomers(data);
+  }, [data]);
 
   useEffect(() => {
     fetchData();

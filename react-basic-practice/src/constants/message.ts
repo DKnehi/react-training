@@ -20,4 +20,9 @@ export const TOAST_MESSAGES: Record<string, UseToastOptions> = {
     status: "error",
     ...COMMON_TOAST_OPTIONS,
   },
+
+  FETCHING_ERROR: {
+    description: "There was an error deleting the customer.",
+    status: "error",
+  }
 };
