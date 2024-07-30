@@ -3,6 +3,6 @@ export interface IOptionMenuProps {
   onView?: () => void;
   onEdit?: () => void;
   onDelete?: () => void;
-  onSortAsc?: () => void;
-  onSortDesc?: () => void;
 }
+
+export type TypeSortDirection = "asc" | "desc";

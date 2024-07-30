@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Th,
   Tr,
@@ -11,30 +11,33 @@ import {
 import { ICustomer, ICustomerTableProps } from "@types";
 import TableRow from "../TableRow";
 import { SortingIcon } from "@icons";
+import { fetchUsers } from "@services";
+import { TypeSortDirection } from "@types";
 
-const CustomerTable: React.FC<ICustomerTableProps> = ({
-  columns,
-  data,
-  action,
-}) => {
+const CustomerTable: React.FC<ICustomerTableProps> = ({ columns, action }) => {
+  const [data, setData] = useState<ICustomer[]>([]);
   const [sortConfig, setSortConfig] = useState<{
     key: keyof ICustomer;
-    direction: "asc" | "desc";
+    direction: TypeSortDirection;
   } | null>(null);
 
-  const sortedData = React.useMemo(() => {
-    if (sortConfig !== null) {
-      const { key, direction } = sortConfig;
-      const sorted = [...data].sort((a, b) => {
-        if (a[key] < b[key]) return direction === "asc" ? -1 : 1;
-        if (a[key] > b[key]) return direction === "asc" ? 1 : -1;
-        return 0;
-      });
-      return sorted;
-    }
-    return data;
-  }, [data, sortConfig]);
+  /**
+   * Fetches user data from the API with the current sorting configuration and updates the state.
+   * @returns {Promise<void>} - A promise that resolves when the data has been fetched and state has been updated.
+   */
+  const fetchData = async () => {
+    const result = await fetchUsers(sortConfig);
+    setData(result);
+  };
 
+  useEffect(() => {
+    fetchData();
+  }, [sortConfig]);
+
+  /**
+   * Handles the sorting logic when a column header is clicked.
+   * @param {keyof ICustomer} key - The key of the column to sort by.
+   */
   const handleSort = (key: keyof ICustomer) => {
     setSortConfig((prevConfig) => {
       if (prevConfig?.key === key) {
@@ -85,28 +88,24 @@ const CustomerTable: React.FC<ICustomerTableProps> = ({
         </Tr>
       </Thead>
       <Tbody>
-        {sortedData.map(({ id, status, ...cell }) => {
-          return (
-            <TableRow status={status} key={id}>
-              {columns.map((column) => {
-                return (
-                  <Td
-                    key={column.key}
-                    textAlign={
-                      ["rate", "balance", "deposit"].includes(column.key)
-                        ? "right"
-                        : "left"
-                    }
-                  >
-                    {column.key === "options"
-                      ? column.value({ id, status, ...cell }, action)
-                      : column.value({ id, status, ...cell })}
-                  </Td>
-                );
-              })}
-            </TableRow>
-          );
-        })}
+        {data.map(({ id, status, ...cell }) => (
+          <TableRow status={status} key={id}>
+            {columns.map((column) => (
+              <Td
+                key={column.key}
+                textAlign={
+                  ["rate", "balance", "deposit"].includes(column.key)
+                    ? "right"
+                    : "left"
+                }
+              >
+                {column.key === "options"
+                  ? column.value({ id, status, ...cell }, action)
+                  : column.value({ id, status, ...cell })}
+              </Td>
+            ))}
+          </TableRow>
+        ))}
       </Tbody>
     </ChakraTable>
   );
