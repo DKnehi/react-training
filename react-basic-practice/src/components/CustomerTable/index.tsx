@@ -35,7 +35,10 @@ const CustomerTable: React.FC<ICustomerTableProps> = ({
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : ERROR_MESSAGES.UNKNOWN_ERROR;
-      throw new Error(errorMessage);
+        toast({
+          status: "error",
+          description: errorMessage,
+        });
     }
   };
 
