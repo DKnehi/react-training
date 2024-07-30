@@ -33,7 +33,12 @@ const CustomerTable: React.FC<ICustomerTableProps> = ({
       const result = await fetchUsers(sortConfig);
       setDataCustomers(result);
     } catch (error) {
-      toast(TOAST_MESSAGES.FETCHING_ERROR);
+      const errorMessage =
+        error instanceof Error ? error.message : "An unknown error occurred";
+      toast({
+        ...TOAST_MESSAGES.FETCHING_ERROR,
+        description: errorMessage,
+      });
     }
   };
 
