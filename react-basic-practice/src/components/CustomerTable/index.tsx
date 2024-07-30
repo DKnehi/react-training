@@ -14,8 +14,8 @@ import { SortingIcon } from "@icons";
 import { fetchUsers } from "@services";
 
 const CustomerTable: React.FC<ICustomerTableProps> = ({ columns, action }) => {
-  const [dataCustomer, setDataCustomer] = useState<ICustomer[]>([]);
-  const [sortConfig, setSortConfig] = useState<SortConfigType | undefined>();
+  const [dataCustomers, setDataCustomers] = useState<ICustomer[]>([]);
+  const [sortConfig, setSortConfig] = useState<SortConfigType>();
 
   /**
    * Fetches user data from the API with the current sorting configuration and updates the state.
@@ -24,7 +24,7 @@ const CustomerTable: React.FC<ICustomerTableProps> = ({ columns, action }) => {
   const fetchData = async () => {
     try {
       const result = await fetchUsers(sortConfig);
-      setDataCustomer(result);
+      setDataCustomers(result);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -42,7 +42,7 @@ const CustomerTable: React.FC<ICustomerTableProps> = ({ columns, action }) => {
     setSortConfig((prevConfig) => {
       if (prevConfig?.key === key) {
         if (prevConfig.direction === "desc") {
-          return undefined;
+          return;
         }
         return {
           key,
@@ -88,7 +88,7 @@ const CustomerTable: React.FC<ICustomerTableProps> = ({ columns, action }) => {
         </Tr>
       </Thead>
       <Tbody>
-        {dataCustomer.map(({ id, status, ...cell }) => (
+        {dataCustomers.map(({ id, status, ...cell }) => (
           <TableRow status={status} key={id}>
             {columns.map((column) => (
               <Td
