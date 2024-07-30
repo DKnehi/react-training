@@ -1,8 +1,14 @@
+import { ICustomer } from "./customer";
+
 export interface IOptionMenuProps {
-  menuButtonIcon?: React.ReactNode;
   onView?: () => void;
   onEdit?: () => void;
   onDelete?: () => void;
 }
 
-export type TypeSortDirection = "asc" | "desc";
+export type SortDirectionType = "asc" | "desc";
+
+export type SortConfigType = {
+  key: keyof ICustomer;
+  direction: SortDirectionType;
+};

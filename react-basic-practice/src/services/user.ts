@@ -1,9 +1,10 @@
 import { API } from "@constants";
 import { ICustomer } from "@types";
 
-export const fetchUsers = async (
-  sortConfig: { key: keyof ICustomer; direction: "asc" | "desc" } | null = null
-) => {
+export const fetchUsers = async (sortConfig?: {
+  key: keyof ICustomer;
+  direction: "asc" | "desc";
+}) => {
   try {
     const params = new URLSearchParams();
     if (sortConfig) {

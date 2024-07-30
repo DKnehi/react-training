@@ -8,26 +8,26 @@ import {
   Table as ChakraTable,
   IconButton,
 } from "@chakra-ui/react";
-import { ICustomer, ICustomerTableProps } from "@types";
+import { ICustomer, ICustomerTableProps, SortConfigType } from "@types";
 import TableRow from "../TableRow";
 import { SortingIcon } from "@icons";
 import { fetchUsers } from "@services";
-import { TypeSortDirection } from "@types";
 
 const CustomerTable: React.FC<ICustomerTableProps> = ({ columns, action }) => {
-  const [data, setData] = useState<ICustomer[]>([]);
-  const [sortConfig, setSortConfig] = useState<{
-    key: keyof ICustomer;
-    direction: TypeSortDirection;
-  } | null>(null);
+  const [dataCustomer, setDataCustomer] = useState<ICustomer[]>([]);
+  const [sortConfig, setSortConfig] = useState<SortConfigType | undefined>();
 
   /**
    * Fetches user data from the API with the current sorting configuration and updates the state.
    * @returns {Promise<void>} - A promise that resolves when the data has been fetched and state has been updated.
    */
   const fetchData = async () => {
-    const result = await fetchUsers(sortConfig);
-    setData(result);
+    try {
+      const result = await fetchUsers(sortConfig);
+      setDataCustomer(result);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
   };
 
   useEffect(() => {
@@ -42,7 +42,7 @@ const CustomerTable: React.FC<ICustomerTableProps> = ({ columns, action }) => {
     setSortConfig((prevConfig) => {
       if (prevConfig?.key === key) {
         if (prevConfig.direction === "desc") {
-          return null;
+          return undefined;
         }
         return {
           key,
@@ -88,7 +88,7 @@ const CustomerTable: React.FC<ICustomerTableProps> = ({ columns, action }) => {
         </Tr>
       </Thead>
       <Tbody>
-        {data.map(({ id, status, ...cell }) => (
+        {dataCustomer.map(({ id, status, ...cell }) => (
           <TableRow status={status} key={id}>
             {columns.map((column) => (
               <Td
