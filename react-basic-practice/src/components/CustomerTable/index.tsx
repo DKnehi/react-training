@@ -13,7 +13,7 @@ import { ICustomer, ICustomerTableProps, SortConfigType } from "@types";
 import TableRow from "../TableRow";
 import { SortingIcon } from "@icons";
 import { fetchUsers } from "@services";
-import { TOAST_MESSAGES } from "@constants";
+import { ERROR_MESSAGES } from "@constants";
 
 const CustomerTable: React.FC<ICustomerTableProps> = ({
   columns,
@@ -34,11 +34,8 @@ const CustomerTable: React.FC<ICustomerTableProps> = ({
       setDataCustomers(result);
     } catch (error) {
       const errorMessage =
-        error instanceof Error ? error.message : "An unknown error occurred";
-      toast({
-        ...TOAST_MESSAGES.FETCHING_ERROR,
-        description: errorMessage,
-      });
+        error instanceof Error ? error.message : ERROR_MESSAGES.UNKNOWN_ERROR;
+      throw new Error(errorMessage);
     }
   };
 
