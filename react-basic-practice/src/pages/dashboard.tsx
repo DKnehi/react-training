@@ -131,9 +131,9 @@ const Dashboard: React.FC = () => {
         return (
           <CustomerForm
             data={customerData}
-            onSubmit={handleCreateCustomer}
-            onUpdate={handleUpdateCustomer}
-            isEdit={modalTitle === MODAL_TITLES.EDIT_CUSTOMER}
+            onSubmit={
+              customerData ? handleUpdateCustomer : handleCreateCustomer
+            }
           />
         );
     }

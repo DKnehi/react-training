@@ -14,17 +14,13 @@ import { ICustomer, StatusType } from "@types";
 interface CustomerFormProps {
   data?: ICustomer;
   onSubmit?: (customer: ICustomer) => void;
-  onUpdate?: (customer: ICustomer) => void;
   isLoading?: boolean;
-  isEdit?: boolean;
 }
 
 const CustomerForm: React.FC<CustomerFormProps> = ({
   data,
   onSubmit,
-  onUpdate,
   isLoading,
-  isEdit = false,
 }) => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -40,8 +36,8 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
       description: formData.get("description")?.toString() || "",
     };
 
-    if (isEdit && data) {
-      onUpdate?.({ ...data, ...customer });
+    if (data) {
+      onSubmit?.({ ...data, ...customer });
     } else {
       onSubmit?.(customer);
     }
@@ -122,7 +118,7 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
             type="submit"
             isLoading={isLoading}
           >
-            {isEdit ? "Save" : "Create"}
+            {data ? "Save" : "Create"}
           </Button>
         </GridItem>
       </Grid>
