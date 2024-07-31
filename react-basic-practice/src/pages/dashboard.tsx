@@ -11,7 +11,7 @@ import {
   CustomerView,
 } from "@components";
 import { MODAL_TITLES, MODAL_DESCRIPTION, TOAST_MESSAGES } from "@constants";
-import { fetchUsers, deleteUser } from "@services";
+import { fetchUsers, deleteUser, createUser } from "@services";
 
 const Dashboard: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -70,7 +70,7 @@ const Dashboard: React.FC = () => {
 
     if (modalTitle === MODAL_TITLES.DELETE_CUSTOMER && customerData) {
       try {
-        await deleteUser(customerData.id);
+        await deleteUser(customerData.id!);
         setCustomers((prevCustomers) =>
           prevCustomers.filter((customer) => customer.id !== customerData.id)
         );
@@ -79,6 +79,21 @@ const Dashboard: React.FC = () => {
         toast(TOAST_MESSAGES.CUSTOMER_DELETE_ERROR);
       }
     }
+    setIsLoading(false);
+    handleCloseModal();
+  };
+
+  const handleCreateCustomer = async (newCustomer: Omit<ICustomer, "id">) => {
+    setIsLoading(true);
+
+    try {
+      const createdCustomer = await createUser(newCustomer);
+      setCustomers((prevCustomers) => [...prevCustomers, createdCustomer]);
+      toast(TOAST_MESSAGES.CUSTOMER_CREATED);
+    } catch (error) {
+      toast(TOAST_MESSAGES.CUSTOMER_CREATE_ERROR);
+    }
+
     setIsLoading(false);
     handleCloseModal();
   };
@@ -96,7 +111,9 @@ const Dashboard: React.FC = () => {
         return <CustomerView data={customerData!} />;
 
       default:
-        return <CustomerForm data={customerData} />;
+        return (
+          <CustomerForm data={customerData} onSubmit={handleCreateCustomer} />
+        );
     }
   };
 
