@@ -36,11 +36,10 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
       description: formData.get("description")?.toString() || "",
     };
 
-    if (data) {
-      onSubmit?.({ ...data, ...customer });
-    } else {
-      onSubmit?.(customer);
-    }
+    onSubmit?.({ 
+      ...customer,
+      ...(!!data && { id: data.id })
+    });
   };
 
   return (
