@@ -22,28 +22,41 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
   onSubmit,
   isLoading,
 }) => {
-  const [name, setName] = useState(data?.name || "");
-  const [status, setStatus] = useState(data?.status || "open");
-  const [rate, setRate] = useState(data?.rate ? `$${data.rate}` : "$");
-  const [balance, setBalance] = useState(
-    data?.balance ? `$${data.balance}` : "$"
-  );
-  const [deposit, setDeposit] = useState(
-    data?.deposit ? `$${data.deposit}` : "$"
-  );
-  const [description, setDescription] = useState(data?.description || "");
+  const [formData, setFormData] = useState({
+    name: data?.name || "",
+    status: data?.status || "open",
+    rate: data?.rate || "$",
+    balance: data?.balance || "$",
+    deposit: data?.deposit || "$",
+    description: data?.description || "",
+  });
+
+  const handleChange = (
+    event: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => {
+    const { name, value } = event.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const capitalizedStatus = status.charAt(0).toUpperCase() + status.slice(1);
+
+    const capitalizedStatus =
+      formData.status.charAt(0).toUpperCase() + formData.status.slice(1);
     const newCustomer: ICustomer = {
-      name,
+      name: formData.name,
       status: capitalizedStatus as StatusType,
-      rate,
-      balance,
-      deposit,
-      description,
+      rate: formData.rate,
+      balance: formData.balance,
+      deposit: formData.deposit,
+      description: formData.description,
     };
+
     if (onSubmit) onSubmit(newCustomer);
   };
 
@@ -54,8 +67,9 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
           <FormControl>
             <FormLabel>Name</FormLabel>
             <Input
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
               placeholder="Name"
             />
           </FormControl>
@@ -63,7 +77,11 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
         <GridItem colSpan={1}>
           <FormControl width="342px">
             <FormLabel>Status</FormLabel>
-            <Select value={status} onChange={(e) => setStatus(e.target.value)}>
+            <Select
+              name="status"
+              value={formData.status}
+              onChange={handleChange}
+            >
               <option value="open">Open</option>
               <option value="paid">Paid</option>
               <option value="inactive">Inactive</option>
@@ -75,9 +93,10 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
           <FormControl>
             <FormLabel>Rate</FormLabel>
             <Input
-              value={rate}
-              onChange={(e) => setRate(e.target.value)}
-              placeholder="$"
+              name="rate"
+              value={formData.rate}
+              onChange={handleChange}
+              placeholder="Rate"
             />
           </FormControl>
         </GridItem>
@@ -85,9 +104,10 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
           <FormControl>
             <FormLabel>Balance</FormLabel>
             <Input
-              value={balance}
-              onChange={(e) => setBalance(e.target.value)}
-              placeholder="$"
+              name="balance"
+              value={formData.balance}
+              onChange={handleChange}
+              placeholder="Balance"
             />
           </FormControl>
         </GridItem>
@@ -95,9 +115,10 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
           <FormControl>
             <FormLabel>Deposit</FormLabel>
             <Input
-              value={deposit}
-              onChange={(e) => setDeposit(e.target.value)}
-              placeholder="$"
+              name="deposit"
+              value={formData.deposit}
+              onChange={handleChange}
+              placeholder="Deposit"
             />
           </FormControl>
         </GridItem>
@@ -105,8 +126,9 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
           <FormControl>
             <FormLabel>Description</FormLabel>
             <Textarea
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
             />
           </FormControl>
         </GridItem>
