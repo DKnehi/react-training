@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   FormControl,
   FormLabel,
@@ -22,39 +22,19 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
   onSubmit,
   isLoading,
 }) => {
-  const [formData, setFormData] = useState({
-    name: data?.name || "",
-    status: data?.status || "open",
-    rate: data?.rate || "$",
-    balance: data?.balance || "$",
-    deposit: data?.deposit || "$",
-    description: data?.description || "",
-  });
-
-  const handleChange = (
-    event: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >
-  ) => {
-    const { name, value } = event.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const capitalizedStatus =
-      formData.status.charAt(0).toUpperCase() + formData.status.slice(1);
+    const formData = new FormData(event.currentTarget);
+
     const newCustomer: ICustomer = {
-      name: formData.name,
-      status: capitalizedStatus as StatusType,
-      rate: formData.rate,
-      balance: formData.balance,
-      deposit: formData.deposit,
-      description: formData.description,
+      name: formData.get("name") as string,
+      status: ((formData.get("status") as string).charAt(0).toUpperCase() +
+        (formData.get("status") as string).slice(1)) as StatusType,
+      rate: formData.get("rate") as string,
+      balance: formData.get("balance") as string,
+      deposit: formData.get("deposit") as string,
+      description: formData.get("description") as string,
     };
 
     if (onSubmit) onSubmit(newCustomer);
@@ -68,8 +48,7 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
             <FormLabel>Name</FormLabel>
             <Input
               name="name"
-              value={formData.name}
-              onChange={handleChange}
+              defaultValue={data?.name || ""}
               placeholder="Name"
             />
           </FormControl>
@@ -77,11 +56,7 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
         <GridItem colSpan={1}>
           <FormControl width="342px">
             <FormLabel>Status</FormLabel>
-            <Select
-              name="status"
-              value={formData.status}
-              onChange={handleChange}
-            >
+            <Select name="status" defaultValue={data?.status || "open"}>
               <option value="open">Open</option>
               <option value="paid">Paid</option>
               <option value="inactive">Inactive</option>
@@ -94,8 +69,7 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
             <FormLabel>Rate</FormLabel>
             <Input
               name="rate"
-              value={formData.rate}
-              onChange={handleChange}
+              defaultValue={data?.rate || "$"}
               placeholder="Rate"
             />
           </FormControl>
@@ -105,8 +79,7 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
             <FormLabel>Balance</FormLabel>
             <Input
               name="balance"
-              value={formData.balance}
-              onChange={handleChange}
+              defaultValue={data?.balance || "$"}
               placeholder="Balance"
             />
           </FormControl>
@@ -116,8 +89,7 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
             <FormLabel>Deposit</FormLabel>
             <Input
               name="deposit"
-              value={formData.deposit}
-              onChange={handleChange}
+              defaultValue={data?.deposit || "$"}
               placeholder="Deposit"
             />
           </FormControl>
@@ -127,8 +99,7 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
             <FormLabel>Description</FormLabel>
             <Textarea
               name="description"
-              value={formData.description}
-              onChange={handleChange}
+              defaultValue={data?.description || ""}
             />
           </FormControl>
         </GridItem>
