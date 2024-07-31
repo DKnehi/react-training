@@ -11,7 +11,7 @@ import {
   CustomerView,
 } from "@components";
 import { MODAL_TITLES, MODAL_DESCRIPTION, TOAST_MESSAGES } from "@constants";
-import { fetchUsers, deleteUser, createUser } from "@services";
+import { fetchUsers, deleteUser, createUser, updateUser } from "@services";
 
 const Dashboard: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -98,6 +98,23 @@ const Dashboard: React.FC = () => {
     handleCloseModal();
   };
 
+  const handleUpdateCustomer = async (customer: ICustomer) => {
+    setIsLoading(true);
+
+    try {
+      await updateUser(customer.id!, customer);
+      setCustomers((prevCustomers) =>
+        prevCustomers.map((c) => (c.id === customer.id ? customer : c))
+      );
+      toast(TOAST_MESSAGES.CUSTOMER_UPDATED);
+    } catch (error) {
+      toast(TOAST_MESSAGES.CUSTOMER_UPDATE_ERROR);
+    }
+
+    setIsLoading(false);
+    handleCloseModal();
+  };
+
   const renderModalContent = () => {
     switch (modalTitle) {
       case MODAL_TITLES.DELETE_CUSTOMER:
@@ -112,7 +129,12 @@ const Dashboard: React.FC = () => {
 
       default:
         return (
-          <CustomerForm data={customerData} onSubmit={handleCreateCustomer} />
+          <CustomerForm
+            data={customerData}
+            onSubmit={handleCreateCustomer}
+            onUpdate={handleUpdateCustomer}
+            isEdit={modalTitle === MODAL_TITLES.EDIT_CUSTOMER}
+          />
         );
     }
   };

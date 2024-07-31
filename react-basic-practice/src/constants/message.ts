@@ -32,6 +32,18 @@ export const TOAST_MESSAGES: Record<string, UseToastOptions> = {
     status: "error",
     ...COMMON_TOAST_OPTIONS,
   },
+  CUSTOMER_UPDATED: {
+    title: "Customer updated.",
+    description: "The customer has been updated successfully.",
+    status: "success",
+    ...COMMON_TOAST_OPTIONS,
+  },
+  CUSTOMER_UPDATE_ERROR: {
+    title: "Error updating customer",
+    description: "There was an error updating the customer.",
+    status: "error",
+    ...COMMON_TOAST_OPTIONS,
+  },
 };
 
 export const ERROR_MESSAGES = {

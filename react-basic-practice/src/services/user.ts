@@ -61,3 +61,19 @@ export const createUser = async (newCustomer: ICustomer) => {
     throw new Error("Error adding customer");
   }
 };
+
+export const updateUser = async (
+  id: number,
+  customer: ICustomer
+): Promise<void> => {
+  const response = await fetch(`${API.BASE_URL}/${API.ENDPOINT_USERS}/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(customer),
+  });
+  if (!response.ok) {
+    throw new Error("Failed to update user");
+  }
+};
