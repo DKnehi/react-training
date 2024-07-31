@@ -15,7 +15,7 @@ export const fetchUsers = async (sortConfig?: SortConfigType) => {
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
-    return await response.json() as ICustomer[];
+    return (await response.json()) as ICustomer[];
   } catch (error) {
     if (error instanceof Error) {
       throw new Error(error.message);
@@ -43,5 +43,21 @@ export const deleteUser = async (id: number) => {
     } else {
       throw new Error("An unknown error occurred");
     }
+  }
+};
+
+export const createUser = async (newCustomer: ICustomer) => {
+  try {
+    const response = await fetch(`${API.BASE_URL}/${API.ENDPOINT_USERS}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newCustomer),
+    });
+    if (!response.ok) throw new Error("Error adding customer");
+    return response.json();
+  } catch (error) {
+    throw new Error("Error adding customer");
   }
 };

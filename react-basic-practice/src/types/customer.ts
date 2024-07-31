@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import { ActionType } from "./action";
 
 export interface ICustomer {
-  id: number;
+  id?: number;
   name: string;
   description: string;
   status: StatusType;
@@ -31,7 +31,7 @@ export interface IStatusProps {
   status: StatusType;
 }
 
-type StatusType = "Open" | "Paid" | "Inactive" | "Due";
+export type StatusType = "Open" | "Paid" | "Inactive" | "Due";
 
 export interface ITableRowProps {
   status: string;

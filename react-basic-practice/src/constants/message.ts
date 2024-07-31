@@ -20,6 +20,18 @@ export const TOAST_MESSAGES: Record<string, UseToastOptions> = {
     status: "error",
     ...COMMON_TOAST_OPTIONS,
   },
+  CUSTOMER_CREATED: {
+    title: "Success",
+    description: "Customer has been added successfully.",
+    status: "success",
+    ...COMMON_TOAST_OPTIONS,
+  },
+  CUSTOMER_CREATE_ERROR: {
+    title: "Error",
+    description: "Failed to add customer. Please try again.",
+    status: "error",
+    ...COMMON_TOAST_OPTIONS,
+  },
 };
 
 export const ERROR_MESSAGES = {

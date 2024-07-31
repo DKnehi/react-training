@@ -49,23 +49,17 @@ const Modal: React.FC<ModalProps> = ({
         >
           {title}
         </ModalHeader>
-        <ModalBody padding="19px 0 0 0">{children}</ModalBody>
+        <ModalBody padding="19px 0 45px 0">{children}</ModalBody>
         <ModalFooter
           justifyContent="center"
           flexDirection="column"
           rowGap="13px"
-          padding="45px 0 27px 0"
+          padding="0 0 27px 0"
           {...footerDeleteStyles}
         >
-          {title !== MODAL_TITLES.VIEW_CUSTOMER && onSubmit && (
+          {title === MODAL_TITLES.DELETE_CUSTOMER && (
             <Button
-              label={
-                title === MODAL_TITLES.DELETE_CUSTOMER
-                  ? "Yes"
-                  : title === MODAL_TITLES.EDIT_CUSTOMER
-                    ? "Save"
-                    : "Create"
-              }
+              label="Yes"
               variant="primary"
               size="sm"
               onClick={onSubmit}
