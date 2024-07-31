@@ -28,13 +28,12 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
     const formData = new FormData(event.currentTarget);
 
     const newCustomer: ICustomer = {
-      name: formData.get("name") as string,
-      status: ((formData.get("status") as string).charAt(0).toUpperCase() +
-        (formData.get("status") as string).slice(1)) as StatusType,
-      rate: formData.get("rate") as string,
-      balance: formData.get("balance") as string,
-      deposit: formData.get("deposit") as string,
-      description: formData.get("description") as string,
+      name: formData.get("name")?.toString() || "",
+      status: formData.get("status")?.toString() as StatusType,
+      rate: formData.get("rate")?.toString() || "",
+      balance: formData.get("balance")?.toString() || "",
+      deposit: formData.get("deposit")?.toString() || "",
+      description: formData.get("description")?.toString() || "",
     };
 
     if (onSubmit) onSubmit(newCustomer);
@@ -56,11 +55,11 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
         <GridItem colSpan={1}>
           <FormControl width="342px">
             <FormLabel>Status</FormLabel>
-            <Select name="status" defaultValue={data?.status || "open"}>
-              <option value="open">Open</option>
-              <option value="paid">Paid</option>
-              <option value="inactive">Inactive</option>
-              <option value="due">Due</option>
+            <Select name="status" defaultValue={data?.status || "Open"}>
+              <option value="Open">Open</option>
+              <option value="Paid">Paid</option>
+              <option value="Inactive">Inactive</option>
+              <option value="Due">Due</option>
             </Select>
           </FormControl>
         </GridItem>
