@@ -7,7 +7,7 @@ import {
   Select,
   Button,
 } from "@chakra-ui/react";
-import { ICustomer, StatusType, Errors } from "@types";
+import { ICustomer, StatusType, ErrorType } from "@types";
 import Input from "../Input";
 import Textarea from "../TextArea";
 import { TEXT, ERROR_MESSAGES } from "@constants";
@@ -23,22 +23,29 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
   onSubmit,
   isLoading,
 }) => {
-  const [error, setError] = useState<Errors>({});
+  const [error, setError] = useState<ErrorType>({});
+
+  const capitalizeFirstLetter = (text: string): string => {
+    if (text.length === 0) return text;
+    return text.charAt(0).toUpperCase() + text.slice(1);
+  };
 
   const validate = (name: string, value: string): string => {
+    const fieldName = capitalizeFirstLetter(name);
     switch (name) {
       case "name":
-        if (!value.trim()) return ERROR_MESSAGES.REQUIRED_FIELD("name");
-        if (!TEXT.test(value)) return ERROR_MESSAGES.REQUIRED_TEXT("name");
+        if (!value.trim()) return ERROR_MESSAGES.REQUIRED_FIELD("Name");
+        if (!TEXT.test(value)) return ERROR_MESSAGES.REQUIRED_TEXT("Name");
         break;
       case "rate":
       case "balance":
       case "deposit":
-        if (!value.trim()) return ERROR_MESSAGES.REQUIRED_FIELD(name);
-        if (isNaN(Number(value))) return ERROR_MESSAGES.REQUIRED_NUMBER(name);
+        if (!value.trim()) return ERROR_MESSAGES.REQUIRED_FIELD(fieldName);
+        if (isNaN(Number(value)))
+          return ERROR_MESSAGES.REQUIRED_NUMBER(fieldName);
         break;
       case "description":
-        if (!value.trim()) return ERROR_MESSAGES.REQUIRED_FIELD("description");
+        if (!value.trim()) return ERROR_MESSAGES.REQUIRED_FIELD("Description");
         break;
       default:
         break;
@@ -70,7 +77,7 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
     };
 
     let isValid = true;
-    let newErrors: { [key: string]: string } = {};
+    let newError: { [key: string]: string } = {};
     for (let key in customer) {
       const errorMessage = validate(
         key,
@@ -78,10 +85,10 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
       );
       if (errorMessage) {
         isValid = false;
-        newErrors[key] = errorMessage;
+        newError[key] = errorMessage;
       }
     }
-    setError(newErrors);
+    setError(newError);
 
     if (isValid) {
       onSubmit?.({
