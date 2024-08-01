@@ -51,7 +51,6 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
             <Input
               name="name"
               defaultValue={data?.name || ""}
-              placeholder="Name"
             />
           </FormControl>
         </GridItem>
@@ -72,7 +71,7 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
             <Input
               name="rate"
               defaultValue={data?.rate || "$"}
-              placeholder="Rate"
+              placeholder="$"
             />
           </FormControl>
         </GridItem>
@@ -82,7 +81,7 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
             <Input
               name="balance"
               defaultValue={data?.balance || "$"}
-              placeholder="Balance"
+              placeholder="$"
             />
           </FormControl>
         </GridItem>
@@ -92,7 +91,7 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
             <Input
               name="deposit"
               defaultValue={data?.deposit || "$"}
-              placeholder="Deposit"
+              placeholder="$"
             />
           </FormControl>
         </GridItem>
