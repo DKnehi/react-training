@@ -7,10 +7,10 @@ import {
   Select,
   Button,
 } from "@chakra-ui/react";
-import { ICustomer, StatusType } from "@types";
+import { ICustomer, StatusType, Errors } from "@types";
 import Input from "../Input";
 import Textarea from "../TextArea";
-import { IS_TEXT, ERROR_MESSAGES } from "@constants";
+import { TEXT, ERROR_MESSAGES } from "@constants";
 
 interface CustomerFormProps {
   data?: ICustomer;
@@ -23,22 +23,22 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
   onSubmit,
   isLoading,
 }) => {
-  const [error, setError] = useState<{ [key: string]: string }>({});
+  const [error, setError] = useState<Errors>({});
 
-  const validate = (name: string, value: string) => {
+  const validate = (name: string, value: string): string => {
     switch (name) {
       case "name":
-        if (!value.trim()) return ERROR_MESSAGES.REQUIRED_FIELD;
-        if (!IS_TEXT.test(value)) return ERROR_MESSAGES.REQUIRED_TEXT;
+        if (!value.trim()) return ERROR_MESSAGES.REQUIRED_FIELD("name");
+        if (!TEXT.test(value)) return ERROR_MESSAGES.REQUIRED_TEXT("name");
         break;
       case "rate":
       case "balance":
       case "deposit":
-        if (!value.trim()) return ERROR_MESSAGES.REQUIRED_FIELD;
-        if (isNaN(Number(value))) return ERROR_MESSAGES.REQUIRED_NUMBER;
+        if (!value.trim()) return ERROR_MESSAGES.REQUIRED_FIELD(name);
+        if (isNaN(Number(value))) return ERROR_MESSAGES.REQUIRED_NUMBER(name);
         break;
       case "description":
-        if (!value.trim()) return ERROR_MESSAGES.REQUIRED_FIELD;
+        if (!value.trim()) return ERROR_MESSAGES.REQUIRED_FIELD("description");
         break;
       default:
         break;

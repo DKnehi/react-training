@@ -1,1 +1,1 @@
-export const IS_TEXT = /^[a-zA-Z\s]+$/;
+export const TEXT = /^[a-zA-Z\s]+$/;
