@@ -14,26 +14,23 @@ export const TOAST_MESSAGES: Record<string, UseToastOptions> = {
     status: "success",
     ...COMMON_TOAST_OPTIONS,
   },
-  CUSTOMER_DELETE_ERROR: {
-    title: "Error deleted",
-    description: "There was an error deleting the customer.",
-    status: "error",
-    ...COMMON_TOAST_OPTIONS,
-  },
   CUSTOMER_CREATED: {
     title: "Success",
     description: "Customer has been added successfully.",
     status: "success",
     ...COMMON_TOAST_OPTIONS,
   },
-  CUSTOMER_CREATE_ERROR: {
-    title: "Error",
-    description: "Failed to add customer. Please try again.",
-    status: "error",
+  CUSTOMER_UPDATED: {
+    title: "Customer updated.",
+    description: "The customer has been updated successfully.",
+    status: "success",
     ...COMMON_TOAST_OPTIONS,
   },
 };
 
 export const ERROR_MESSAGES = {
   UNKNOWN_ERROR: "An unknown error occurred",
+  CUSTOMER_UPDATE_ERROR: "There was an error updating the customer.",
+  CUSTOMER_CREATE_ERROR: "Failed to add customer. Please try again.",
+  CUSTOMER_DELETE_ERROR: "There was an error deleting the customer.",
 };

@@ -27,7 +27,7 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
 
     const formData = new FormData(event.currentTarget);
 
-    const newCustomer: ICustomer = {
+    const customer: ICustomer = {
       name: formData.get("name")?.toString() || "",
       status: formData.get("status")?.toString() as StatusType,
       rate: formData.get("rate")?.toString() || "",
@@ -36,7 +36,10 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
       description: formData.get("description")?.toString() || "",
     };
 
-    if (onSubmit) onSubmit(newCustomer);
+    onSubmit?.({ 
+      ...customer,
+      ...(!!data && { id: data.id })
+    });
   };
 
   return (
@@ -48,7 +51,6 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
             <Input
               name="name"
               defaultValue={data?.name || ""}
-              placeholder="Name"
             />
           </FormControl>
         </GridItem>
@@ -69,7 +71,7 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
             <Input
               name="rate"
               defaultValue={data?.rate || "$"}
-              placeholder="Rate"
+              placeholder="$"
             />
           </FormControl>
         </GridItem>
@@ -79,7 +81,7 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
             <Input
               name="balance"
               defaultValue={data?.balance || "$"}
-              placeholder="Balance"
+              placeholder="$"
             />
           </FormControl>
         </GridItem>
@@ -89,7 +91,7 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
             <Input
               name="deposit"
               defaultValue={data?.deposit || "$"}
-              placeholder="Deposit"
+              placeholder="$"
             />
           </FormControl>
         </GridItem>

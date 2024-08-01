@@ -10,8 +10,13 @@ import {
   CustomerForm,
   CustomerView,
 } from "@components";
-import { MODAL_TITLES, MODAL_DESCRIPTION, TOAST_MESSAGES } from "@constants";
-import { fetchUsers, deleteUser, createUser } from "@services";
+import {
+  MODAL_TITLES,
+  MODAL_DESCRIPTION,
+  TOAST_MESSAGES,
+  ERROR_MESSAGES,
+} from "@constants";
+import { fetchUsers, deleteUser, createUser, updateUser } from "@services";
 
 const Dashboard: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -76,7 +81,17 @@ const Dashboard: React.FC = () => {
         );
         toast(TOAST_MESSAGES.CUSTOMER_DELETED);
       } catch (error) {
-        toast(TOAST_MESSAGES.CUSTOMER_DELETE_ERROR);
+        const errorMessage =
+          error instanceof Error
+            ? error.message
+            : ERROR_MESSAGES.CUSTOMER_DELETE_ERROR;
+        toast({
+          status: "error",
+          title: "Error delete custome",
+          description: errorMessage,
+          duration: 5000,
+          isClosable: true,
+        });
       }
     }
     setIsLoading(false);
@@ -91,7 +106,46 @@ const Dashboard: React.FC = () => {
       setCustomers((prevCustomers) => [...prevCustomers, createdCustomer]);
       toast(TOAST_MESSAGES.CUSTOMER_CREATED);
     } catch (error) {
-      toast(TOAST_MESSAGES.CUSTOMER_CREATE_ERROR);
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : ERROR_MESSAGES.CUSTOMER_CREATE_ERROR;
+      toast({
+        status: "error",
+        title: "Error create custome",
+        description: errorMessage,
+        duration: 5000,
+        isClosable: true,
+      });
+    }
+
+    setIsLoading(false);
+    handleCloseModal();
+  };
+
+  const handleUpdateCustomer = async (customer: ICustomer) => {
+    setIsLoading(true);
+
+    try {
+      await updateUser(customer.id!, customer);
+      setCustomers((previousCustomers) =>
+        previousCustomers.map((existingCustomer) =>
+          existingCustomer.id === customer.id ? customer : existingCustomer
+        )
+      );
+      toast(TOAST_MESSAGES.CUSTOMER_UPDATED);
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : ERROR_MESSAGES.CUSTOMER_UPDATE_ERROR;
+      toast({
+        status: "error",
+        title: "Error updating custome",
+        description: errorMessage,
+        duration: 5000,
+        isClosable: true,
+      });
     }
 
     setIsLoading(false);
@@ -112,7 +166,12 @@ const Dashboard: React.FC = () => {
 
       default:
         return (
-          <CustomerForm data={customerData} onSubmit={handleCreateCustomer} />
+          <CustomerForm
+            data={customerData}
+            onSubmit={
+              customerData ? handleUpdateCustomer : handleCreateCustomer
+            }
+          />
         );
     }
   };
