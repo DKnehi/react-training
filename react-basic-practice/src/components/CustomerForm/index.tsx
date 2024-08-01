@@ -11,6 +11,7 @@ import { ICustomer, StatusType, ErrorType } from "@types";
 import Input from "../Input";
 import Textarea from "../TextArea";
 import { TEXT, ERROR_MESSAGES } from "@constants";
+import { capitalizeFirstLetter } from "@utils";
 
 interface CustomerFormProps {
   data?: ICustomer;
@@ -24,11 +25,6 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
   isLoading,
 }) => {
   const [error, setError] = useState<ErrorType>({});
-
-  const capitalizeFirstLetter = (text: string): string => {
-    if (text.length === 0) return text;
-    return text.charAt(0).toUpperCase() + text.slice(1);
-  };
 
   const validate = (name: string, value: string): string => {
     const fieldName = capitalizeFirstLetter(name);
@@ -48,7 +44,7 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
         if (!value.trim()) return ERROR_MESSAGES.REQUIRED_FIELD("Description");
         break;
       default:
-        break;
+        return "";
     }
     return "";
   };
