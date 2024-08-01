@@ -33,4 +33,7 @@ export const ERROR_MESSAGES = {
   CUSTOMER_UPDATE_ERROR: "There was an error updating the customer.",
   CUSTOMER_CREATE_ERROR: "Failed to add customer. Please try again.",
   CUSTOMER_DELETE_ERROR: "There was an error deleting the customer.",
+  REQUIRED_FIELD: "Not be empty. Please Enter.",
+  REQUIRED_TEXT: "This field contains only letters.",
+  REQUIRED_NUMBER: "This field must be a numbers.",
 };

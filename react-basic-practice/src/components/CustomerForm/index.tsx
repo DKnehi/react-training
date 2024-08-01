@@ -10,6 +10,7 @@ import {
 import { ICustomer, StatusType } from "@types";
 import Input from "../Input";
 import Textarea from "../TextArea";
+import { IS_TEXT, ERROR_MESSAGES } from "@constants";
 
 interface CustomerFormProps {
   data?: ICustomer;
@@ -22,23 +23,22 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
   onSubmit,
   isLoading,
 }) => {
-  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [error, setError] = useState<{ [key: string]: string }>({});
 
   const validate = (name: string, value: string) => {
     switch (name) {
       case "name":
-        if (!value.trim()) return "Name is required";
-        if (!/^[a-zA-Z\s]+$/.test(value))
-          return "Name must contain only letters";
+        if (!value.trim()) return ERROR_MESSAGES.REQUIRED_FIELD;
+        if (!IS_TEXT.test(value)) return ERROR_MESSAGES.REQUIRED_TEXT;
         break;
       case "rate":
       case "balance":
       case "deposit":
-        if (!value.trim()) return `${name} is required`;
-        if (isNaN(Number(value))) return `${name} must be a number`;
+        if (!value.trim()) return ERROR_MESSAGES.REQUIRED_FIELD;
+        if (isNaN(Number(value))) return ERROR_MESSAGES.REQUIRED_NUMBER;
         break;
       case "description":
-        if (!value.trim()) return "Description is required";
+        if (!value.trim()) return ERROR_MESSAGES.REQUIRED_FIELD;
         break;
       default:
         break;
@@ -53,7 +53,7 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
   ) => {
     const { name, value } = event.target;
     const errorMessage = validate(name, value);
-    setErrors((prev) => ({ ...prev, [name]: errorMessage }));
+    setError((prev) => ({ ...prev, [name]: errorMessage }));
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -69,7 +69,7 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
       description: formData.get("description")?.toString() || "",
     };
 
-    let valid = true;
+    let isValid = true;
     let newErrors: { [key: string]: string } = {};
     for (let key in customer) {
       const errorMessage = validate(
@@ -77,13 +77,13 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
         customer[key as keyof ICustomer] as string
       );
       if (errorMessage) {
-        valid = false;
+        isValid = false;
         newErrors[key] = errorMessage;
       }
     }
-    setErrors(newErrors);
+    setError(newErrors);
 
-    if (valid) {
+    if (isValid) {
       onSubmit?.({
         ...customer,
         ...(!!data && { id: data.id }),
@@ -95,13 +95,13 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
     <form onSubmit={handleSubmit}>
       <Grid templateColumns="repeat(2, 1fr)" rowGap="20px" columnGap="30px">
         <GridItem colSpan={1}>
-          <FormControl isInvalid={!!errors.name}>
+          <FormControl isInvalid={!!error.name}>
             <FormLabel>Name</FormLabel>
             <Input
               name="name"
               defaultValue={data?.name || ""}
               onBlur={handleBlur}
-              errorMessage={errors.name}
+              errorMessage={error.name}
             />
           </FormControl>
         </GridItem>
@@ -121,49 +121,49 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
           </FormControl>
         </GridItem>
         <GridItem colSpan={1}>
-          <FormControl isInvalid={!!errors.rate}>
+          <FormControl isInvalid={!!error.rate}>
             <FormLabel>Rate</FormLabel>
             <Input
               name="rate"
               defaultValue={data?.rate || ""}
               placeholder="$"
               onBlur={handleBlur}
-              errorMessage={errors.rate}
+              errorMessage={error.rate}
             />
           </FormControl>
         </GridItem>
         <GridItem colSpan={1}>
-          <FormControl isInvalid={!!errors.balance}>
+          <FormControl isInvalid={!!error.balance}>
             <FormLabel>Balance</FormLabel>
             <Input
               name="balance"
               defaultValue={data?.balance || ""}
               placeholder="$"
               onBlur={handleBlur}
-              errorMessage={errors.balance}
+              errorMessage={error.balance}
             />
           </FormControl>
         </GridItem>
         <GridItem colSpan={1}>
-          <FormControl isInvalid={!!errors.deposit}>
+          <FormControl isInvalid={!!error.deposit}>
             <FormLabel>Deposit</FormLabel>
             <Input
               name="deposit"
               defaultValue={data?.deposit || ""}
               placeholder="$"
               onBlur={handleBlur}
-              errorMessage={errors.deposit}
+              errorMessage={error.deposit}
             />
           </FormControl>
         </GridItem>
         <GridItem colSpan={1}>
-          <FormControl isInvalid={!!errors.description}>
+          <FormControl isInvalid={!!error.description}>
             <FormLabel>Description</FormLabel>
             <Textarea
               name="description"
               defaultValue={data?.description || ""}
               onBlur={handleBlur}
-              errorMessage={errors.description}
+              errorMessage={error.description}
             />
           </FormControl>
         </GridItem>
