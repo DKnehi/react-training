@@ -77,7 +77,7 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
     };
 
     let isValid = true;
-    let newError: { [key: string]: string } = {};
+    let newError: ErrorType = {};
     for (let key in customer) {
       const errorMessage = validate(
         key,
