@@ -44,7 +44,6 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
         if (!value.trim()) return ERROR_MESSAGES.REQUIRED_FIELD("Description");
         break;
       default:
-        return "";
     }
     return "";
   };
