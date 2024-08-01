@@ -24,7 +24,12 @@ const Textarea: React.FC<CustomTextareaProps> = ({ errorMessage, ...rest }) => {
         }}
       />
       {errorMessage && (
-        <Text color="brickRed" fontSize="md" fontWeight="normal" marginTop="5px">
+        <Text
+          color="brickRed"
+          fontSize="md"
+          fontWeight="normal"
+          marginTop="5px"
+        >
           {errorMessage}
         </Text>
       )}
