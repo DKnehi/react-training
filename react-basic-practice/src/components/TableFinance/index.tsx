@@ -17,7 +17,7 @@ const TableFinance: React.FC<ITablePrice> = ({
   return (
     <Box fontWeight="normal">
       <Box display="inline-flex" fontSize="md" lineHeight="short" color={color}>
-        <Text display="inline">$</Text>
+        <Text>$</Text>
         <Text>{value}</Text>
       </Box>
 
