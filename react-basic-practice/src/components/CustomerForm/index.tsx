@@ -112,6 +112,10 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
               name="status"
               defaultValue={data?.status || "Open"}
               onBlur={handleBlur}
+              _focusVisible={{}}
+              _hover={{
+                borderColor: "paleSky",
+              }}
             >
               <option value="Open">Open</option>
               <option value="Paid">Paid</option>
