@@ -113,6 +113,7 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
               defaultValue={data?.status || "Open"}
               onBlur={handleBlur}
               _focusVisible={{}}
+              borderColor="paleSky"
               _hover={{
                 borderColor: "paleSky",
               }}
