@@ -8,20 +8,23 @@ const TableFinance: React.FC<ITablePrice> = ({
   isBalance,
   showCurrency = true,
 }) => {
+  const numericValue = extractNumericValue(value);
   const color = isBalance
-    ? extractNumericValue(value) < 0
+    ? numericValue < 0
       ? "brickRed"
       : "jewel"
     : "riverbed";
+
+  const formattedValue =
+    numericValue < 0
+      ? `-$${Math.abs(numericValue).toFixed(2)}`
+      : `$${numericValue.toFixed(2)}`;
 
   return (
     <Box fontWeight="normal">
       <Box display="inline-flex">
         <Text fontSize="md" color={color}>
-          $
-        </Text>
-        <Text fontSize="md" color={color}>
-          {value}
+          {formattedValue}
         </Text>
       </Box>
       {showCurrency && (
