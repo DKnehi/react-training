@@ -20,17 +20,13 @@ import { fetchUsers, deleteUser, createUser, updateUser } from "@services";
 
 const Dashboard: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [modalTitle, setModalTitle] = useState("Add Customer");
+  const [modalTitle, setModalTitle] = useState(MODAL_TITLES.ADD_CUSTOMER);
   const [customerData, setCustomerData] = useState<ICustomer>();
   const [isLoading, setIsLoading] = useState(false);
   const [customers, setCustomers] = useState<ICustomer[]>([]);
   const [searchValue, setSearchValue] = useState("");
   const toast = useToast();
 
-  /**
-   * Fetches the list of users from the API and updates the customers state.
-   * @returns {Promise<void>} A promise that resolves when the data has been fetched and state has been updated.
-   */
   const getUsers = async () => {
     const users = await fetchUsers();
     setCustomers(users);
@@ -40,48 +36,36 @@ const Dashboard: React.FC = () => {
     getUsers();
   }, []);
 
-  /**
-   * Opens the modal with the given title and optionally sets the customer data.
-   * @param {string} title - The title of the modal.
-   * @param {ICustomer} [data] - Optional data of the customer to be used in the modal.
-   */
-  const handleOpenModal = (title: string, data?: ICustomer) => {
-    setModalTitle(title);
-    setCustomerData(data);
-    setIsOpen(true);
-  };
-
   const handleCloseModal = () => {
     setIsOpen(false);
     setCustomerData(undefined);
     setIsLoading(false);
   };
 
-  const handleAddCustomer = () => {
-    handleOpenModal(MODAL_TITLES.ADD_CUSTOMER);
-  };
-
   /**
-   * Handles the action based on the type and id, such as Edit, Delete, or View.
+   * Handle actions based on the action type and ID, such as Add, Edit, Delete, or View.
    * @param {ActionType} type - The type of action to be performed.
-   * @param {number} [id] - The id of the customer on which the action is performed.
+   * @param {number} [id] - The ID of the customer on which the action is performed.
    */
   const handleAction = (type: ActionType, id?: number) => {
-    const customerAction =
-      Array.isArray(customers) && customers.length > 0 && id
-        ? customers.find((item) => item.id === id)
-        : null;
+    let customerAction: ICustomer | undefined = undefined;
 
-    if (customerAction) {
-      handleOpenModal(
-        type === "Edit"
-          ? MODAL_TITLES.EDIT_CUSTOMER
-          : type === "Delete"
-            ? MODAL_TITLES.DELETE_CUSTOMER
-            : MODAL_TITLES.VIEW_CUSTOMER,
-        customerAction
-      );
+    if (Array.isArray(customers) && customers.length > 0 && id) {
+      customerAction = customers.find((item) => item.id === id);
     }
+
+    const title =
+      type === "Edit"
+        ? MODAL_TITLES.EDIT_CUSTOMER
+        : type === "Delete"
+          ? MODAL_TITLES.DELETE_CUSTOMER
+          : type === "View"
+            ? MODAL_TITLES.VIEW_CUSTOMER
+            : MODAL_TITLES.ADD_CUSTOMER;
+
+    setModalTitle(title);
+    setCustomerData(customerAction);
+    setIsOpen(true);
   };
 
   /**
@@ -105,7 +89,7 @@ const Dashboard: React.FC = () => {
             : ERROR_MESSAGES.CUSTOMER_DELETE_ERROR;
         toast({
           status: "error",
-          title: "Error delete custome",
+          title: "Error delete customer",
           description: errorMessage,
           duration: 5000,
           isClosable: true,
@@ -135,7 +119,7 @@ const Dashboard: React.FC = () => {
           : ERROR_MESSAGES.CUSTOMER_CREATE_ERROR;
       toast({
         status: "error",
-        title: "Error create custome",
+        title: "Error create customer",
         description: errorMessage,
         duration: 5000,
         isClosable: true,
@@ -169,7 +153,7 @@ const Dashboard: React.FC = () => {
           : ERROR_MESSAGES.CUSTOMER_UPDATE_ERROR;
       toast({
         status: "error",
-        title: "Error updating custome",
+        title: "Error updating customer",
         description: errorMessage,
         duration: 5000,
         isClosable: true,
@@ -242,7 +226,7 @@ const Dashboard: React.FC = () => {
         <Button
           label="+ Add Customer"
           variant="shadow"
-          onClick={handleAddCustomer}
+          onClick={() => handleAction("Add")}
         />
       </Box>
       <Table
