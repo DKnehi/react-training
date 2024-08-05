@@ -117,8 +117,15 @@ const CustomerTable: React.FC<ICustomerTableProps> = ({
                     ? "right"
                     : "left"
                 }
+                {...(column.key === "name",
+                "description",
+                "rate",
+                "balance",
+                "deposit" && {
+                  padding: "12px 50px 12px 20px",
+                })}
                 {...(column.key === "options" && {
-                  padding: "0 !important",
+                  padding: "0",
                 })}
               >
                 {column.key === "options"
