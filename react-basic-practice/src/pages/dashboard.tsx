@@ -171,6 +171,7 @@ const Dashboard: React.FC = () => {
             onSubmit={
               customerData ? handleUpdateCustomer : handleCreateCustomer
             }
+            isLoading={isLoading}
           />
         );
     }

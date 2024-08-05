@@ -37,7 +37,7 @@ const Modal: React.FC<ModalProps> = ({
       : {};
 
   return (
-    <ChakraModal isOpen={isOpen} onClose={onClose}>
+    <ChakraModal isOpen={isOpen} onClose={onClose} trapFocus={false}>
       <ModalOverlay />
       <ModalContent maxWidth="794px" padding="0 40px">
         <ModalHeader
