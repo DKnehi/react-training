@@ -69,6 +69,24 @@ const CustomerTable: React.FC<ICustomerTableProps> = ({
     });
   };
 
+  /**
+   * Determines the padding style for the Th and Td components based on the column key.
+   * @param {string} key - The key of the column.
+   * @returns {string} - The padding style.
+   */
+  const getPadding = (key: string) => {
+    if (
+      ["name", "status", "description", "rate", "balance", "deposit"].includes(
+        key
+      )
+    ) {
+      return "12px 50px 12px 20px";
+    }
+    if (key === "options") {
+      return "0";
+    }
+  };
+
   return (
     <ChakraTable>
       <Thead>
@@ -79,10 +97,9 @@ const CustomerTable: React.FC<ICustomerTableProps> = ({
               textAlign={
                 ["rate", "balance", "deposit"].includes(key) ? "right" : "left"
               }
-              {...(sortable && { display: "flex", alignItems: "center" })}
-              {...(key === "options" && {
-                padding: "0 !important",
-              })}
+              padding={getPadding(key)}
+              display={sortable ? "flex" : undefined}
+              alignItems={sortable ? "center" : undefined}
             >
               {label}
               {sortable && (
@@ -117,16 +134,7 @@ const CustomerTable: React.FC<ICustomerTableProps> = ({
                     ? "right"
                     : "left"
                 }
-                {...(column.key === "name",
-                "description",
-                "rate",
-                "balance",
-                "deposit" && {
-                  padding: "12px 50px 12px 20px",
-                })}
-                {...(column.key === "options" && {
-                  padding: "0",
-                })}
+                padding={getPadding(column.key)}
               >
                 {column.key === "options"
                   ? column.value({ id, status, ...cell }, action)
