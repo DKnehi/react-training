@@ -80,6 +80,9 @@ const CustomerTable: React.FC<ICustomerTableProps> = ({
                 ["rate", "balance", "deposit"].includes(key) ? "right" : "left"
               }
               {...(sortable && { display: "flex", alignItems: "center" })}
+              {...(key === "options" && {
+                padding: "0 !important",
+              })}
             >
               {label}
               {sortable && (
@@ -114,6 +117,9 @@ const CustomerTable: React.FC<ICustomerTableProps> = ({
                     ? "right"
                     : "left"
                 }
+                {...(column.key === "options" && {
+                  padding: "0 !important",
+                })}
               >
                 {column.key === "options"
                   ? column.value({ id, status, ...cell }, action)

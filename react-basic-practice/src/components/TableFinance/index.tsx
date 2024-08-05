@@ -20,7 +20,6 @@ const TableFinance: React.FC<ITablePrice> = ({
         <Text>$</Text>
         <Text>{value}</Text>
       </Box>
-
       {showCurrency && (
         <Text fontSize="sm" lineHeight="shorter" color="paleSky">
           CAD
