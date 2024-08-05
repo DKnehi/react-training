@@ -27,6 +27,10 @@ const Dashboard: React.FC = () => {
   const [searchValue, setSearchValue] = useState("");
   const toast = useToast();
 
+  /**
+   * Fetches the list of users from the API and updates the customers state.
+   * @returns {Promise<void>} A promise that resolves when the data has been fetched and state has been updated.
+   */
   const getUsers = async () => {
     const users = await fetchUsers();
     setCustomers(users);
@@ -36,6 +40,11 @@ const Dashboard: React.FC = () => {
     getUsers();
   }, []);
 
+  /**
+   * Opens the modal with the given title and optionally sets the customer data.
+   * @param {string} title - The title of the modal.
+   * @param {ICustomer} [data] - Optional data of the customer to be used in the modal.
+   */
   const handleOpenModal = (title: string, data?: ICustomer) => {
     setModalTitle(title);
     setCustomerData(data);
@@ -52,6 +61,11 @@ const Dashboard: React.FC = () => {
     handleOpenModal(MODAL_TITLES.ADD_CUSTOMER);
   };
 
+  /**
+   * Handles the action based on the type and id, such as Edit, Delete, or View.
+   * @param {ActionType} type - The type of action to be performed.
+   * @param {number} [id] - The id of the customer on which the action is performed.
+   */
   const handleAction = (type: ActionType, id?: number) => {
     const customerAction =
       Array.isArray(customers) && customers.length > 0 && id
@@ -70,6 +84,10 @@ const Dashboard: React.FC = () => {
     }
   };
 
+  /**
+   * Deletes the selected customer.
+   * @returns {Promise<void>} A promise that resolves when the customer has been deleted.
+   */
   const handleDeleteCustomer = async () => {
     setIsLoading(true);
 
@@ -98,6 +116,11 @@ const Dashboard: React.FC = () => {
     handleCloseModal();
   };
 
+  /**
+   * Creates a new customer and adds it to the list.
+   * @param {Omit<ICustomer, "id">} newCustomer - The data of the new customer.
+   * @returns {Promise<void>} A promise that resolves when the customer has been created.
+   */
   const handleCreateCustomer = async (newCustomer: Omit<ICustomer, "id">) => {
     setIsLoading(true);
 
@@ -123,6 +146,11 @@ const Dashboard: React.FC = () => {
     handleCloseModal();
   };
 
+  /**
+   * Updates the selected customer.
+   * @param {ICustomer} customer - The data of the customer to be updated.
+   * @returns {Promise<void>} A promise that resolves when the customer has been updated.
+   */
   const handleUpdateCustomer = async (customer: ICustomer) => {
     setIsLoading(true);
 
@@ -152,6 +180,10 @@ const Dashboard: React.FC = () => {
     handleCloseModal();
   };
 
+  /**
+   * Renders the content of the modal based on the modal title.
+   * @returns {JSX.Element} The rendered modal content.
+   */
   const renderModalContent = () => {
     switch (modalTitle) {
       case MODAL_TITLES.DELETE_CUSTOMER:
@@ -177,6 +209,10 @@ const Dashboard: React.FC = () => {
     }
   };
 
+  /**
+   * Filters the list of customers based on the search value.
+   * @returns {ICustomer[]} The filtered list of customers.
+   */
   const filteredCustomers = customers.filter((customer) => {
     const searchLower = searchValue.toLowerCase();
     return (
@@ -185,6 +221,10 @@ const Dashboard: React.FC = () => {
     );
   });
 
+  /**
+   * Handles the change in search input value.
+   * @param {React.ChangeEvent<HTMLInputElement>} e - The change event of the input field.
+   */
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
   };
