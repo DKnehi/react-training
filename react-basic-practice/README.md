@@ -51,7 +51,7 @@ git clone https://github.com/DKnehi/react-training.git
 git checkout feature/react-basic-practice
 ```
 
-- Go to folder practice-one
+- Go to folder react-basic-practice
 
 ```
 cd react-basic-practice
@@ -60,11 +60,11 @@ cd react-basic-practice
 - Install packages
 
 ```
-pnpm install
+npm install
 ```
 
 - Run project
 
 ```
-pnpm run dev
+npm run dev
 ```
