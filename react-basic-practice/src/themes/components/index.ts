@@ -6,6 +6,7 @@ import { Textarea } from "./textarea";
 import { Select } from "./select";
 import { FormLabel } from "./form-label";
 import { Heading } from "./heading";
+import { Modal } from "./modal";
 
 export const components = {
   Button,
@@ -16,4 +17,5 @@ export const components = {
   Select,
   FormLabel,
   Heading,
+  Modal,
 };
