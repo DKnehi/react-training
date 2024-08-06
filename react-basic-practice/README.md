@@ -10,7 +10,7 @@
 - 1 developer (Dat Truong)
 
 ## Timeline
-- 9 days (02 July 2024 - 12 July 2024)
+- 23 days (02 July 2024 - 2 August 2024)
 
 ## Task management
 - [Trello](https://trello.com/invite/b/DmfCuwhr/ATTIa57c56498ef17f57d8191fe882cf6dca11E8F3FF/dat-truong)
