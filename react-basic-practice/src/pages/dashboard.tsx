@@ -20,7 +20,7 @@ import { fetchUsers, deleteUser, createUser, updateUser } from "@services";
 
 const Dashboard: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [modalTitle, setModalTitle] = useState("Add Customer");
+  const [modalTitle, setModalTitle] = useState(MODAL_TITLES.ADD_CUSTOMER);
   const [customerData, setCustomerData] = useState<ICustomer>();
   const [isLoading, setIsLoading] = useState(false);
   const [customers, setCustomers] = useState<ICustomer[]>([]);
@@ -36,40 +36,42 @@ const Dashboard: React.FC = () => {
     getUsers();
   }, []);
 
-  const handleOpenModal = (title: string, data?: ICustomer) => {
-    setModalTitle(title);
-    setCustomerData(data);
-    setIsOpen(true);
-  };
-
   const handleCloseModal = () => {
     setIsOpen(false);
     setCustomerData(undefined);
     setIsLoading(false);
   };
 
-  const handleAddCustomer = () => {
-    handleOpenModal(MODAL_TITLES.ADD_CUSTOMER);
-  };
-
+  /**
+   * Handle actions based on the action type and ID, such as Add, Edit, Delete, or View.
+   * @param {ActionType} type - The type of action to be performed.
+   * @param {number} [id] - The ID of the customer on which the action is performed.
+   */
   const handleAction = (type: ActionType, id?: number) => {
-    const customerAction =
-      Array.isArray(customers) && customers.length > 0 && id
-        ? customers.find((item) => item.id === id)
-        : null;
+    let customerAction: ICustomer | undefined = undefined;
 
-    if (customerAction) {
-      handleOpenModal(
-        type === "Edit"
-          ? MODAL_TITLES.EDIT_CUSTOMER
-          : type === "Delete"
-            ? MODAL_TITLES.DELETE_CUSTOMER
-            : MODAL_TITLES.VIEW_CUSTOMER,
-        customerAction
-      );
+    if (Array.isArray(customers) && customers.length > 0 && id) {
+      customerAction = customers.find((item) => item.id === id);
     }
+
+    const title =
+      type === "Edit"
+        ? MODAL_TITLES.EDIT_CUSTOMER
+        : type === "Delete"
+          ? MODAL_TITLES.DELETE_CUSTOMER
+          : type === "View"
+            ? MODAL_TITLES.VIEW_CUSTOMER
+            : MODAL_TITLES.ADD_CUSTOMER;
+
+    setModalTitle(title);
+    setCustomerData(customerAction);
+    setIsOpen(true);
   };
 
+  /**
+   * Deletes the selected customer.
+   * @returns {Promise<void>} A promise that resolves when the customer has been deleted.
+   */
   const handleDeleteCustomer = async () => {
     setIsLoading(true);
 
@@ -87,7 +89,7 @@ const Dashboard: React.FC = () => {
             : ERROR_MESSAGES.CUSTOMER_DELETE_ERROR;
         toast({
           status: "error",
-          title: "Error delete custome",
+          title: "Error delete customer",
           description: errorMessage,
           duration: 5000,
           isClosable: true,
@@ -98,6 +100,11 @@ const Dashboard: React.FC = () => {
     handleCloseModal();
   };
 
+  /**
+   * Creates a new customer and adds it to the list.
+   * @param {Omit<ICustomer, "id">} newCustomer - The data of the new customer.
+   * @returns {Promise<void>} A promise that resolves when the customer has been created.
+   */
   const handleCreateCustomer = async (newCustomer: Omit<ICustomer, "id">) => {
     setIsLoading(true);
 
@@ -112,7 +119,7 @@ const Dashboard: React.FC = () => {
           : ERROR_MESSAGES.CUSTOMER_CREATE_ERROR;
       toast({
         status: "error",
-        title: "Error create custome",
+        title: "Error create customer",
         description: errorMessage,
         duration: 5000,
         isClosable: true,
@@ -123,6 +130,11 @@ const Dashboard: React.FC = () => {
     handleCloseModal();
   };
 
+  /**
+   * Updates the selected customer.
+   * @param {ICustomer} customer - The data of the customer to be updated.
+   * @returns {Promise<void>} A promise that resolves when the customer has been updated.
+   */
   const handleUpdateCustomer = async (customer: ICustomer) => {
     setIsLoading(true);
 
@@ -141,7 +153,7 @@ const Dashboard: React.FC = () => {
           : ERROR_MESSAGES.CUSTOMER_UPDATE_ERROR;
       toast({
         status: "error",
-        title: "Error updating custome",
+        title: "Error updating customer",
         description: errorMessage,
         duration: 5000,
         isClosable: true,
@@ -152,6 +164,10 @@ const Dashboard: React.FC = () => {
     handleCloseModal();
   };
 
+  /**
+   * Renders the content of the modal based on the modal title.
+   * @returns {JSX.Element} The rendered modal content.
+   */
   const renderModalContent = () => {
     switch (modalTitle) {
       case MODAL_TITLES.DELETE_CUSTOMER:
@@ -171,11 +187,16 @@ const Dashboard: React.FC = () => {
             onSubmit={
               customerData ? handleUpdateCustomer : handleCreateCustomer
             }
+            isLoading={isLoading}
           />
         );
     }
   };
 
+  /**
+   * Filters the list of customers based on the search value.
+   * @returns {ICustomer[]} The filtered list of customers.
+   */
   const filteredCustomers = customers.filter((customer) => {
     const searchLower = searchValue.toLowerCase();
     return (
@@ -184,6 +205,10 @@ const Dashboard: React.FC = () => {
     );
   });
 
+  /**
+   * Handles the change in search input value.
+   * @param {React.ChangeEvent<HTMLInputElement>} e - The change event of the input field.
+   */
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
   };
@@ -201,7 +226,7 @@ const Dashboard: React.FC = () => {
         <Button
           label="+ Add Customer"
           variant="shadow"
-          onClick={handleAddCustomer}
+          onClick={() => handleAction("Add")}
         />
       </Box>
       <Table

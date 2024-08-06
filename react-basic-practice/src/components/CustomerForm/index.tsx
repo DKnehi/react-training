@@ -10,7 +10,12 @@ import {
 import { ICustomer, StatusType, ErrorType } from "@types";
 import Input from "../Input";
 import Textarea from "../TextArea";
-import { TEXT, ERROR_MESSAGES } from "@constants";
+import {
+  TEXT,
+  ERROR_MESSAGES,
+  POSITIVE_DECIMAL,
+  NEGATIVE_ALLOWED,
+} from "@constants";
 import { capitalizeFirstLetter } from "@utils";
 
 interface CustomerFormProps {
@@ -26,6 +31,23 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
 }) => {
   const [error, setError] = useState<ErrorType>({});
 
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    const regex = name === "balance" ? NEGATIVE_ALLOWED : POSITIVE_DECIMAL;
+
+    if (regex.test(value)) {
+      event.target.value = value;
+    } else {
+      event.target.value = value.slice(0, -1);
+    }
+  };
+
+  /**
+   * Validates a form field value based on its name and returns an error message if validation fails.
+   * @param {string} name - The name of the form field.
+   * @param {string} value - The value of the form field.
+   * @returns {string} - The validation error message, or an empty string if valid.
+   */
   const validate = (name: string, value: string): string => {
     const fieldName = capitalizeFirstLetter(name);
     switch (name) {
@@ -46,6 +68,11 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
     return "";
   };
 
+  /**
+   * Handles blur events for input fields, validating the field and setting error messages.
+   * @param {React.FocusEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>} event - The blur event.
+   * @returns {void}
+   */
   const handleBlur = (
     event: React.FocusEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
@@ -56,6 +83,11 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
     setError((prev) => ({ ...prev, [name]: errorMessage }));
   };
 
+  /**
+   * Handles form submission, validates the form, and calls onSubmit if the form is valid.
+   * @param {React.FormEvent<HTMLFormElement>} event - The form submission event.
+   * @returns {void}
+   */
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -112,6 +144,11 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
               name="status"
               defaultValue={data?.status || "Open"}
               onBlur={handleBlur}
+              _focusVisible={{}}
+              borderColor="paleSky"
+              _hover={{
+                borderColor: "paleSky",
+              }}
             >
               <option value="Open">Open</option>
               <option value="Paid">Paid</option>
@@ -129,6 +166,7 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
               placeholder="$"
               onBlur={handleBlur}
               errorMessage={error.rate}
+              onChange={handleInputChange}
             />
           </FormControl>
         </GridItem>
@@ -141,6 +179,7 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
               placeholder="$"
               onBlur={handleBlur}
               errorMessage={error.balance}
+              onChange={handleInputChange}
             />
           </FormControl>
         </GridItem>
@@ -153,6 +192,7 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
               placeholder="$"
               onBlur={handleBlur}
               errorMessage={error.deposit}
+              onChange={handleInputChange}
             />
           </FormControl>
         </GridItem>

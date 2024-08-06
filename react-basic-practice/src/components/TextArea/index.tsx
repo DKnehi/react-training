@@ -15,12 +15,14 @@ const Textarea: React.FC<CustomTextareaProps> = ({ errorMessage, ...rest }) => {
     <Box>
       <ChakraTextarea
         {...rest}
-        borderColor={errorMessage ? "brickRed" : rest.borderColor}
+        borderColor={errorMessage ? "brickRed" : "paleSky"}
+        isInvalid={false}
+        _focusVisible={{}}
         _hover={{
-          borderColor: errorMessage ? "brickRed" : rest._hover?.borderColor,
+          borderColor: errorMessage ? "brickRed" : "paleSky",
         }}
         _focus={{
-          borderColor: errorMessage ? "brickRed" : rest._focus?.borderColor,
+          borderColor: errorMessage ? "brickRed" : "paleSky",
         }}
       />
       {errorMessage && (
