@@ -20,6 +20,9 @@ const TableColumn: ICustomerColumn[] = [
     value: (data: ICustomer) => (
       <Box>
         <Text
+          width="150px"
+          noOfLines={1}
+          whiteSpace="normal"
           fontSize="md"
           fontWeight="medium"
           lineHeight="short"
@@ -46,7 +49,6 @@ const TableColumn: ICustomerColumn[] = [
     label: "DESCRIPTION",
     value: (data: ICustomer) => (
       <Text
-        isTruncated
         noOfLines={2}
         whiteSpace="normal"
         width="318px"

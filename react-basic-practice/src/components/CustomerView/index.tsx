@@ -20,6 +20,7 @@ const CustomerView: React.FC<ViewCustomerProps> = ({ data }) => {
             lineHeight="short"
             letterSpacing="tight"
             color="mirage"
+            width="300px"
           >
             {data.name}
           </Text>

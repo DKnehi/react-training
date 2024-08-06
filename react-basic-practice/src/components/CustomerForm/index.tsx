@@ -33,11 +33,14 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    const regex = name === "balance" ? NEGATIVE_ALLOWED : POSITIVE_DECIMAL;
 
-    if (regex.test(value)) {
-      event.target.value = value;
-    } else {
+    let regex = POSITIVE_DECIMAL;
+    if (name === "balance") {
+      regex = NEGATIVE_ALLOWED;
+    }
+    if (name !== "balance" && value.includes("-")) {
+      event.target.value = value.replace("-", "");
+    } else if (!regex.test(value)) {
       event.target.value = value.slice(0, -1);
     }
   };
