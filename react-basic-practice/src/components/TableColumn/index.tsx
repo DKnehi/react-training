@@ -20,7 +20,7 @@ const TableColumn: ICustomerColumn[] = [
     value: (data: ICustomer) => (
       <Box>
         <Text
-          width="150px"
+          width="220px"
           noOfLines={1}
           whiteSpace="normal"
           fontSize="md"
