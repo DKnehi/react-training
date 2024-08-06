@@ -10,7 +10,12 @@ import {
 import { ICustomer, StatusType, ErrorType } from "@types";
 import Input from "../Input";
 import Textarea from "../TextArea";
-import { TEXT, ERROR_MESSAGES, TWODIGITS } from "@constants";
+import {
+  TEXT,
+  ERROR_MESSAGES,
+  POSITIVE_DECIMAL,
+  NEGATIVE_ALLOWED,
+} from "@constants";
 import { capitalizeFirstLetter } from "@utils";
 
 interface CustomerFormProps {
@@ -28,9 +33,9 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    const integerValue = value.split(".")[0];
+    const regex = name === "balance" ? NEGATIVE_ALLOWED : POSITIVE_DECIMAL;
 
-    if (TWODIGITS.test(value)) {
+    if (regex.test(value)) {
       event.target.value = value;
     } else {
       event.target.value = value.slice(0, -1);
