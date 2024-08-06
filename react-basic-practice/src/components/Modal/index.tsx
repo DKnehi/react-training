@@ -30,7 +30,6 @@ const Modal: React.FC<ModalProps> = ({
   const footerDeleteStyles =
     title === MODAL_TITLES.DELETE_CUSTOMER
       ? {
-          display: "flex",
           flexDirection: "row" as "row",
           justifyContent: "space-around",
         }
@@ -40,23 +39,9 @@ const Modal: React.FC<ModalProps> = ({
     <ChakraModal isOpen={isOpen} onClose={onClose} trapFocus={false}>
       <ModalOverlay />
       <ModalContent maxWidth="794px" padding="0 40px">
-        <ModalHeader
-          padding="23px 0 18px 0"
-          borderBottom="1px solid black"
-          fontWeight="semibold"
-          fontSize="lg"
-          color="mirage"
-        >
-          {title}
-        </ModalHeader>
-        <ModalBody padding="19px 0 45px 0">{children}</ModalBody>
-        <ModalFooter
-          justifyContent="center"
-          flexDirection="column"
-          rowGap="13px"
-          padding="0 0 27px 0"
-          {...footerDeleteStyles}
-        >
+        <ModalHeader>{title}</ModalHeader>
+        <ModalBody>{children}</ModalBody>
+        <ModalFooter {...footerDeleteStyles}>
           {title === MODAL_TITLES.DELETE_CUSTOMER && (
             <Button
               label="Yes"
