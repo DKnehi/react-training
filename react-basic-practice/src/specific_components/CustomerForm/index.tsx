@@ -8,8 +8,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { ICustomer, StatusType, ErrorType } from "@types";
-import Input from "../../components/Input";
-import Textarea from "../../components/TextArea";
+import { Input, TextArea } from "@components";
 import {
   TEXT,
   ERROR_MESSAGES,
@@ -202,7 +201,7 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
         <GridItem colSpan={1}>
           <FormControl isInvalid={!!error.description}>
             <FormLabel>Description</FormLabel>
-            <Textarea
+            <TextArea
               name="description"
               defaultValue={data?.description || ""}
               onBlur={handleBlur}
