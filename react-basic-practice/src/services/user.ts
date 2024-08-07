@@ -61,7 +61,9 @@ export const deleteUser = async (id: number) => {
  * @param {ICustomer} newCustomer - The customer data to create.
  * @returns {Promise<ICustomer>} - A promise that resolves to the newly created customer.
  */
-export const createUser = async (newCustomer: ICustomer) => {
+export const createUser = async (
+  newCustomer: ICustomer
+): Promise<ICustomer> => {
   try {
     const response = await fetch(`${API.BASE_URL}/${API.ENDPOINT_USERS}`, {
       method: "POST",
@@ -70,10 +72,18 @@ export const createUser = async (newCustomer: ICustomer) => {
       },
       body: JSON.stringify(newCustomer),
     });
-    if (!response.ok) throw new Error("Error adding customer");
-    return response.json();
+
+    if (!response.ok) {
+      throw new Error("Error adding customer");
+    }
+
+    return (await response.json()) as ICustomer;
   } catch (error) {
-    throw new Error("Error adding customer");
+    if (error instanceof Error) {
+      throw new Error(`Error adding customer: ${error.message}`);
+    } else {
+      throw new Error("An unknown error occurred while adding customer");
+    }
   }
 };
 
@@ -87,14 +97,25 @@ export const updateUser = async (
   id: number,
   customer: ICustomer
 ): Promise<void> => {
-  const response = await fetch(`${API.BASE_URL}/${API.ENDPOINT_USERS}/${id}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(customer),
-  });
-  if (!response.ok) {
-    throw new Error("Failed to update user");
+  try {
+    const response = await fetch(
+      `${API.BASE_URL}/${API.ENDPOINT_USERS}/${id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(customer),
+      }
+    );
+    if (!response.ok) {
+      throw new Error("Failed to update user");
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      throw new Error(error.message);
+    } else {
+      throw new Error("An unknown error occurred");
+    }
   }
 };

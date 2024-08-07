@@ -1,8 +1,8 @@
 import React from "react";
 import { Box, Grid, GridItem, Heading, Text } from "@chakra-ui/react";
 import { ICustomer } from "@types";
-import TableFinance from "../TableFinance";
-import TableStatus from "../TableStatus";
+import TableFinance from "../../components/TableFinance";
+import TableStatus from "../../components/TableStatus";
 
 interface ViewCustomerProps {
   data: ICustomer;

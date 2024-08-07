@@ -8,8 +8,8 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { ICustomer, StatusType, ErrorType } from "@types";
-import Input from "../Input";
-import Textarea from "../TextArea";
+import Input from "../../components/Input";
+import Textarea from "../../components/TextArea";
 import {
   TEXT,
   ERROR_MESSAGES,
@@ -40,9 +40,11 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
     }
     if (name !== "balance" && value.includes("-")) {
       event.target.value = value.replace("-", "");
-    } else if (!regex.test(value)) {
-      event.target.value = value.slice(0, -1);
     }
+    const match = value.match(regex);
+    const validValue = match ? match[0] : "";
+
+    event.target.value = validValue;
   };
 
   /**
@@ -62,8 +64,6 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
       case "balance":
       case "deposit":
         if (!value.trim()) return ERROR_MESSAGES.REQUIRED_FIELD(fieldName);
-        if (isNaN(Number(value)))
-          return ERROR_MESSAGES.REQUIRED_NUMBER(fieldName);
         break;
       case "description":
         if (!value.trim()) return ERROR_MESSAGES.REQUIRED_FIELD("Description");

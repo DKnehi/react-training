@@ -59,6 +59,7 @@ const Modal: React.FC<ModalProps> = ({
           />
         </ModalFooter>
       </ModalContent>
+      
     </ChakraModal>
   );
 };

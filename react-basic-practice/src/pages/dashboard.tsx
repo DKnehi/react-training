@@ -1,15 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Box, Text, useToast } from "@chakra-ui/react";
 import { ICustomer, ActionType } from "@types";
-import {
-  Search,
-  Button,
-  Modal,
-  Table,
-  TableColumn,
-  CustomerForm,
-  CustomerView,
-} from "@components";
+import { Search, Button, Modal, TableColumn } from "@components";
+import { CustomerForm, Table, CustomerView } from "@specific_components";
 import {
   MODAL_TITLES,
   MODAL_DESCRIPTION,
