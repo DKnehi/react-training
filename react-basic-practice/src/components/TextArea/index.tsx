@@ -10,7 +10,7 @@ interface CustomTextareaProps extends TextareaProps {
   errorMessage?: string;
 }
 
-const Textarea: React.FC<CustomTextareaProps> = ({ errorMessage, ...rest }) => {
+const TextArea: React.FC<CustomTextareaProps> = ({ errorMessage, ...rest }) => {
   return (
     <Box>
       <ChakraTextarea
@@ -39,4 +39,4 @@ const Textarea: React.FC<CustomTextareaProps> = ({ errorMessage, ...rest }) => {
   );
 };
 
-export default Textarea;
+export default TextArea;

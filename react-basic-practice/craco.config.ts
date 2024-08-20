@@ -13,6 +13,7 @@ export default {
       '@api': path.resolve(__dirname, 'src/api'),
       '@utils': path.resolve(__dirname, 'src/utils'),
       "@icons": path.resolve(__dirname, "src/components/Icons"),
+      "@specific_components": path.resolve(__dirname, "src/specific_components"),
     },
   },
 };

@@ -10,8 +10,8 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { ICustomer, ICustomerTableProps, SortConfigType } from "@types";
-import TableRow from "../TableRow";
-import { SortingIcon } from "@icons";
+import { TableRow } from "@components";
+import { SortingIcon } from "src/components/Icons";
 import { fetchUsers } from "@services";
 import { ERROR_MESSAGES } from "@constants";
 
